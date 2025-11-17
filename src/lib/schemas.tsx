@@ -1,12 +1,13 @@
-import { z } from "zod";
-import { phoneNumberPattern } from "@/lib/regex.ts";
+import { z } from 'zod';
+
+import { phoneNumberPattern } from '@/lib/regex.ts';
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
   emailAddress: z.email().optional(),
   phoneNumber: z
     .string()
-    .regex(phoneNumberPattern, { message: "Invalid phone number" })
+    .regex(phoneNumberPattern, { message: 'Invalid phone number' })
     .optional(),
   address: z.string().optional(),
   linkedin: z.string().optional(),

@@ -1,3 +1,8 @@
+import type { ExperienceItem } from '@/lib/types';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+
 import {
   Form,
   FormControl,
@@ -5,14 +10,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-
-import { experienceItemSchema } from "@/lib/schemas";
-import type { ExperienceItem } from "@/lib/types";
-import { useResume } from "@/hooks/use-resume";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useResume } from '@/hooks/use-resume';
+import { experienceItemSchema } from '@/lib/schemas';
 
 export function ExperienceItemForm({
   experienceItem,
@@ -30,7 +31,7 @@ export function ExperienceItemForm({
 
   return (
     <Form {...form}>
-      <form onChange={form.handleSubmit(onSave)} className={"space-y-4"}>
+      <form onChange={form.handleSubmit(onSave)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="jobTitle"

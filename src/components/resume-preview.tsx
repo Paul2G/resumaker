@@ -1,12 +1,13 @@
-import { useResume } from "@/hooks/use-resume";
 import {
   EnvelopeIcon,
   GlobeIcon,
   LinkedinLogoIcon,
   MapPinIcon,
   PhoneIcon,
-} from "@phosphor-icons/react";
-import { Separator } from "@/components/ui/separator";
+} from '@phosphor-icons/react';
+
+import { Separator } from '@/components/ui/separator';
+import { useResume } from '@/hooks/use-resume';
 
 export function ResumePreview() {
   const { contactInfo, summary } = useResume();
@@ -45,13 +46,13 @@ export function ResumePreview() {
             )}
             {isStringValid(contactInfo.linkedin) && (
               <a
-                href={"https://www.linkedin.com/in/" + contactInfo.linkedin}
+                href={'https://www.linkedin.com/in/' + contactInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contents"
               >
                 <LinkedinLogoIcon weight="fill" className="size-3" />
-                <span>{"in/" + contactInfo.linkedin}</span>
+                <span>{'in/' + contactInfo.linkedin}</span>
               </a>
             )}
             {isStringValid(contactInfo.website) && (
@@ -62,7 +63,7 @@ export function ResumePreview() {
                 className="contents"
               >
                 <GlobeIcon weight="fill" className="size-3" />
-                <span>{contactInfo.website?.replace("https://", "")}</span>
+                <span>{contactInfo.website?.replace('https://', '')}</span>
               </a>
             )}
           </div>
@@ -79,5 +80,5 @@ export function ResumePreview() {
 }
 
 function isStringValid(value: string | undefined): boolean {
-  return value !== undefined && value.trim() !== "";
+  return value !== undefined && value.trim() !== '';
 }

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 import {
   certificationSchema,
@@ -7,7 +7,7 @@ import {
   educationItemSchema,
   experienceItemSchema,
   projectSchema,
-} from "@/lib/schemas";
+} from '@/lib/schemas';
 
 export type AppData = {
   resumes: Resume[];
@@ -36,9 +36,9 @@ export type Certification = z.infer<typeof certificationSchema>;
 export type Course = z.infer<typeof courseSchema>;
 
 export type SectionType =
-  | "contactInfo"
-  | "experience"
-  | "education"
-  | "projects"
-  | "certifications"
-  | "courses";
+  | 'contactInfo'
+  | 'experience'
+  | 'education'
+  | 'projects'
+  | 'certifications'
+  | 'courses';

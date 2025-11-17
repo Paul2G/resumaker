@@ -1,5 +1,7 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import type { ContactInfo } from '@/lib/types';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 import {
   Form,
@@ -8,19 +10,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-import { contactInfoSchema } from "@/lib/schemas";
-import type { ContactInfo } from "@/lib/types";
-
-import { useResume } from "@/hooks/use-resume";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "@/components/ui/input-group";
+} from '@/components/ui/input-group';
+import { useResume } from '@/hooks/use-resume';
+import { contactInfoSchema } from '@/lib/schemas';
 
 export function ContactInfoForm() {
   const { contactInfo, setContactInfo } = useResume();
@@ -37,7 +36,7 @@ export function ContactInfoForm() {
 
   return (
     <Form {...form}>
-      <form onChange={form.handleSubmit(onSave)} className={"space-y-4"}>
+      <form onChange={form.handleSubmit(onSave)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="fullName"

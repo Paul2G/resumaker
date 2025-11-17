@@ -1,17 +1,16 @@
-import { Header } from "@/components/header";
+import type { Resume } from '@/lib/types';
 
-import { ThemeProvider } from "./context/theme-provider";
-import { ResumeProvider } from "@/context/resume-provider";
-
-import type { Resume } from "@/lib/types";
-import { ResumePreview } from "@/components/resume-preview";
+import { ResumeProvider } from '@/context/resume-provider';
+import { ThemeProvider } from '@/context/theme-provider';
+import { Header } from '@/components/header';
+import { ResumePreview } from '@/components/resume-preview';
 
 const placeholderResume: Resume = {
-  id: "1",
-  title: "New Resume",
+  id: '1',
+  title: 'New Resume',
   sectionsOrder: [],
   contactInfo: {
-    fullName: "Juanito",
+    fullName: 'Juanito',
   },
   experience: [],
   education: [],
@@ -21,11 +20,11 @@ const placeholderResume: Resume = {
 };
 
 function saveResumeOnLocalStorage(resume: Resume) {
-  localStorage.setItem("resume", JSON.stringify(resume));
+  localStorage.setItem('resume', JSON.stringify(resume));
 }
 
 function loadResumeFromLocalStorage(): Resume {
-  const storedResume = localStorage.getItem("resume");
+  const storedResume = localStorage.getItem('resume');
 
   return storedResume ? JSON.parse(storedResume) : placeholderResume;
 }

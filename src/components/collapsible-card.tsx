@@ -1,15 +1,15 @@
-import * as React from "react";
-import { useState } from "react";
+import * as React from 'react';
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils.ts";
+} from '@/components/ui/collapsible';
+import { cn } from '@/lib/utils.ts';
 
 export function CollapsibleCard({
   title,
@@ -20,14 +20,14 @@ export function CollapsibleCard({
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <Card data-state={isOpen ? "open" : "closed"} {...props}>
+      <Card data-state={isOpen ? 'open' : 'closed'} {...props}>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             {title}
             <CollapsibleTrigger asChild>
               <Button variant="ghost" size="icon" className="size-8">
                 <ChevronDown
-                  className={cn(isOpen && "rotate-180", "duration-300")}
+                  className={cn(isOpen && 'rotate-180', 'duration-300')}
                 />
                 <span className="sr-only">Toggle</span>
               </Button>
@@ -42,7 +42,7 @@ export function CollapsibleCard({
   );
 }
 
-export type SectionCardProps = React.ComponentProps<"div"> & {
+export type SectionCardProps = React.ComponentProps<'div'> & {
   title: string;
   children?: React.ReactNode;
 };
