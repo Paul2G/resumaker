@@ -22,10 +22,10 @@ import { useResume } from '@/hooks/use-resume';
 import { contactInfoSchema } from '@/lib/schemas';
 
 export function ContactInfoForm() {
-  const { contactInfo, setContactInfo } = useResume();
+  const { getContactInfo, setContactInfo } = useResume();
 
   const form = useForm({
-    defaultValues: contactInfo,
+    defaultValues: getContactInfo(),
     resolver: zodResolver(contactInfoSchema),
   });
 

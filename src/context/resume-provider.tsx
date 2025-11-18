@@ -1,8 +1,14 @@
-import type { ExperienceItem, Resume } from '@/lib/types';
+import type {
+  ContactInfo,
+  ExperienceItem,
+  Resume,
+  ResumeSection,
+} from '@/lib/types';
 
 import React, { createContext, useState } from 'react';
 
 import { useUpdateEffect } from '@/hooks/use-update-effect';
+import { SectionKey } from '@/lib/types';
 
 export const ResumeContext = createContext<ResumeProviderValue>(undefined!);
 
@@ -13,58 +19,92 @@ export function ResumeProvider({
 }: ResumeProviderProps) {
   const [resume, setResume] = useState<Resume>(currentResume);
 
-  function setContactInfo(contactInfo: Resume['contactInfo']) {
+  /* Sections functions */
+
+  function setSections(sections: ResumeSection[]) {
     setResume((prev) => ({
       ...prev,
-      contactInfo,
+      sections,
     }));
   }
 
-  function setSummary(summary: Resume['summary']) {
+  function getSectionData<T>(key: SectionKey): T {
+    const section = resume.sections.find((section) => section.key === key)!;
+    return section.data as T;
+  }
+
+  function setSectionData<T>(key: SectionKey, data: T) {
+    const sections = resume.sections.map((section) => {
+      if (section.key === key) {
+        return {
+          ...section,
+          data,
+        };
+      }
+      return section;
+    });
+
+    // @ts-ignore TS can't infer that sections is of type Resume['sections'], but you have to trust me on this one
     setResume((prev) => ({
       ...prev,
-      summary,
+      sections,
     }));
   }
 
-  function setExperience(experience: Resume['experience']) {
-    setResume((prev) => ({
-      ...prev,
-      experience,
-    }));
+  /* Contact Info functions */
+
+  function getContactInfo(): ContactInfo {
+    return getSectionData<ContactInfo>(SectionKey.ContactInfo);
+  }
+
+  function setContactInfo(contactInfo: ContactInfo) {
+    setSectionData(SectionKey.ContactInfo, contactInfo);
+  }
+
+  /* Summary functions */
+
+  function getSummary(): string {
+    return getSectionData<string>(SectionKey.Summary);
+  }
+
+  function setSummary(summary: string) {
+    setSectionData(SectionKey.Summary, summary);
+  }
+
+  /* Experience functions */
+
+  function setExperience(experience: ExperienceItem[]) {
+    setSectionData(SectionKey.Experience, experience);
   }
 
   function addExperienceItem() {
-    const id = crypto.randomUUID();
+    const experience = getSectionData<ExperienceItem[]>(SectionKey.Experience);
+    experience.push({
+      id: crypto.randomUUID(),
+      jobTitle: 'New job',
+      companyName: 'Generic company name',
+    });
 
-    setResume((prev) => ({
-      ...prev,
-      experience: [
-        ...prev.experience,
-        {
-          id,
-          jobTitle: 'New job',
-          companyName: 'Generic company name',
-        },
-      ],
-    }));
+    setExperience(experience);
   }
 
   function updateExperienceItem(experienceItem: ExperienceItem) {
-    setResume((prev) => ({
-      ...prev,
-      experience: prev.experience.map((item) =>
+    const experience = getSectionData<ExperienceItem[]>(SectionKey.Experience);
+
+    setExperience(
+      experience.map((item) =>
         item.id === experienceItem.id ? { ...item, ...experienceItem } : item,
       ),
-    }));
+    );
   }
 
   function removeExperienceItem(id: string) {
-    setResume((prev) => ({
-      ...prev,
-      experience: prev.experience.filter((item) => item.id !== id),
-    }));
+    const experience = getSectionData<ExperienceItem[]>(SectionKey.Experience);
+
+    setExperience(experience.filter((item) => item.id !== id));
   }
+
+  /* Effects */
 
   useUpdateEffect(() => {
     setResume(currentResume);
@@ -78,7 +118,10 @@ export function ResumeProvider({
     <ResumeContext.Provider
       value={{
         ...resume,
+        setSections,
+        getContactInfo,
         setContactInfo,
+        getSummary,
         setSummary,
         setExperience,
         addExperienceItem,
@@ -98,10 +141,17 @@ export type ResumeProviderProps = {
 };
 
 export type ResumeProviderValue = Resume & {
-  setContactInfo: (contactInfo: Resume['contactInfo']) => void;
-  setSummary: (summary: Resume['summary']) => void;
-  setExperience: (experience: Resume['experience']) => void;
+  /* Sections functions */
+  setSections: (sections: ResumeSection[]) => void;
+  /* Contact Info functions */
+  getContactInfo: () => ContactInfo;
+  setContactInfo: (contactInfo: ContactInfo) => void;
+  /* Summary functions */
+  getSummary: () => string;
+  setSummary: (summary: string) => void;
+  /* Experience functions */
+  setExperience: (experience: ExperienceItem[]) => void;
   addExperienceItem: () => void;
-  updateExperienceItem: (resume: Resume['experience'][number]) => void;
+  updateExperienceItem: (experienceItem: ExperienceItem) => void;
   removeExperienceItem: (id: string) => void;
 };

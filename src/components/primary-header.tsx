@@ -1,8 +1,8 @@
 import { ModeToggle } from './mode-toggle';
 
-export function Header() {
+export function PrimaryHeader() {
   return (
-    <header className="bg-background sticky top-0 z-50 w-full flex p-2 border border-b">
+    <header className="bg-background top-0 z-50 w-full flex p-2 border border-b">
       <h1 className="my-auto text-xl font-bold uppercase italic px-4">
         Resume Maker
       </h1>
