@@ -1,8 +1,8 @@
 import type {
-  ContactInfo,
-  ExperienceItem,
   Resume,
   ResumeSection,
+  SectionDataItem,
+  SectionDataMap,
 } from '@/lib/types';
 
 import React, { createContext, useState } from 'react';
@@ -28,12 +28,16 @@ export function ResumeProvider({
     }));
   }
 
-  function getSectionData<T>(key: SectionKey): T {
+  function getSectionData<K extends SectionKey>(key: K) {
     const section = resume.sections.find((section) => section.key === key)!;
-    return section.data as T;
+
+    return section.data as SectionDataMap[K];
   }
 
-  function setSectionData<T>(key: SectionKey, data: T) {
+  function setSectionData<K extends SectionKey>(
+    key: K,
+    data: SectionDataMap[K],
+  ) {
     const sections = resume.sections.map((section) => {
       if (section.key === key) {
         return {
@@ -44,67 +48,108 @@ export function ResumeProvider({
       return section;
     });
 
-    // @ts-ignore TS can't infer that sections is of type Resume['sections'], but you have to trust me on this one
-    setResume((prev) => ({
-      ...prev,
-      sections,
-    }));
+    // @ts-ignore Typescript to infer types
+    setSections(sections);
   }
 
-  /* Contact Info functions */
-
-  function getContactInfo(): ContactInfo {
-    return getSectionData<ContactInfo>(SectionKey.ContactInfo);
-  }
-
-  function setContactInfo(contactInfo: ContactInfo) {
-    setSectionData(SectionKey.ContactInfo, contactInfo);
-  }
-
-  /* Summary functions */
-
-  function getSummary(): string {
-    return getSectionData<string>(SectionKey.Summary);
-  }
-
-  function setSummary(summary: string) {
-    setSectionData(SectionKey.Summary, summary);
-  }
-
-  /* Experience functions */
-
-  function setExperience(experience: ExperienceItem[]) {
-    setSectionData(SectionKey.Experience, experience);
-  }
-
-  function addExperienceItem() {
-    const experience = getSectionData<ExperienceItem[]>(SectionKey.Experience);
-    experience.push({
-      id: crypto.randomUUID(),
-      jobTitle: 'New job',
-      companyName: 'Generic company name',
+  function setSectionVisibility<K extends SectionKey>(
+    key: K,
+    visible: boolean = false,
+  ) {
+    const sections = resume.sections.map((section) => {
+      if (section.key === key) {
+        return {
+          ...section,
+          visible,
+        };
+      }
+      return section;
     });
 
-    setExperience(experience);
+    setSections(sections);
   }
 
-  function updateExperienceItem(experienceItem: ExperienceItem) {
-    const experience = getSectionData<ExperienceItem[]>(SectionKey.Experience);
+  /* Items functions */
+  function addSectionDataItem<K extends SectionKey>(
+    key: K,
+    item: SectionDataItem,
+  ) {
+    const sections = resume.sections.map((section) => {
+      if (section.key === key && section.data instanceof Array) {
+        return {
+          ...section,
+          data: [...section.data, item],
+        };
+      }
+      return section;
+    });
 
-    setExperience(
-      experience.map((item) =>
-        item.id === experienceItem.id ? { ...item, ...experienceItem } : item,
-      ),
-    );
+    // @ts-ignore Typescript to infer types
+    setSections(sections);
   }
 
-  function removeExperienceItem(id: string) {
-    const experience = getSectionData<ExperienceItem[]>(SectionKey.Experience);
+  function setSectionDataItemVisibility<K extends SectionKey>(
+    key: K,
+    itemId: string,
+    visible: boolean,
+  ) {
+    const sections = resume.sections.map((section) => {
+      if (section.key === key && section.data instanceof Array) {
+        return {
+          ...section,
+          data: section.data.map((item) =>
+            item.id === itemId
+              ? {
+                  ...item,
+                  visible,
+                }
+              : item,
+          ),
+        };
+      }
+      return section;
+    });
 
-    setExperience(experience.filter((item) => item.id !== id));
+    // @ts-ignore Typescript to infer types
+    setSections(sections);
   }
 
-  /* Effects */
+  function updateSectionDataItem(key: SectionKey, values: SectionDataItem) {
+    const sections = resume.sections.map((section) => {
+      if (section.key === key && section.data instanceof Array) {
+        return {
+          ...section,
+          data: section.data.map((item) =>
+            item.id === values.id
+              ? {
+                  ...item,
+                  ...values,
+                }
+              : item,
+          ),
+        };
+      }
+      return section;
+    });
+
+    // @ts-ignore Typescript to infer types
+    setSections(sections);
+  }
+
+  function removeSectionDataItem(key: SectionKey, itemId: string) {
+    const sections = resume.sections.map((section) => {
+      if (section.key === key && section.data instanceof Array) {
+        return {
+          ...section,
+          data: section.data.filter((item) => item.id !== itemId),
+        };
+      }
+      return section;
+    });
+
+    // @ts-ignore Typescript to infer types
+    setSections(sections);
+  }
 
   useUpdateEffect(() => {
     setResume(currentResume);
@@ -119,14 +164,13 @@ export function ResumeProvider({
       value={{
         ...resume,
         setSections,
-        getContactInfo,
-        setContactInfo,
-        getSummary,
-        setSummary,
-        setExperience,
-        addExperienceItem,
-        updateExperienceItem,
-        removeExperienceItem,
+        getSectionData,
+        setSectionData,
+        setSectionVisibility,
+        addSectionDataItem,
+        updateSectionDataItem,
+        setSectionDataItemVisibility,
+        removeSectionDataItem,
       }}
     >
       {children}
@@ -141,17 +185,19 @@ export type ResumeProviderProps = {
 };
 
 export type ResumeProviderValue = Resume & {
-  /* Sections functions */
   setSections: (sections: ResumeSection[]) => void;
-  /* Contact Info functions */
-  getContactInfo: () => ContactInfo;
-  setContactInfo: (contactInfo: ContactInfo) => void;
-  /* Summary functions */
-  getSummary: () => string;
-  setSummary: (summary: string) => void;
-  /* Experience functions */
-  setExperience: (experience: ExperienceItem[]) => void;
-  addExperienceItem: () => void;
-  updateExperienceItem: (experienceItem: ExperienceItem) => void;
-  removeExperienceItem: (id: string) => void;
+  getSectionData: <K extends SectionKey>(key: K) => SectionDataMap[K];
+  setSectionData: <K extends SectionKey>(
+    key: K,
+    data: SectionDataMap[K],
+  ) => void;
+  setSectionVisibility: (key: SectionKey, visibility: boolean) => void;
+  addSectionDataItem: (key: SectionKey, item: SectionDataItem) => void;
+  updateSectionDataItem: (key: SectionKey, values: SectionDataItem) => void;
+  setSectionDataItemVisibility: (
+    key: SectionKey,
+    itemId: string,
+    visible: boolean,
+  ) => void;
+  removeSectionDataItem: (key: SectionKey, itemId: string) => void;
 };

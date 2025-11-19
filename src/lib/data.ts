@@ -1,4 +1,4 @@
-import type { Resume } from '@/lib/types';
+import type { Resume, ResumeSection } from '@/lib/types';
 
 import { SectionKey } from '@/lib/types';
 
@@ -50,3 +50,22 @@ export const defaultResume: Resume = {
     },
   ],
 };
+
+export const ns: ResumeSection = {
+  key: SectionKey.Experience,
+  visible: true,
+  data: [
+    {
+      id: 'a',
+      organization: '',
+      credentialId: '',
+      gpa: '1',
+    },
+  ],
+};
+
+defaultResume.sections.map((section) => {
+  if (section.key === SectionKey.ContactInfo) {
+    console.log(section.data);
+  }
+});

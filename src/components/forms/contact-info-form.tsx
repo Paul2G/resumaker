@@ -20,18 +20,19 @@ import {
 } from '@/components/ui/input-group';
 import { useResume } from '@/hooks/use-resume';
 import { contactInfoSchema } from '@/lib/schemas';
+import { SectionKey } from '@/lib/types';
 
 export function ContactInfoForm() {
-  const { getContactInfo, setContactInfo } = useResume();
+  const { getSectionData, setSectionData } = useResume();
 
   const form = useForm({
-    defaultValues: getContactInfo(),
     resolver: zodResolver(contactInfoSchema),
+    defaultValues: getSectionData(SectionKey.ContactInfo),
   });
 
   function onSave(values: ContactInfo) {
     console.log(values);
-    setContactInfo(values);
+    setSectionData(SectionKey.ContactInfo, values);
   }
 
   return (

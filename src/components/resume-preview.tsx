@@ -15,10 +15,11 @@ export function ResumePreview() {
         {sections.map(({ key, data, visible }) => {
           if (!visible) return null;
 
-          if (key == SectionKey.ContactInfo)
+          if (key === SectionKey.ContactInfo) {
             return <ResumeContactInfo contactInfo={data} key={key} />;
+          }
 
-          if (key == SectionKey.Summary)
+          if (key === SectionKey.Summary)
             return <ResumeSummary summary={data} key={key} />;
         })}
       </div>

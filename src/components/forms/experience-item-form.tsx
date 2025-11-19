@@ -14,11 +14,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { useResume } from '@/hooks/use-resume';
 import { experienceItemSchema } from '@/lib/schemas';
+import { SectionKey } from '@/lib/types';
 
 export function ExperienceItemForm({
   experienceItem,
 }: ExperienceItemFormProps) {
-  const { updateExperienceItem } = useResume();
+  const { updateSectionDataItem } = useResume();
 
   const form = useForm({
     resolver: zodResolver(experienceItemSchema),
@@ -26,7 +27,7 @@ export function ExperienceItemForm({
   });
 
   function onSave(values: ExperienceItem) {
-    updateExperienceItem(values);
+    updateSectionDataItem(SectionKey.Experience, values);
   }
 
   return (
@@ -34,7 +35,7 @@ export function ExperienceItemForm({
       <form onChange={form.handleSubmit(onSave)} className={'space-y-4'}>
         <FormField
           control={form.control}
-          name="jobTitle"
+          name="title"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Job title</FormLabel>
@@ -47,7 +48,7 @@ export function ExperienceItemForm({
         />
         <FormField
           control={form.control}
-          name="companyName"
+          name="organization"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Company name</FormLabel>
