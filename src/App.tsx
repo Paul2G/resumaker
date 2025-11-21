@@ -1,4 +1,5 @@
 import { ResumeProvider } from '@/context/resume-provider';
+import { SecondarySidebarProvider } from '@/context/secondary-sidebar-provider';
 import { ThemeProvider } from '@/context/theme-provider';
 import { MainArea } from '@/components/main-area';
 import { PrimaryAuxSidebar } from '@/components/primary-aux-sidebar';
@@ -19,15 +20,17 @@ function App() {
         currentResume={loadedResume}
         onSave={saveResumeOnLocalStorage}
       >
-        <div className="h-screen flex flex-col relative bg-background text-foreground">
-          <PrimaryHeader />
-          <div className="overflow-hidden grow flex items-streetch">
-            <PrimaryAuxSidebar />
-            <PrimarySidebar />
-            <MainArea />
-            <SecondarySidebar />
+        <SecondarySidebarProvider>
+          <div className="h-screen flex flex-col relative bg-background text-foreground">
+            <PrimaryHeader />
+            <div className="overflow-hidden grow flex items-streetch">
+              <PrimaryAuxSidebar />
+              <PrimarySidebar />
+              <MainArea />
+              <SecondarySidebar />
+            </div>
           </div>
-        </div>
+        </SecondarySidebarProvider>
       </ResumeProvider>
     </ThemeProvider>
   );
