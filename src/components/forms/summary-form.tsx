@@ -10,19 +10,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { useResume } from '@/hooks/use-resume';
 
 export function SummaryForm() {
-  const { summary, setSummary } = useResume();
-
   const form = useForm({
-    defaultValues: { summary },
+    defaultValues: {},
     resolver: zodResolver(z.object({ summary: z.string().optional() })),
   });
 
   function onSave(values: { summary?: string }) {
     console.log(values);
-    setSummary(values.summary);
   }
 
   return (

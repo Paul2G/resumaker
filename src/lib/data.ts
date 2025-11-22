@@ -1,71 +1,52 @@
-import type { Resume, ResumeSection } from '@/lib/types';
+import type { Resume } from '@/lib/types';
 
-import { SectionKey } from '@/lib/types';
+import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
 
 export const defaultResume: Resume = {
   id: '1',
   title: 'New Resume',
   sections: [
     {
-      key: SectionKey.ContactInfo,
+      key: StaticSectionKey.ContactInfo,
       visible: true,
       data: {
         fullName: 'John Doe',
       },
     },
     {
-      key: SectionKey.Summary,
+      key: StaticSectionKey.Summary,
       visible: true,
       data: '',
     },
     {
-      key: SectionKey.Experience,
+      key: IterableSectionKey.Experience,
       visible: true,
       data: [],
     },
     {
-      key: SectionKey.Education,
+      key: IterableSectionKey.Education,
       visible: true,
       data: [],
     },
     {
-      key: SectionKey.Projects,
+      key: IterableSectionKey.Projects,
       visible: true,
       data: [],
     },
     {
-      key: SectionKey.Certifications,
+      key: IterableSectionKey.Certifications,
       visible: true,
       data: [],
     },
     {
-      key: SectionKey.Courses,
+      key: IterableSectionKey.Courses,
       visible: true,
       data: [],
     },
     {
-      key: SectionKey.Skills,
+      key: StaticSectionKey.Skills,
       visible: true,
       data: '',
     },
   ],
 };
-
-export const ns: ResumeSection = {
-  key: SectionKey.Experience,
-  visible: true,
-  data: [
-    {
-      id: 'a',
-      organization: '',
-      credentialId: '',
-      gpa: '1',
-    },
-  ],
-};
-
-defaultResume.sections.map((section) => {
-  if (section.key === SectionKey.ContactInfo) {
-    console.log(section.data);
-  }
-});

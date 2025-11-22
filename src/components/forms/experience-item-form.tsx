@@ -14,7 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useResume } from '@/hooks/use-resume';
 import { experienceItemSchema } from '@/lib/schemas';
-import { SectionKey } from '@/lib/types';
+import { IterableSectionKey } from '@/lib/types';
 
 export function ExperienceItemForm({
   experienceItem,
@@ -27,7 +27,7 @@ export function ExperienceItemForm({
   });
 
   function onSave(values: ExperienceItem) {
-    updateSectionDataItem(SectionKey.Experience, values);
+    updateSectionDataItem(IterableSectionKey.Experience, values);
   }
 
   return (

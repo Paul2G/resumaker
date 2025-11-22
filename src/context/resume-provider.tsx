@@ -1,14 +1,14 @@
 import type {
   Resume,
   ResumeSection,
-  SectionDataItem,
   SectionDataMap,
+  SectionKey,
 } from '@/lib/types';
 
 import React, { createContext, useState } from 'react';
 
 import { useUpdateEffect } from '@/hooks/use-update-effect';
-import { SectionKey } from '@/lib/types';
+import { IterableSectionKey } from '@/lib/types';
 
 export const ResumeContext = createContext<ResumeProviderValue>(undefined!);
 
@@ -28,18 +28,20 @@ export function ResumeProvider({
     }));
   }
 
-  function getSectionData<K extends SectionKey>(key: K) {
-    const section = resume.sections.find((section) => section.key === key)!;
+  function getSectionData<K extends SectionKey>(sectionKey: SectionKey) {
+    const section = resume.sections.find(
+      (section) => section.key === sectionKey,
+    )!;
 
     return section.data as SectionDataMap[K];
   }
 
   function setSectionData<K extends SectionKey>(
-    key: K,
+    sectionKey: K,
     data: SectionDataMap[K],
   ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === key) {
+      if (section.key === sectionKey) {
         return {
           ...section,
           data,
@@ -53,11 +55,11 @@ export function ResumeProvider({
   }
 
   function setSectionVisibility<K extends SectionKey>(
-    key: K,
+    sectionKey: K,
     visible: boolean = false,
   ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === key) {
+      if (section.key === sectionKey) {
         return {
           ...section,
           visible,
@@ -70,12 +72,13 @@ export function ResumeProvider({
   }
 
   /* Items functions */
-  function addSectionDataItem<K extends SectionKey>(
-    key: K,
-    item: SectionDataItem,
+
+  function addSectionDataItem<K extends IterableSectionKey>(
+    sectionKey: K,
+    item: SectionDataMap[K][number],
   ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === key && section.data instanceof Array) {
+      if (section.key === sectionKey && section.data instanceof Array) {
         return {
           ...section,
           data: [...section.data, item],
@@ -84,17 +87,16 @@ export function ResumeProvider({
       return section;
     });
 
-    // @ts-ignore Typescript to infer types
     setSections(sections);
   }
 
-  function setSectionDataItemVisibility<K extends SectionKey>(
-    key: K,
+  function setSectionDataItemVisibility(
+    sectionKey: IterableSectionKey,
     itemId: string,
     visible: boolean,
   ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === key && section.data instanceof Array) {
+      if (section.key === sectionKey) {
         return {
           ...section,
           data: section.data.map((item) =>
@@ -110,13 +112,15 @@ export function ResumeProvider({
       return section;
     });
 
-    // @ts-ignore Typescript to infer types
     setSections(sections);
   }
 
-  function updateSectionDataItem(key: SectionKey, values: SectionDataItem) {
+  function updateSectionDataItem<K extends IterableSectionKey>(
+    sectionKey: K,
+    values: SectionDataMap[K][number],
+  ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === key && section.data instanceof Array) {
+      if (section.key === sectionKey && section.data instanceof Array) {
         return {
           ...section,
           data: section.data.map((item) =>
@@ -132,13 +136,15 @@ export function ResumeProvider({
       return section;
     });
 
-    // @ts-ignore Typescript to infer types
     setSections(sections);
   }
 
-  function removeSectionDataItem(key: SectionKey, itemId: string) {
+  function removeSectionDataItem(
+    sectionKey: IterableSectionKey,
+    itemId: string,
+  ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === key && section.data instanceof Array) {
+      if (section.key === sectionKey && section.data instanceof Array) {
         return {
           ...section,
           data: section.data.filter((item) => item.id !== itemId),
@@ -147,7 +153,6 @@ export function ResumeProvider({
       return section;
     });
 
-    // @ts-ignore Typescript to infer types
     setSections(sections);
   }
 
@@ -186,18 +191,27 @@ export type ResumeProviderProps = {
 
 export type ResumeProviderValue = Resume & {
   setSections: (sections: ResumeSection[]) => void;
-  getSectionData: <K extends SectionKey>(key: K) => SectionDataMap[K];
+  getSectionData: <K extends SectionKey>(sectionKey: K) => SectionDataMap[K];
   setSectionData: <K extends SectionKey>(
-    key: K,
+    sectionKey: K,
     data: SectionDataMap[K],
   ) => void;
-  setSectionVisibility: (key: SectionKey, visibility: boolean) => void;
-  addSectionDataItem: (key: SectionKey, item: SectionDataItem) => void;
-  updateSectionDataItem: (key: SectionKey, values: SectionDataItem) => void;
+  setSectionVisibility: (sectionKey: SectionKey, visibility: boolean) => void;
+  addSectionDataItem: <K extends IterableSectionKey>(
+    sectionKey: K,
+    item: SectionDataMap[K][number],
+  ) => void;
+  updateSectionDataItem: <K extends IterableSectionKey>(
+    sectionKey: K,
+    values: SectionDataMap[K][number],
+  ) => void;
   setSectionDataItemVisibility: (
-    key: SectionKey,
+    sectionKey: IterableSectionKey,
     itemId: string,
     visible: boolean,
   ) => void;
-  removeSectionDataItem: (key: SectionKey, itemId: string) => void;
+  removeSectionDataItem: (
+    sectionKey: IterableSectionKey,
+    itemId: string,
+  ) => void;
 };

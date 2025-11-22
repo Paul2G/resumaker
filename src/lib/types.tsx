@@ -9,16 +9,21 @@ import {
   projectSchema,
 } from '@/lib/schemas';
 
-export enum SectionKey {
-  ContactInfo = 'contactInfo',
-  Summary = 'summary',
+export enum IterableSectionKey {
   Experience = 'experience',
   Education = 'education',
   Projects = 'projects',
   Certifications = 'certifications',
   Courses = 'courses',
+}
+
+export enum StaticSectionKey {
+  ContactInfo = 'contactInfo',
+  Summary = 'summary',
   Skills = 'skills',
 }
+
+export type SectionKey = IterableSectionKey | StaticSectionKey;
 
 export type ContactInfo = z.infer<typeof contactInfoSchema>;
 export type ExperienceItem = z.infer<typeof experienceItemSchema>;
@@ -28,64 +33,58 @@ export type Certification = z.infer<typeof certificationSchema>;
 export type Course = z.infer<typeof courseSchema>;
 
 export type SectionDataMap = {
-  [SectionKey.ContactInfo]: ContactInfo;
-  [SectionKey.Summary]: string;
-  [SectionKey.Experience]: ExperienceItem[];
-  [SectionKey.Education]: EducationItem[];
-  [SectionKey.Projects]: Project[];
-  [SectionKey.Certifications]: Certification[];
-  [SectionKey.Courses]: Course[];
-  [SectionKey.Skills]: string;
+  [StaticSectionKey.ContactInfo]: ContactInfo;
+  [StaticSectionKey.Summary]: string;
+  [IterableSectionKey.Experience]: ExperienceItem[];
+  [IterableSectionKey.Education]: EducationItem[];
+  [IterableSectionKey.Projects]: Project[];
+  [IterableSectionKey.Certifications]: Certification[];
+  [IterableSectionKey.Courses]: Course[];
+  [StaticSectionKey.Skills]: string;
 };
 
-export type SectionDataItem =
-  | ExperienceItem
-  | EducationItem
-  | Project
-  | Certification
-  | Course;
-
 interface ContactInfoSection {
-  key: SectionKey.ContactInfo;
-  data: SectionDataMap[SectionKey.ContactInfo];
+  key: StaticSectionKey.ContactInfo;
+  data: SectionDataMap[StaticSectionKey.ContactInfo];
 }
 
 interface SummarySection {
-  key: SectionKey.Summary;
-  data: SectionDataMap[SectionKey.Summary];
+  key: StaticSectionKey.Summary;
+  data: SectionDataMap[StaticSectionKey.Summary];
 }
 
 interface ExperienceSection {
-  key: SectionKey.Experience;
-  data: SectionDataMap[SectionKey.Experience];
+  key: IterableSectionKey.Experience;
+  data: SectionDataMap[IterableSectionKey.Experience];
 }
 
 interface EducationSection {
-  key: SectionKey.Education;
-  data: SectionDataMap[SectionKey.Education];
+  key: IterableSectionKey.Education;
+  data: SectionDataMap[IterableSectionKey.Education];
 }
 
 interface ProjectsSection {
-  key: SectionKey.Projects;
-  data: SectionDataMap[SectionKey.Projects];
+  key: IterableSectionKey.Projects;
+  data: SectionDataMap[IterableSectionKey.Projects];
 }
 
 interface CertificationsSection {
-  key: SectionKey.Certifications;
-  data: SectionDataMap[SectionKey.Certifications];
+  key: IterableSectionKey.Certifications;
+  data: SectionDataMap[IterableSectionKey.Certifications];
 }
 
 interface CoursesSection {
-  key: SectionKey.Courses;
-  data: SectionDataMap[SectionKey.Courses];
+  key: IterableSectionKey.Courses;
+  data: SectionDataMap[IterableSectionKey.Courses];
 }
 
 interface SkillsSection {
-  key: SectionKey.Skills;
-  data: SectionDataMap[SectionKey.Skills];
+  key: StaticSectionKey.Skills;
+  data: SectionDataMap[StaticSectionKey.Skills];
 }
 
-export type ResumeSection = {
+export type ResumeSection<K = SectionKey> = {
+  key: K;
   visible: boolean;
 } & (
   | ContactInfoSection
@@ -97,6 +96,13 @@ export type ResumeSection = {
   | CoursesSection
   | SkillsSection
 );
+
+export type SectionDataItem =
+  | EducationItem
+  | ExperienceItem
+  | Project
+  | Course
+  | Certification;
 
 export type AppData = {
   resumes: Resume[];

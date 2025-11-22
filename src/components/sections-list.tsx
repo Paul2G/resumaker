@@ -1,4 +1,4 @@
-import type { ResumeSection, SectionDataItem } from '@/lib/types';
+import type { ResumeSection, SectionDataItem, SectionKey } from '@/lib/types';
 
 import { SectionsListItem } from '@/components/sections-list-item';
 import { SectionsListItemSublist } from '@/components/sections-list-item-sublist';
@@ -8,7 +8,6 @@ import {
   SortableItem,
 } from '@/components/ui/sortable';
 import { useResume } from '@/hooks/use-resume';
-import { SectionKey } from '@/lib/types';
 
 const titles: Record<SectionKey, string> = {
   certifications: 'Certifications',

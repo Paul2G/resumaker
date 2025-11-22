@@ -1,7 +1,7 @@
 import { ResumeContactInfo } from '@/components/resume-contact-info';
 import { ResumeSummary } from '@/components/resume-summary';
 import { useResume } from '@/hooks/use-resume';
-import { SectionKey } from '@/lib/types';
+import { StaticSectionKey } from '@/lib/types';
 
 export function ResumePreview() {
   const { sections } = useResume();
@@ -15,11 +15,11 @@ export function ResumePreview() {
         {sections.map(({ key, data, visible }) => {
           if (!visible) return null;
 
-          if (key === SectionKey.ContactInfo) {
+          if (key === StaticSectionKey.ContactInfo) {
             return <ResumeContactInfo contactInfo={data} key={key} />;
           }
 
-          if (key === SectionKey.Summary)
+          if (key === StaticSectionKey.Summary)
             return <ResumeSummary summary={data} key={key} />;
         })}
       </div>
