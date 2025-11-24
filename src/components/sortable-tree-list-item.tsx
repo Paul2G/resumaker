@@ -16,10 +16,10 @@ import {
 import { SortableItemHandle } from '@/components/ui/sortable';
 import { cn } from '@/lib/utils';
 
-export function SectionsListItem({
+export function SortableTreeListItem({
   title,
   visible,
-  hasItems,
+  hasChildren,
   children,
   onRemove,
   onSelect,
@@ -41,11 +41,11 @@ export function SectionsListItem({
           onClick={onSelect}
         />
         <div className="flex z-2">
-          <CollapsibleTrigger disabled={!hasItems} asChild>
+          <CollapsibleTrigger disabled={!hasChildren} asChild>
             <Button
               variant="ghost"
               size="icon-xs"
-              className={cn(!hasItems && '!opacity-0')}
+              className={cn(!hasChildren && '!opacity-0')}
             >
               <CaretRightIcon
                 className={cn('size-3 transition-all', isOpen && 'rotate-90')}
@@ -58,9 +58,7 @@ export function SectionsListItem({
             </Button>
           </SortableItemHandle>
         </div>
-        <div className="grow">
-          <span>{title}</span>
-        </div>
+        <div className="grow">{title}</div>
         <div className="z-2 flex">
           {onRemove && (
             <Button
@@ -95,9 +93,9 @@ export function SectionsListItem({
 }
 
 export type SectionsListItemProps = {
-  title: string;
+  title: React.ReactNode;
   visible?: boolean;
-  hasItems?: boolean;
+  hasChildren?: boolean;
   children?: React.ReactNode;
   onSelect: () => void;
   onToggleVisibility: () => void;

@@ -1,13 +1,11 @@
-import type { ResumeSection, SectionDataItem, SectionKey } from '@/lib/types';
+import type { SectionKey } from '@/lib/types';
 
-import { SectionsListItem } from '@/components/sections-list-item';
-import { SectionsListItemSublist } from '@/components/sections-list-item-sublist';
-import {
-  Sortable,
-  SortableContent,
-  SortableItem,
-} from '@/components/ui/sortable';
+import { PlusIcon } from '@phosphor-icons/react';
+
+import { SortableTreeList } from '@/components/sortable-tree-list';
+import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
+import { StaticSectionKey } from '@/lib/types';
 
 const titles: Record<SectionKey, string> = {
   certifications: 'Certifications',
@@ -24,55 +22,64 @@ export function SectionsList() {
   const {
     sections,
     setSections,
-    setSectionData,
     setSectionVisibility,
+    setSectionData,
     addSectionDataItem,
     removeSectionDataItem,
     setSectionDataItemVisibility,
   } = useResume();
 
   return (
-    <Sortable
-      value={sections}
-      onValueChange={setSections}
-      getItemValue={(section: ResumeSection) => section.key}
-      orientation="vertical"
+    <SortableTreeList
+      items={sections}
+      setItems={setSections}
+      getItemValue={(item) => item.key}
+      getItemTitle={(item) => titles[item.key]}
+      getItemVisibility={(item) => item.visible}
+      getItemParentCapacity={(item) => Array.isArray(item.data)}
+      setItemVisibility={(item) =>
+        setSectionVisibility(item.key, !item.visible)
+      }
     >
-      <SortableContent>
-        {sections.map((section) => (
-          <SortableItem value={section.key} key={section.key}>
-            <SectionsListItem
-              title={titles[section.key]}
-              visible={section.visible}
-              hasItems={Array.isArray(section.data)}
-              onSelect={() => {}}
-              onToggleVisibility={() =>
-                setSectionVisibility(section.key, !section.visible)
+      {(section) =>
+        section.key !== StaticSectionKey.ContactInfo &&
+        section.key !== StaticSectionKey.Skills &&
+        section.key !== StaticSectionKey.Summary && (
+          <>
+            <SortableTreeList
+              items={section.data}
+              setItems={(data) => setSectionData(section.key, data)}
+              getItemValue={(item) => item.id}
+              getItemTitle={(item) => item.title}
+              getItemVisibility={(item) => item.visible}
+              setItemVisibility={(item) =>
+                setSectionDataItemVisibility(
+                  section.key,
+                  item.id,
+                  !item.visible,
+                )
               }
-              key={section.key}
+              removeItem={(item) => removeSectionDataItem(section.key, item.id)}
+            />
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start"
+              onClick={() =>
+                addSectionDataItem(section.key, {
+                  id: crypto.randomUUID(),
+                  title: 'New entry',
+                  organization: 'Somewhere',
+                  visible: true,
+                })
+              }
             >
-              {Array.isArray(section.data) && (
-                <SectionsListItemSublist
-                  items={section.data}
-                  selectItem={() => {}}
-                  setItems={(items: SectionDataItem[]) =>
-                    setSectionData(section.key, items)
-                  }
-                  addItem={(item: SectionDataItem) =>
-                    addSectionDataItem(section.key, item)
-                  }
-                  removeItem={(itemId: string) =>
-                    removeSectionDataItem(section.key, itemId)
-                  }
-                  toggleItemVisibility={(itemId: string, visible: boolean) =>
-                    setSectionDataItemVisibility(section.key, itemId, visible)
-                  }
-                />
-              )}
-            </SectionsListItem>
-          </SortableItem>
-        ))}
-      </SortableContent>
-    </Sortable>
+              <PlusIcon className="size-4 ms-5.5" />
+              Add new
+            </Button>
+          </>
+        )
+      }
+    </SortableTreeList>
   );
 }
