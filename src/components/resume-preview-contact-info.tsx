@@ -10,58 +10,58 @@ import {
 
 import { cn, isStringValid } from '@/lib/utils';
 
-export function ResumeContactInfo({
-  contactInfo,
+export function ResumePreviewContactInfo({
+  data,
   className,
   ...props
 }: ResumeContactInfoProps) {
   return (
     <div id="contact" className={cn('contents', className)} {...props}>
       <h1 id="fullname" className="text-2xl text-center font-bold">
-        {contactInfo.fullName}
+        {data.fullName}
       </h1>
       <div
         id="contact-items"
         className="w-full flex gap-1 items-center justify-center text-xs"
       >
-        {isStringValid(contactInfo.address) && (
+        {isStringValid(data.address) && (
           <>
             <MapPinIcon weight="fill" className="size-3" />
-            <span>{contactInfo.address}</span>
+            <span>{data.address}</span>
           </>
         )}
-        {isStringValid(contactInfo.emailAddress) && (
+        {isStringValid(data.emailAddress) && (
           <>
             <EnvelopeIcon weight="fill" className="size-3" />
-            <span>{contactInfo.emailAddress}</span>
+            <span>{data.emailAddress}</span>
           </>
         )}
-        {isStringValid(contactInfo.phoneNumber) && (
+        {isStringValid(data.phoneNumber) && (
           <>
             <PhoneIcon weight="fill" className="size-3" />
-            <span>{contactInfo.phoneNumber}</span>
+            <span>{data.phoneNumber}</span>
           </>
         )}
-        {isStringValid(contactInfo.linkedin) && (
+        {isStringValid(data.linkedin) && (
           <a
-            href={'https://www.linkedin.com/in/' + contactInfo.linkedin}
+            href={'https://www.linkedin.com/in/' + data.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="contents"
           >
             <LinkedinLogoIcon weight="fill" className="size-3" />
-            <span>{'in/' + contactInfo.linkedin}</span>
+            <span>{'in/' + data.linkedin}</span>
           </a>
         )}
-        {isStringValid(contactInfo.website) && (
+        {isStringValid(data.website) && (
           <a
-            href={contactInfo.website}
+            href={data.website}
             target="_blank"
             rel="noopener noreferrer"
             className="contents"
           >
             <GlobeIcon weight="fill" className="size-3" />
-            <span>{contactInfo.website?.replace('https://', '')}</span>
+            <span>{data.website?.replace('https://', '')}</span>
           </a>
         )}
       </div>
@@ -70,5 +70,5 @@ export function ResumeContactInfo({
 }
 
 export type ResumeContactInfoProps = React.ComponentProps<'div'> & {
-  contactInfo: ContactInfo;
+  data: ContactInfo;
 };

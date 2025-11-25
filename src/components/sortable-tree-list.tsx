@@ -9,25 +9,17 @@ import {
 
 export function SortableTreeList<T>({
   items,
+  selectedItem,
   setItems,
   getItemValue,
   getItemTitle,
   getItemVisibility = () => false,
   getItemParentCapacity = () => false,
-  removeItem,
   setItemVisibility,
+  selectItem,
+  removeItem,
   children,
-}: {
-  items: T[];
-  setItems: (items: T[]) => void;
-  getItemValue: (item: T) => string;
-  getItemTitle: (item: T) => React.ReactNode;
-  getItemVisibility?: (item: T) => boolean;
-  getItemParentCapacity?: (item: T) => boolean;
-  setItemVisibility: (item: T) => void;
-  removeItem?: (item: T) => void;
-  children?: (item: T) => React.ReactNode;
-}) {
+}: SortableTreeListProps<T>) {
   return (
     <>
       {/* @ts-ignore */}
@@ -41,14 +33,16 @@ export function SortableTreeList<T>({
           {items.map((item) => {
             const value = getItemValue(item);
             const hasChildren = getItemParentCapacity(item) && !!children;
+            const isSelected = selectedItem === value;
 
             return (
               <SortableItem value={value} key={value}>
                 <SortableTreeListItem
                   title={getItemTitle(item)}
+                  selected={isSelected}
                   visible={getItemVisibility(item)}
                   hasChildren={hasChildren}
-                  onSelect={() => {}}
+                  onSelect={() => selectItem(item)}
                   onToggleVisibility={() => setItemVisibility(item)}
                   onRemove={removeItem ? () => removeItem(item) : undefined}
                   key={value}
@@ -67,3 +61,17 @@ export function SortableTreeList<T>({
     </>
   );
 }
+
+export type SortableTreeListProps<T> = {
+  items: T[];
+  selectedItem?: string;
+  setItems: (items: T[]) => void;
+  getItemValue: (item: T) => string;
+  getItemTitle: (item: T) => React.ReactNode;
+  getItemVisibility?: (item: T) => boolean;
+  getItemParentCapacity?: (item: T) => boolean;
+  setItemVisibility: (item: T) => void;
+  selectItem: (item: T) => void;
+  removeItem?: (item: T) => void;
+  children?: (item: T) => React.ReactNode;
+};

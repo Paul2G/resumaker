@@ -73,6 +73,23 @@ export function ResumeProvider({
 
   /* Items functions */
 
+  function getSectionDataItem<K extends IterableSectionKey>(
+    sectionKey: K,
+    itemId?: string,
+  ) {
+    const section = resume.sections.find(
+      (section) => section.key === sectionKey,
+    );
+
+    if (!(section?.data instanceof Array)) return null;
+
+    const item = section.data.find((item) => item.id === itemId);
+
+    if (!item) return null;
+
+    return item as SectionDataMap[K][number];
+  }
+
   function addSectionDataItem<K extends IterableSectionKey>(
     sectionKey: K,
     item: SectionDataMap[K][number],
@@ -172,6 +189,7 @@ export function ResumeProvider({
         getSectionData,
         setSectionData,
         setSectionVisibility,
+        getSectionDataItem,
         addSectionDataItem,
         updateSectionDataItem,
         setSectionDataItemVisibility,
@@ -197,6 +215,10 @@ export type ResumeProviderValue = Resume & {
     data: SectionDataMap[K],
   ) => void;
   setSectionVisibility: (sectionKey: SectionKey, visibility: boolean) => void;
+  getSectionDataItem: <K extends IterableSectionKey>(
+    sectionKey: K,
+    itemId?: string,
+  ) => SectionDataMap[K][number] | null;
   addSectionDataItem: <K extends IterableSectionKey>(
     sectionKey: K,
     item: SectionDataMap[K][number],

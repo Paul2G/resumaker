@@ -1,5 +1,6 @@
 import type { ContactInfo } from '@/lib/types';
 
+import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -25,13 +26,17 @@ import { StaticSectionKey } from '@/lib/types';
 export function ContactInfoForm() {
   const { getSectionData, setSectionData } = useResume();
 
+  const defaultValues = useMemo(
+    () => getSectionData(StaticSectionKey.ContactInfo),
+    [],
+  );
+
   const form = useForm({
     resolver: zodResolver(contactInfoSchema),
-    defaultValues: getSectionData(StaticSectionKey.ContactInfo),
+    defaultValues,
   });
 
   function onSave(values: ContactInfo) {
-    console.log(values);
     setSectionData(StaticSectionKey.ContactInfo, values);
   }
 

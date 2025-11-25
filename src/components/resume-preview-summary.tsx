@@ -1,22 +1,21 @@
+import type { Summary } from '@/lib/types';
+
 import React from 'react';
 
-import { cn, isStringValid } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
-export function ResumeSummary({
-  summary,
+export function ResumePreviewSummary({
+  data,
   className,
   ...props
 }: ResumeSummaryProps) {
-  if (!isStringValid(summary)) {
-    return null;
-  }
   return (
     <p id="summary" className={cn('text-xs', className)} {...props}>
-      {summary}
+      {data.summary}
     </p>
   );
 }
 
 export type ResumeSummaryProps = React.ComponentProps<'div'> & {
-  summary: string;
+  data: Summary;
 };

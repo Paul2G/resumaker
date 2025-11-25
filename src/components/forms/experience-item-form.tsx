@@ -1,5 +1,6 @@
 import type { ExperienceItem } from '@/lib/types';
 
+import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -14,16 +15,19 @@ import {
 import { Input } from '@/components/ui/input';
 import { useResume } from '@/hooks/use-resume';
 import { experienceItemSchema } from '@/lib/schemas';
-import { IterableSectionKey } from '@/lib/types';
+import { IterableSectionKey, SectionKey } from '@/lib/types';
 
-export function ExperienceItemForm({
-  experienceItem,
-}: ExperienceItemFormProps) {
-  const { updateSectionDataItem } = useResume();
+export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
+  const { getSectionDataItem, updateSectionDataItem } = useResume();
+
+  const defaultValues = useMemo(
+    () => getSectionDataItem(SectionKey.Experience, itemId)!,
+    [],
+  );
 
   const form = useForm({
     resolver: zodResolver(experienceItemSchema),
-    defaultValues: experienceItem,
+    defaultValues,
   });
 
   function onSave(values: ExperienceItem) {
@@ -65,5 +69,5 @@ export function ExperienceItemForm({
 }
 
 export type ExperienceItemFormProps = {
-  experienceItem: ExperienceItem;
+  itemId: string;
 };

@@ -11,25 +11,25 @@ export const SecondarySidebarContext =
 export function SecondarySidebarProvider({
   children,
 }: SecondarySidebarProviderProps) {
-  const [selectedSection, setSelectedSection] = useState<SectionKey>();
+  const [selectedSectionKey, setSelectedSectionKey] = useState<SectionKey>();
 
-  const [selectedItem, setSelectedItem] = useState<string>();
+  const [selectedItemId, setSelectedItemId] = useState<string>();
 
   function setSidebarContent(sectionKey: SectionKey, itemId?: string) {
-    setSelectedSection(sectionKey);
-    setSelectedItem(itemId);
+    setSelectedSectionKey(sectionKey);
+    setSelectedItemId(itemId);
   }
 
   function clearSidebarContent() {
-    setSelectedItem(undefined);
-    setSelectedItem(undefined);
+    setSelectedSectionKey(undefined);
+    setSelectedItemId(undefined);
   }
 
   return (
     <SecondarySidebarContext.Provider
       value={{
-        selectedSection,
-        selectedItem,
+        selectedSectionKey,
+        selectedItemId,
         setSidebarContent,
         clearSidebarContent,
       }}
@@ -44,8 +44,8 @@ export type SecondarySidebarProviderProps = {
 };
 
 export type SecondarySidebarProviderValue = {
-  selectedSection?: SectionKey;
-  selectedItem?: string;
+  selectedSectionKey?: SectionKey;
+  selectedItemId?: string;
   setSidebarContent: (sectionKey: SectionKey, itemId?: string) => void;
   clearSidebarContent: () => void;
 };

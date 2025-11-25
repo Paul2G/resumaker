@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils';
 export function SortableTreeListItem({
   title,
   visible,
+  selected,
   hasChildren,
   children,
   onRemove,
@@ -31,9 +32,10 @@ export function SortableTreeListItem({
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <div
         className={cn(
-          'relative group h-8 w-full flex items-center rounded-md gap-1.5 px-1',
-          'text-sm font-medium ',
-          'transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+          'relative group py-1 w-full flex items-center rounded-md gap-1.5 px-1',
+          'text-sm',
+          'border border-transparent transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+          selected && 'border-border',
         )}
       >
         <button
@@ -95,6 +97,7 @@ export function SortableTreeListItem({
 export type SectionsListItemProps = {
   title: React.ReactNode;
   visible?: boolean;
+  selected?: boolean;
   hasChildren?: boolean;
   children?: React.ReactNode;
   onSelect: () => void;

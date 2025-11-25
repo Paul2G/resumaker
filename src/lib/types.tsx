@@ -7,6 +7,7 @@ import {
   educationItemSchema,
   experienceItemSchema,
   projectSchema,
+  summarySchema,
 } from '@/lib/schemas';
 
 export enum IterableSectionKey {
@@ -24,8 +25,13 @@ export enum StaticSectionKey {
 }
 
 export type SectionKey = IterableSectionKey | StaticSectionKey;
+export const SectionKey = {
+  ...StaticSectionKey,
+  ...IterableSectionKey,
+} as const;
 
 export type ContactInfo = z.infer<typeof contactInfoSchema>;
+export type Summary = z.infer<typeof summarySchema>;
 export type ExperienceItem = z.infer<typeof experienceItemSchema>;
 export type EducationItem = z.infer<typeof educationItemSchema>;
 export type Project = z.infer<typeof projectSchema>;
@@ -34,7 +40,7 @@ export type Course = z.infer<typeof courseSchema>;
 
 export type SectionDataMap = {
   [StaticSectionKey.ContactInfo]: ContactInfo;
-  [StaticSectionKey.Summary]: string;
+  [StaticSectionKey.Summary]: Summary;
   [IterableSectionKey.Experience]: ExperienceItem[];
   [IterableSectionKey.Education]: EducationItem[];
   [IterableSectionKey.Projects]: Project[];

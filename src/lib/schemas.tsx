@@ -14,6 +14,10 @@ export const contactInfoSchema = z.object({
   website: z.url().optional(),
 });
 
+export const summarySchema = z.object({
+  summary: z.string().optional(),
+});
+
 export const experienceItemSchema = z.object({
   id: z.uuid(),
   title: z.string().min(1),
