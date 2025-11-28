@@ -1,5 +1,5 @@
-import { ResumePreviewContactInfo } from '@/components/resume-preview-contact-info';
-import { ResumePreviewSummary } from '@/components/resume-preview-summary';
+import { ResumePreviewContactInfo } from '@/components/resume/resume-preview-contact-info';
+import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
 import { useResume } from '@/hooks/use-resume';
 import { SectionKey } from '@/lib/types';
 

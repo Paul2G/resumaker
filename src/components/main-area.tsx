@@ -1,4 +1,4 @@
-import { ResumePreview } from '@/components/resume-preview';
+import { ResumePreview } from '@/components/resume/resume-preview';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function MainArea() {
