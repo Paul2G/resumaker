@@ -40,23 +40,40 @@ const typographyVariants = cva('', {
   },
 });
 
-export function Typography<K extends TypographyVariants = TypographyVariants>({
-  variant,
+export type TypographyVariants = keyof typeof typographyElementMap;
+
+export type AsProp<C extends React.ElementType> = {
+  as?: C;
+};
+
+export type TypographyProps<
+  K extends TypographyVariants = TypographyVariants,
+  C extends React.ElementType = (typeof typographyElementMap)[K],
+> = AsProp<C> & {
+  variant?: K;
+  className?: string;
+  children?: React.ReactNode;
+} & Omit<React.ComponentProps<C>, 'as' | 'children' | 'className' | 'variant'>;
+
+export function Typography<
+  K extends TypographyVariants = TypographyVariants,
+  C extends React.ElementType = (typeof typographyElementMap)[K],
+>({
+  as,
+  variant = 'p' as K,
   className,
   children,
   ...props
-}: TypographyProps<K>) {
-  const Comp = typographyElementMap[variant] as React.ElementType;
+}: TypographyProps<K, C>) {
+  const defaultElement = typographyElementMap[variant];
+  const Component = (as ?? defaultElement) as React.ElementType;
 
   return (
-    <Comp className={cn(typographyVariants({ variant, className }))} {...props}>
+    <Component
+      className={cn(typographyVariants({ variant, className }))}
+      {...props}
+    >
       {children}
-    </Comp>
+    </Component>
   );
 }
-export type TypographyVariants = keyof typeof typographyElementMap;
-
-export type TypographyProps<K extends TypographyVariants = TypographyVariants> =
-  {
-    variant: K;
-  } & React.ComponentProps<(typeof typographyElementMap)[K]>;
