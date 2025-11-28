@@ -35,7 +35,7 @@ export function SortableTreeListItem({
           'relative group py-1 w-full flex items-center rounded-md gap-1.5 px-1',
           'text-sm',
           'border border-transparent transition-all hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-          selected && 'border-border',
+          selected && 'bg-secondary',
         )}
       >
         <button

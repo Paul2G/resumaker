@@ -1,4 +1,4 @@
-import type { ExperienceItem } from '@/lib/types';
+import type { EducationItem } from '@/lib/types';
 
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,28 +14,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { useResume } from '@/hooks/use-resume';
-import { experienceItemSchema } from '@/lib/schemas';
+import { educationItemSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
-export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
+export function EducationItemForm({ itemId }: EducationItemFormProps) {
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
-    () => getSectionDataItem(SectionKey.Experience, itemId)!,
+    () => getSectionDataItem(SectionKey.Education, itemId)!,
     [],
   );
 
   const form = useForm({
-    resolver: zodResolver(experienceItemSchema),
+    resolver: zodResolver(educationItemSchema),
     defaultValues,
   });
 
-  function onSave(values: ExperienceItem) {
-    updateSectionDataItem(IterableSectionKey.Experience, values);
+  function onSave(values: EducationItem) {
+    updateSectionDataItem(IterableSectionKey.Education, values);
   }
 
   useFormSubmitter(form, onSave);
@@ -48,7 +47,7 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Job title</FormLabel>
+              <FormLabel>Degree</FormLabel>
               <FormControl>
                 <Input placeholder="Software Engineer" {...field} />
               </FormControl>
@@ -61,9 +60,9 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company name</FormLabel>
+              <FormLabel>Institution</FormLabel>
               <FormControl>
-                <Input placeholder="Microsoft" {...field} />
+                <Input placeholder="University of..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -76,7 +75,7 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
             <FormItem>
               <FormLabel>Location</FormLabel>
               <FormControl>
-                <Input placeholder="Tijuana, BC, Mexico" {...field} />
+                <Input placeholder="Tijuana, B.C., Mexico" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,10 +83,10 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
         />
         <FormField
           control={form.control}
-          name="startDate"
+          name="completionDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Start date</FormLabel>
+              <FormLabel>Completion date</FormLabel>
               <FormControl>
                 <DatePicker {...field} />
               </FormControl>
@@ -97,30 +96,25 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
         />
         <FormField
           control={form.control}
-          name="isCurrentlyWorkingHere"
+          name="minor"
           render={({ field }) => (
-            <FormItem className="flex flex-row justify-between">
-              <FormLabel>Currently working here</FormLabel>
+            <FormItem>
+              <FormLabel>Minor</FormLabel>
               <FormControl>
-                <Switch
-                  checked={Boolean(field.value)}
-                  onCheckedChange={field.onChange}
-                />
+                <Input placeholder="Data Science" {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
-          name="endDate"
+          name="gpa"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>End date</FormLabel>
+              <FormLabel>GPA</FormLabel>
               <FormControl>
-                <DatePicker
-                  disabled={form.getValues('isCurrentlyWorkingHere')}
-                  {...field}
-                />
+                <Input placeholder="4.0" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -131,9 +125,12 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Position activities</FormLabel>
+              <FormLabel>Relevant course work</FormLabel>
               <FormControl>
-                <Textarea placeholder="Your responsabilities" {...field} />
+                <Textarea
+                  placeholder="Share relevant information about why your degree worth."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -144,6 +141,6 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
   );
 }
 
-export type ExperienceItemFormProps = {
+export type EducationItemFormProps = {
   itemId: string;
 };

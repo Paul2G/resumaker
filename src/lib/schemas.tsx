@@ -22,6 +22,7 @@ export const experienceItemSchema = z.object({
   id: z.uuid(),
   title: z.string().min(1),
   organization: z.string().min(1),
+  location: z.string().optional(),
   startDate: z.date().optional(),
   endDate: z.date().optional(),
   isCurrentlyWorkingHere: z.boolean().optional(),

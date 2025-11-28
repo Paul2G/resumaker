@@ -1,4 +1,4 @@
-import type { ExperienceItem } from '@/lib/types';
+import type { Certification } from '@/lib/types';
 
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,28 +14,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { useResume } from '@/hooks/use-resume';
-import { experienceItemSchema } from '@/lib/schemas';
+import { certificationSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
-export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
+export function CertificationForm({ itemId }: CertificationFormProps) {
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
-    () => getSectionDataItem(SectionKey.Experience, itemId)!,
+    () => getSectionDataItem(SectionKey.Certifications, itemId)!,
     [],
   );
 
   const form = useForm({
-    resolver: zodResolver(experienceItemSchema),
+    resolver: zodResolver(certificationSchema),
     defaultValues,
   });
 
-  function onSave(values: ExperienceItem) {
-    updateSectionDataItem(IterableSectionKey.Experience, values);
+  function onSave(values: Certification) {
+    updateSectionDataItem(IterableSectionKey.Certifications, values);
   }
 
   useFormSubmitter(form, onSave);
@@ -48,9 +47,9 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Job title</FormLabel>
+              <FormLabel>Certification name</FormLabel>
               <FormControl>
-                <Input placeholder="Software Engineer" {...field} />
+                <Input placeholder="Data Science with Python" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,9 +60,9 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company name</FormLabel>
+              <FormLabel>Institution</FormLabel>
               <FormControl>
-                <Input placeholder="Microsoft" {...field} />
+                <Input placeholder="Meta" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -71,23 +70,10 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
         />
         <FormField
           control={form.control}
-          name="location"
+          name="issueDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Location</FormLabel>
-              <FormControl>
-                <Input placeholder="Tijuana, BC, Mexico" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="startDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Start date</FormLabel>
+              <FormLabel>Issue date</FormLabel>
               <FormControl>
                 <DatePicker {...field} />
               </FormControl>
@@ -97,28 +83,42 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
         />
         <FormField
           control={form.control}
-          name="isCurrentlyWorkingHere"
+          name="expirationDate"
           render={({ field }) => (
-            <FormItem className="flex flex-row justify-between">
-              <FormLabel>Currently working here</FormLabel>
+            <FormItem>
+              <FormLabel>Expiration date</FormLabel>
               <FormControl>
-                <Switch
-                  checked={Boolean(field.value)}
-                  onCheckedChange={field.onChange}
-                />
+                <DatePicker {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
-          name="endDate"
+          name="credentialId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>End date</FormLabel>
+              <FormLabel>Credential ID</FormLabel>
               <FormControl>
-                <DatePicker
-                  disabled={form.getValues('isCurrentlyWorkingHere')}
+                <Input
+                  placeholder="f7acb5c3-d17b-4fa5-81df-a35150fddec3"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="credentialUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Credential URL</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="https://coursera.org/verify/professional-cert/1DIP3IC7DHMO"
                   {...field}
                 />
               </FormControl>
@@ -131,9 +131,12 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Position activities</FormLabel>
+              <FormLabel>Certification relevance</FormLabel>
               <FormControl>
-                <Textarea placeholder="Your responsabilities" {...field} />
+                <Textarea
+                  placeholder="Describe what you learned and achieved with this certification..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -144,6 +147,6 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
   );
 }
 
-export type ExperienceItemFormProps = {
+export type CertificationFormProps = {
   itemId: string;
 };
