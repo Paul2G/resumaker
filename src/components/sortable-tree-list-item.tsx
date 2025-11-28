@@ -1,3 +1,5 @@
+import type { Icon } from '@phosphor-icons/react';
+
 import { useState } from 'react';
 import {
   CaretRightIcon,
@@ -25,6 +27,7 @@ export function SortableTreeListItem({
   onRemove,
   onSelect,
   onToggleVisibility,
+  icon: CustomIcon,
 }: SectionsListItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -55,8 +58,18 @@ export function SortableTreeListItem({
             </Button>
           </CollapsibleTrigger>
           <SortableItemHandle asChild>
-            <Button variant="ghost" size="icon-xs">
-              <DotsSixVerticalIcon weight="bold" className="size-4" />
+            <Button variant="ghost" size="icon-xs" className="relative">
+              {CustomIcon ? (
+                <>
+                  <CustomIcon className="size-4.5 transition-opacity group-hover:opacity-0" />
+                  <DotsSixVerticalIcon
+                    weight="bold"
+                    className="absolute size-4.5 opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                </>
+              ) : (
+                <DotsSixVerticalIcon weight="bold" className="size-4.5" />
+              )}
             </Button>
           </SortableItemHandle>
         </div>
@@ -99,8 +112,9 @@ export type SectionsListItemProps = {
   visible?: boolean;
   selected?: boolean;
   hasChildren?: boolean;
-  children?: React.ReactNode;
   onSelect: () => void;
   onToggleVisibility: () => void;
   onRemove?: () => void;
+  icon?: Icon;
+  children?: React.ReactNode;
 };

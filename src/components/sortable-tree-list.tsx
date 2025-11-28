@@ -1,3 +1,5 @@
+import type { Icon } from '@phosphor-icons/react';
+
 import React from 'react';
 
 import { SortableTreeListItem } from '@/components/sortable-tree-list-item';
@@ -15,6 +17,7 @@ export function SortableTreeList<T>({
   getItemTitle,
   getItemVisibility = () => false,
   getItemParentCapacity = () => false,
+  getItemIcon = () => undefined,
   setItemVisibility,
   selectItem,
   removeItem,
@@ -41,6 +44,7 @@ export function SortableTreeList<T>({
                   title={getItemTitle(item)}
                   selected={isSelected}
                   visible={getItemVisibility(item)}
+                  icon={getItemIcon(item)}
                   hasChildren={hasChildren}
                   onSelect={() => selectItem(item)}
                   onToggleVisibility={() => setItemVisibility(item)}
@@ -70,6 +74,7 @@ export type SortableTreeListProps<T> = {
   getItemTitle: (item: T) => React.ReactNode;
   getItemVisibility?: (item: T) => boolean;
   getItemParentCapacity?: (item: T) => boolean;
+  getItemIcon?: (item: T) => Icon | undefined;
   setItemVisibility: (item: T) => void;
   selectItem: (item: T) => void;
   removeItem?: (item: T) => void;

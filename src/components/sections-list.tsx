@@ -1,6 +1,22 @@
-import type { SectionKey } from '@/lib/types';
+import type { ResumeSection, SectionKey } from '@/lib/types';
+import type { Icon } from '@phosphor-icons/react';
 
-import { PlusIcon } from '@phosphor-icons/react';
+import {
+  AddressBookIcon,
+  ArchiveIcon,
+  ArticleMediumIcon,
+  BookBookmarkIcon,
+  BooksIcon,
+  BriefcaseIcon,
+  CertificateIcon,
+  FolderIcon,
+  GraduationCapIcon,
+  LightbulbIcon,
+  MedalIcon,
+  NewspaperClippingIcon,
+  PlusIcon,
+  ScrollIcon,
+} from '@phosphor-icons/react';
 
 import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
@@ -18,6 +34,25 @@ const titles: Record<SectionKey, string> = {
   summary: 'Summary',
   contactInfo: 'Contact Info',
 };
+
+const SectionIcon: Record<SectionKey, Icon> = {
+  contactInfo: AddressBookIcon,
+  summary: ArticleMediumIcon,
+  experience: BriefcaseIcon,
+  education: GraduationCapIcon,
+  projects: ArchiveIcon,
+  certifications: CertificateIcon,
+  courses: BooksIcon,
+  skills: LightbulbIcon,
+} as const;
+
+const SectionItemIcon: Record<IterableSectionKey, Icon> = {
+  experience: NewspaperClippingIcon,
+  education: ScrollIcon,
+  projects: FolderIcon,
+  certifications: MedalIcon,
+  courses: BookBookmarkIcon,
+} as const;
 
 export function SectionsList() {
   const {
@@ -51,19 +86,41 @@ export function SectionsList() {
     removeSectionDataItem(sectionKey, itemId);
   }
 
+  function getSectionTitle(section: ResumeSection) {
+    return <b className="font-semibold">{titles[section.key]}</b>;
+  }
+
+  function getItemTitle(item: { title: string; organization: string }) {
+    return (
+      <>
+        <b className="font-semibold">{item.title}</b>
+        <i> — {item.organization}</i>
+      </>
+    );
+  }
+
+  function getSectionIcon(section: ResumeSection) {
+    return SectionIcon[section.key];
+  }
+
+  function getItemIcon(sectionKey: IterableSectionKey) {
+    return SectionItemIcon[sectionKey];
+  }
+
   return (
     <SortableTreeList
       items={sections}
       selectedItem={selectedItemId || selectedSectionKey}
       setItems={setSections}
-      getItemValue={(item) => item.key}
-      getItemTitle={(item) => <b>{titles[item.key]}</b>}
-      getItemVisibility={(item) => item.visible}
-      getItemParentCapacity={(item) => Array.isArray(item.data)}
-      setItemVisibility={(item) =>
-        setSectionVisibility(item.key, !item.visible)
+      getItemValue={(section) => section.key}
+      getItemTitle={getSectionTitle}
+      getItemVisibility={(section) => section.visible}
+      getItemParentCapacity={(section) => Array.isArray(section.data)}
+      getItemIcon={getSectionIcon}
+      setItemVisibility={(section) =>
+        setSectionVisibility(section.key, !section.visible)
       }
-      selectItem={(item) => setSidebarContent(item.key)}
+      selectItem={(section) => setSidebarContent(section.key)}
     >
       {(section) =>
         section.key !== StaticSectionKey.ContactInfo &&
@@ -75,13 +132,9 @@ export function SectionsList() {
               selectedItem={selectedItemId}
               setItems={(data) => setSectionData(section.key, data)}
               getItemValue={(item) => item.id}
-              getItemTitle={(item) => (
-                <>
-                  <b>{item.title}</b>
-                  <i> — {item.organization}</i>
-                </>
-              )}
+              getItemTitle={getItemTitle}
               getItemVisibility={(item) => item.visible}
+              getItemIcon={() => getItemIcon(section.key)}
               setItemVisibility={(item) =>
                 setSectionDataItemVisibility(
                   section.key,

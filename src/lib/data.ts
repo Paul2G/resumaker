@@ -1,50 +1,52 @@
 import type { Resume } from '@/lib/types';
 
-import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
+import { SectionKey } from '@/lib/types';
 
 export const defaultResume: Resume = {
   id: '1',
   title: 'New Resume',
   sections: [
     {
-      key: StaticSectionKey.ContactInfo,
+      key: SectionKey.ContactInfo,
       visible: true,
       data: {
         fullName: 'John Doe',
       },
     },
     {
-      key: StaticSectionKey.Summary,
+      key: SectionKey.Summary,
       visible: true,
-      data: '',
+      data: {
+        summary: '',
+      },
     },
     {
-      key: IterableSectionKey.Experience,
-      visible: true,
-      data: [],
-    },
-    {
-      key: IterableSectionKey.Education,
+      key: SectionKey.Experience,
       visible: true,
       data: [],
     },
     {
-      key: IterableSectionKey.Projects,
+      key: SectionKey.Education,
       visible: true,
       data: [],
     },
     {
-      key: IterableSectionKey.Certifications,
+      key: SectionKey.Projects,
       visible: true,
       data: [],
     },
     {
-      key: IterableSectionKey.Courses,
+      key: SectionKey.Certifications,
       visible: true,
       data: [],
     },
     {
-      key: StaticSectionKey.Skills,
+      key: SectionKey.Courses,
+      visible: true,
+      data: [],
+    },
+    {
+      key: SectionKey.Skills,
       visible: true,
       data: '',
     },
