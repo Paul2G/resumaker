@@ -5,7 +5,9 @@ dayjs.extend(customParseFormat);
 
 const CUSTOM_DATE_FORMAT = 'DD/MM/YYYY' as const;
 
-export function parseDate(s: string | undefined): Date | undefined {
+export function parseDate(s?: string | Date) {
+  if (s instanceof Date) return s;
+
   if (!isValidStringDate(s)) return;
 
   return dayjs(s, CUSTOM_DATE_FORMAT).toDate();

@@ -18,13 +18,16 @@ import { cn } from '@/lib/utils';
 export function DatePicker({
   value,
   name,
+  disabled,
   onChange,
   className,
   ...props
 }: DatePickerProps) {
-  const [open, setOpen] = useState(false);
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date | undefined>(parseDate(value));
   const [inputValue, setInputValue] = useState<string>(formatDate(value));
+
+  const [open, setOpen] = useState(false);
+  const [month, setMonth] = useState<Date | undefined>(date);
 
   return (
     <div className={cn('relative w-full', className)}>
@@ -32,11 +35,12 @@ export function DatePicker({
         value={inputValue}
         placeholder="01/01/2025"
         className="bg-background pr-10"
+        disabled={disabled}
         onChange={(e) => {
           const inputDate = e.target.value;
           setInputValue(inputDate);
           if (isValidStringDate(inputDate)) {
-            const newDate = parseDate(inputDate)!;
+            const newDate = parseDate(inputDate);
             setDate(newDate);
             onChange(newDate);
           }
@@ -51,6 +55,7 @@ export function DatePicker({
           <Button
             id="date-picker"
             variant="ghost"
+            disabled={disabled}
             className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
           >
             <CalendarIcon weight="fill" className="size-4" />
@@ -67,6 +72,9 @@ export function DatePicker({
             mode="single"
             selected={date}
             captionLayout="dropdown"
+            month={month}
+            onMonthChange={setMonth}
+            disabled={disabled}
             onSelect={(newDate) => {
               setDate(newDate);
               setInputValue(formatDate(newDate));
