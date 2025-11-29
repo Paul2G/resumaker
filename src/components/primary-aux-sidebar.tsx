@@ -6,10 +6,10 @@ export function PrimaryAuxSidebar() {
   return (
     <div className="flex flex-col gap-2 p-2 border-e">
       <Button variant="secondary" size="icon">
-        <RowsPlusBottomIcon />
+        <RowsPlusBottomIcon className="size-4.5" />
       </Button>
       <Button variant="ghost" size="icon">
-        <GearIcon />
+        <GearIcon className="size-4.5" />
       </Button>
     </div>
   );
