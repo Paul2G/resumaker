@@ -18,6 +18,10 @@ export const summarySchema = z.object({
   summary: z.string().optional(),
 });
 
+export const skillsSchema = z.object({
+  skills: z.string().optional(),
+});
+
 export const experienceItemSchema = z.object({
   id: z.uuid(),
   title: z.string().min(1),
