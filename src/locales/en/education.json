@@ -1,5 +1,6 @@
 {
   "title": "Education",
+  "description": "The education section on your resume outlines your academic background and qualifications, helping employers understand your foundational knowledge and suitability for the role.",
   "fields": {
     "title": "Degree",
     "organization": "Institution",

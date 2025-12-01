@@ -1,6 +1,6 @@
-import type { SectionKey } from '@/lib/types';
-
 import React, { createContext, useState } from 'react';
+
+import { SectionKey } from '@/lib/types';
 
 export const SecondarySidebarContext =
   createContext<SecondarySidebarProviderValue>({
@@ -11,7 +11,9 @@ export const SecondarySidebarContext =
 export function SecondarySidebarProvider({
   children,
 }: SecondarySidebarProviderProps) {
-  const [selectedSectionKey, setSelectedSectionKey] = useState<SectionKey>();
+  const [selectedSectionKey, setSelectedSectionKey] = useState<
+    SectionKey | undefined
+  >(SectionKey.ContactInfo);
 
   const [selectedItemId, setSelectedItemId] = useState<string>();
 

@@ -1,45 +1,14 @@
 import type { ResumeSection } from '@/lib/types';
-import type { Icon } from '@phosphor-icons/react';
 
-import {
-  AddressBookIcon,
-  ArchiveIcon,
-  ArticleMediumIcon,
-  BookBookmarkIcon,
-  BooksIcon,
-  BriefcaseIcon,
-  CertificateIcon,
-  FolderIcon,
-  GraduationCapIcon,
-  LightbulbIcon,
-  PlusIcon,
-} from '@phosphor-icons/react';
+import { PlusIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
 import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
-import { IterableSectionKey, SectionKey, StaticSectionKey } from '@/lib/types';
-
-const SectionIcon: Record<SectionKey, Icon> = {
-  [SectionKey.ContactInfo]: AddressBookIcon,
-  [SectionKey.Summary]: ArticleMediumIcon,
-  [SectionKey.Experience]: BriefcaseIcon,
-  [SectionKey.Education]: GraduationCapIcon,
-  [SectionKey.Projects]: ArchiveIcon,
-  [SectionKey.Certifications]: CertificateIcon,
-  [SectionKey.Courses]: BooksIcon,
-  [SectionKey.Skills]: LightbulbIcon,
-} as const;
-
-const SectionItemIcon: Record<IterableSectionKey, Icon> = {
-  [IterableSectionKey.Experience]: BriefcaseIcon,
-  [IterableSectionKey.Education]: GraduationCapIcon,
-  [IterableSectionKey.Projects]: FolderIcon,
-  [IterableSectionKey.Certifications]: CertificateIcon,
-  [IterableSectionKey.Courses]: BookBookmarkIcon,
-} as const;
+import { SectionIconMap, SectionItemIconMap } from '@/lib/icons-maps';
+import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
 
 export function SectionsList() {
   const {
@@ -56,10 +25,7 @@ export function SectionsList() {
     useSecondarySidebar();
 
   function onCreateNewItem(sectionKey: IterableSectionKey) {
-    const newItemId = crypto.randomUUID();
-
-    addSectionDataItem(sectionKey, {
-      id: newItemId,
+    const newItemId = addSectionDataItem(sectionKey, {
       title: t(`${sectionKey}:defaults.title`),
       organization: t(`${sectionKey}:defaults.organization`),
       visible: true,
@@ -88,11 +54,11 @@ export function SectionsList() {
   }
 
   function getSectionIcon(section: ResumeSection) {
-    return SectionIcon[section.key];
+    return SectionIconMap[section.key];
   }
 
   function getItemIcon(sectionKey: IterableSectionKey) {
-    return SectionItemIcon[sectionKey];
+    return SectionItemIconMap[sectionKey];
   }
 
   return (

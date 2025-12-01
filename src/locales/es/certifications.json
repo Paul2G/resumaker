@@ -1,5 +1,6 @@
 {
   "title": "Certificaciones",
+  "description": "La sección de certificaciones en tu currículum muestra las credenciales oficiales que has obtenido, demostrando tu experiencia en áreas específicas y reforzando tu credibilidad para el puesto.",
   "fields": {
     "title": "Título de certificación",
     "organization": "Organización emisora",

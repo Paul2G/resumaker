@@ -1,5 +1,6 @@
 {
   "title": "Certifications",
+  "description": "The certifications section on your résumé lists official credentials you’ve earned, proving your expertise in specific areas and strengthening your credibility for the position.",
   "fields": {
     "title": "Certification Title",
     "organization": "Issuing Organization",

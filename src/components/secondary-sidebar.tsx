@@ -5,6 +5,8 @@ import { EducationItemForm } from '@/components/forms/education-item-form';
 import { ExperienceItemForm } from '@/components/forms/experience-item-form';
 import { ProjectForm } from '@/components/forms/project-form';
 import { SummaryForm } from '@/components/forms/summary-form';
+import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
+import { Typography } from '@/components/ui/typography';
 import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
 import { SectionKey } from '@/lib/types';
 
@@ -32,18 +34,16 @@ export function SecondarySidebar() {
         return <ContactInfoForm />;
       case SectionKey.Summary:
         return <SummaryForm />;
-      case SectionKey.Experience:
-        return <span>Experience section</span>;
-      case SectionKey.Education:
-        return <span>Education section</span>;
+      case SectionKey.Skills:
+        return <Typography>Nada aqui</Typography>;
       default:
-        return <span>Nothing to see here</span>;
+        return <SecondarySidebarEmpty sectionKey={selectedSectionKey} />;
     }
   }
 
   return (
     <aside className="w-100 border-l p-4 overflow-y-auto">
-      {<FormSelector />}
+      <FormSelector />
     </aside>
   );
 }
