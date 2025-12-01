@@ -36,7 +36,7 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
   });
 
   function onSave(values: Project) {
-    updateSectionDataItem(IterableSectionKey.Education, values);
+    updateSectionDataItem(IterableSectionKey.Projects, values);
   }
 
   useFormSubmitter(form, onSave);
