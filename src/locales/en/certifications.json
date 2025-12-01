@@ -1,0 +1,24 @@
+{
+  "title": "Certifications",
+  "fields": {
+    "title": "Certification Title",
+    "organization": "Issuing Organization",
+    "issueDate": "Issue Date",
+    "expirationDate": "Expiration Date",
+    "credentialId": "Credential ID",
+    "credentialUrl": "Credential URL",
+    "description": "Description"
+  },
+  "placeholders": {
+    "title": "e.g. Certified Kubernetes Administrator",
+    "organization": "e.g. The Linux Foundation",
+    "issueDate": "DD/MM/YYYY",
+    "expirationDate": "DD/MM/YYYY",
+    "credentialId": "e.g. ABCD-1234-EFGH-5678",
+    "credentialUrl": "e.g. https://www.yourcert.com/verify/ABCD-1234-EFGH-5678",
+    "description": "Describe the certification and its relevance to your career."
+  },
+  "actions": {
+    "addItem": "Add Certification"
+  }
+}

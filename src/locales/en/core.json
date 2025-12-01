@@ -1,0 +1,9 @@
+{
+  "greeting": "Hello",
+  "sections": "Sections",
+  "documentSettings": "Document Settings",
+  "defaults": {
+    "title": "New entry",
+    "organization": "Somewhere Ltd."
+  }
+}

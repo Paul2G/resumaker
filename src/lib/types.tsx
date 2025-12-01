@@ -19,7 +19,7 @@ export enum IterableSectionKey {
 }
 
 export enum StaticSectionKey {
-  ContactInfo = 'contactInfo',
+  ContactInfo = 'contact',
   Summary = 'summary',
   Skills = 'skills',
 }

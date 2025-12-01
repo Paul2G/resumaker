@@ -1,0 +1,9 @@
+{
+  "greeting": "Hola",
+  "sections": "Secciones",
+  "documentSettings": "Configuración del documento",
+  "defaults": {
+    "title": "Nueva entrada",
+    "organization": "En algún lugar S.L."
+  }
+}

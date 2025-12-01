@@ -1,0 +1,9 @@
+{
+  "title": "Skills",
+  "fields": {
+    "skills": "Skills (comma separated)"
+  },
+  "placeholders": {
+    "skills": "e.g. JavaScript, React, Node.js"
+  }
+}

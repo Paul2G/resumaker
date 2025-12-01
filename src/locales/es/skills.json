@@ -1,0 +1,9 @@
+{
+  "title": "Habilidades",
+  "fields": {
+    "skills": "Habilidades (separadas por comas)"
+  },
+  "placeholders": {
+    "skills": "p.ej. JavaScript, Gestión de proyectos, Comunicación"
+  }
+}

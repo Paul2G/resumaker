@@ -3,6 +3,7 @@ import type { Project } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker } from '@/components/ui/date-picker';
 import {
@@ -21,6 +22,7 @@ import { projectSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
 export function ProjectForm({ itemId }: ProjectFormProps) {
+  const { t } = useTranslation();
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
@@ -47,9 +49,12 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project name</FormLabel>
+              <FormLabel>{t('projects:fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder="Software Engineer" {...field} />
+                <Input
+                  placeholder={t('projects:placeholders.title')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,9 +65,12 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Organization</FormLabel>
+              <FormLabel>{t('projects:fields.organization')}</FormLabel>
               <FormControl>
-                <Input placeholder="Microsoft" {...field} />
+                <Input
+                  placeholder={t('projects:placeholders.organization')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,9 +81,12 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
           name="startDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Start date</FormLabel>
+              <FormLabel>{t('projects:fields.startDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('projects:placeholders.startDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,9 +97,12 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
           name="endDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>End date</FormLabel>
+              <FormLabel>{t('projects:placeholders.endDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('projects:placeholders.endDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,10 +113,10 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
           name="link"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project link</FormLabel>
+              <FormLabel>{t('projects:fields.link')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="https://resumemaker.paul2g.dev"
+                  placeholder={t('projects:placeholders.link')}
                   {...field}
                 />
               </FormControl>
@@ -115,10 +129,10 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description about your activities</FormLabel>
+              <FormLabel>{t('projects:fields.description')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Description about your activities..."
+                  placeholder={t('projects:placeholders.description')}
                   {...field}
                 />
               </FormControl>

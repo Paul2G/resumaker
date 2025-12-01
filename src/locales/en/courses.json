@@ -1,0 +1,18 @@
+{
+  "title": "Courses",
+  "fields": {
+    "title": "Course Title",
+    "organization": "Organization",
+    "completionDate": "Completion Date",
+    "description": "Description"
+  },
+  "placeholders": {
+    "title": "e.g. Full-Stack Web Development Bootcamp",
+    "organization": "e.g. Online Academy",
+    "completionDate": "DD/MM/YYYY",
+    "description": "Describe the course content and skills acquired."
+  },
+  "actions": {
+    "addItem": "Add Course"
+  }
+}

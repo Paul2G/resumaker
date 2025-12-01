@@ -1,0 +1,24 @@
+{
+  "title": "Educación",
+  "fields": {
+    "title": "Grado",
+    "organization": "Institución",
+    "location": "Ubicación",
+    "completionDate": "Fecha de finalización",
+    "minor": "Menor",
+    "gpa": "GPA",
+    "description": "Descripción"
+  },
+  "placeholders": {
+    "title": "p.ej. Ingeniería en Sistemas",
+    "organization": "p.ej. Universidad Tecnológica",
+    "location": "p.ej. Ciudad de México, México",
+    "completionDate": "DD/MM/AAAA",
+    "minor": "p.ej. Ciencia de datos",
+    "gpa": "p.ej. 3.8/4.0",
+    "description": "Describe tus estudios y logros."
+  },
+  "actions": {
+    "addItem": "Agregar grado"
+  }
+}

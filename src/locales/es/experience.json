@@ -1,0 +1,23 @@
+{
+  "title": "Experiencia",
+  "fields": {
+    "title": "Título profesional",
+    "organization": "Organización",
+    "location": "Ubicación",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de finalización",
+    "isCurrentlyWorkingHere": "Actualmente trabajo aquí",
+    "description": "Descripción"
+  },
+  "placeholders": {
+    "title": "p.ej. Ingeniero de software",
+    "organization": "p.ej Tech Company Inc.",
+    "location": "p.ej. Los Ángeles, CA",
+    "startDate": "DD/MM/YYYY",
+    "endDate": "DD/MM/YYYY",
+    "description": "Describe tu función y tus logros (preferiblemente en viñetas)"
+  },
+  "actions": {
+    "addItem": "Agregar experiencia"
+  }
+}

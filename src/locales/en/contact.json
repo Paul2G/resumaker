@@ -1,0 +1,19 @@
+{
+  "title": "Contact info",
+  "fields": {
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "phoneNumber": "Phone Number",
+    "address": "Address",
+    "linkedin": "LinkedIn",
+    "website": "Website"
+  },
+  "placeholders": {
+    "fullName": "e.g. John Doe",
+    "emailAddress": "e.g. example@mail.com",
+    "phoneNumber": "e.g. +1 234 567 8900",
+    "address": "e.g. 123 Main St, City, Country",
+    "linkedin": "e.g. yourprofile",
+    "website": "e.g. https://www.yourwebsite.com"
+  }
+}

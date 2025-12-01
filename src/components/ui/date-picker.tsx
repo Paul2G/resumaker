@@ -33,7 +33,6 @@ export function DatePicker({
     <div className={cn('relative w-full', className)}>
       <Input
         value={inputValue}
-        placeholder="01/01/2025"
         className="bg-background pr-10"
         disabled={disabled}
         onChange={(e) => {

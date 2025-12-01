@@ -3,6 +3,7 @@ import type { Certification } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker } from '@/components/ui/date-picker';
 import {
@@ -21,6 +22,7 @@ import { certificationSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
 export function CertificationForm({ itemId }: CertificationFormProps) {
+  const { t } = useTranslation();
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
@@ -39,6 +41,8 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
 
   useFormSubmitter(form, onSave);
 
+  console.log(certificationSchema);
+
   return (
     <Form {...form}>
       <form className={'space-y-4'}>
@@ -47,9 +51,12 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Certification name</FormLabel>
+              <FormLabel>{t('certifications:fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder="Data Science with Python" {...field} />
+                <Input
+                  placeholder={t('certifications:placeholders.title')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,9 +67,12 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Institution</FormLabel>
+              <FormLabel>{t('certifications:fields.organization')}</FormLabel>
               <FormControl>
-                <Input placeholder="Meta" {...field} />
+                <Input
+                  placeholder={t('certifications:placeholders.organization')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,9 +83,12 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="issueDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Issue date</FormLabel>
+              <FormLabel>{t('certifications:fields.issueDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('certifications:placeholders.issueDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,9 +99,12 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="expirationDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Expiration date</FormLabel>
+              <FormLabel>{t('certifications:fields.expirationDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('certifications:placeholders.expirationDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,10 +115,10 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="credentialId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Credential ID</FormLabel>
+              <FormLabel>{t('certifications:fields.credentialId')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="f7acb5c3-d17b-4fa5-81df-a35150fddec3"
+                  placeholder={t('certifications:placeholders.credentialId')}
                   {...field}
                 />
               </FormControl>
@@ -115,10 +131,10 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="credentialUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Credential URL</FormLabel>
+              <FormLabel>{t('certifications:fields.credentialUrl')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="https://coursera.org/verify/professional-cert/1DIP3IC7DHMO"
+                  placeholder={t('certifications:placeholders.credentialUrl')}
                   {...field}
                 />
               </FormControl>
@@ -131,10 +147,10 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Certification relevance</FormLabel>
+              <FormLabel>{t('certifications:fields.description')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Describe what you learned and achieved with this certification..."
+                  placeholder={t('certifications:placeholders.description')}
                   {...field}
                 />
               </FormControl>

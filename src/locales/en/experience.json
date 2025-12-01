@@ -1,0 +1,23 @@
+{
+  "title": "Experience",
+  "fields": {
+    "title": "Job Title",
+    "organization": "Organization",
+    "location": "Location",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "isCurrentlyWorkingHere": "I currently work here",
+    "description": "Description"
+  },
+  "placeholders": {
+    "title": "e.g. Software Engineer",
+    "organization": "e.g. Tech Company Inc.",
+    "location": "e.g. New York, NY",
+    "startDate": "DD/MM/YYYY",
+    "endDate": "DD/MM/YYYY",
+    "description": "Describe your role and achievements (preferably in bullet points)"
+  },
+  "actions": {
+    "addItem": "Add Experience"
+  }
+}

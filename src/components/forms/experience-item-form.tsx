@@ -3,6 +3,7 @@ import type { ExperienceItem } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker } from '@/components/ui/date-picker';
 import {
@@ -22,6 +23,7 @@ import { experienceItemSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
 export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
+  const { t } = useTranslation();
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
@@ -48,9 +50,9 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Job title</FormLabel>
+              <FormLabel>{t('experience:fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder="Software Engineer" {...field} />
+                <Input placeholder={t('experience:fields.title')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,9 +63,12 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Company name</FormLabel>
+              <FormLabel>{t('experience:fields.organization')}</FormLabel>
               <FormControl>
-                <Input placeholder="Microsoft" {...field} />
+                <Input
+                  placeholder={t('experience:placeholders.organization')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,9 +79,12 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Location</FormLabel>
+              <FormLabel>{t('experience:fields.location')}</FormLabel>
               <FormControl>
-                <Input placeholder="Tijuana, BC, Mexico" {...field} />
+                <Input
+                  placeholder={t('experience:placeholders.location')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,9 +95,12 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="startDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Start date</FormLabel>
+              <FormLabel>{t('experience:fields.startDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('experience:placeholders.startDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -100,7 +111,9 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="isCurrentlyWorkingHere"
           render={({ field }) => (
             <FormItem className="flex flex-row justify-between">
-              <FormLabel>Currently working here</FormLabel>
+              <FormLabel>
+                {t('experience:fields.isCurrentlyWorkingHere')}
+              </FormLabel>
               <FormControl>
                 <Switch
                   checked={Boolean(field.value)}
@@ -115,9 +128,10 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="endDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>End date</FormLabel>
+              <FormLabel>{t('experience:fields.endDate')}</FormLabel>
               <FormControl>
                 <DatePicker
+                  placeholder={t('experience:placeholders.endDate')}
                   disabled={form.getValues('isCurrentlyWorkingHere')}
                   {...field}
                 />
@@ -131,9 +145,12 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Position activities</FormLabel>
+              <FormLabel>{t('experience:fields.description')}</FormLabel>
               <FormControl>
-                <Textarea placeholder="Your responsabilities" {...field} />
+                <Textarea
+                  placeholder={t('experience:placeholders.description')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,0 +1,18 @@
+{
+  "title": "Cursos",
+  "fields": {
+    "title": "Título del curso",
+    "organization": "Organización",
+    "completionDate": "Fecha de finalización",
+    "description": "Descripción"
+  },
+  "placeholders": {
+    "title": "p.ej. Introducción a la Inteligencia Artificial",
+    "organization": "p.ej. LinkedIn Learning",
+    "completionDate": "DD/MM/AAAA",
+    "description": "Describir el contenido del curso y las habilidades adquiridas."
+  },
+  "actions": {
+    "addItem": "Agregar curso"
+  }
+}

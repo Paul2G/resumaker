@@ -1,0 +1,22 @@
+{
+  "title": "Proyectos",
+  "fields": {
+    "title": "Título del proyecto",
+    "organization": "Organización",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de finalización",
+    "description": "Descripción",
+    "link": "Enlace del proyecto"
+  },
+  "placeholders": {
+    "title": "p.ej. Aplicación de gestión de tareas",
+    "organization": "p.ej. Hospital XYZ",
+    "startDate": "DD/MM/AAAA",
+    "endDate": "DD/MM/AAAA",
+    "description": "Describe el proyecto, las herramientas utilizadas, tu rol y logros relevantes.",
+    "link": "p.ej. https://www.proyectaso.com"
+  },
+  "actions": {
+    "addItem": "Agregar proyecto"
+  }
+}

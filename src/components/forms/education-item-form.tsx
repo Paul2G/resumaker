@@ -3,6 +3,7 @@ import type { EducationItem } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker } from '@/components/ui/date-picker';
 import {
@@ -21,6 +22,7 @@ import { educationItemSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
 export function EducationItemForm({ itemId }: EducationItemFormProps) {
+  const { t } = useTranslation();
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
@@ -47,9 +49,12 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Degree</FormLabel>
+              <FormLabel>{t('education:fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder="Software Engineer" {...field} />
+                <Input
+                  placeholder={t('education:placeholders.title')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,9 +65,12 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Institution</FormLabel>
+              <FormLabel>{t('education:fields.organization')}</FormLabel>
               <FormControl>
-                <Input placeholder="University of..." {...field} />
+                <Input
+                  placeholder={t('education:placeholders.organization')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,9 +81,12 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Location</FormLabel>
+              <FormLabel>{t('education:fields.location')}</FormLabel>
               <FormControl>
-                <Input placeholder="Tijuana, B.C., Mexico" {...field} />
+                <Input
+                  placeholder={t('education:placeholders.location')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,9 +97,12 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="completionDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Completion date</FormLabel>
+              <FormLabel>{t('courses:fields.completionDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('courses:placeholders.completionDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,9 +113,9 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="minor"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Minor</FormLabel>
+              <FormLabel>{t('education:fields.minor')}</FormLabel>
               <FormControl>
-                <Input placeholder="Data Science" {...field} />
+                <Input placeholder={t('education:fields.minor')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,9 +126,12 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="gpa"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>GPA</FormLabel>
+              <FormLabel>{t('education:fields.gpa')}</FormLabel>
               <FormControl>
-                <Input placeholder="4.0" {...field} />
+                <Input
+                  placeholder={t('education:placeholders.gpa')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -125,10 +142,10 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Relevant course work</FormLabel>
+              <FormLabel>{t('education:fields.description')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Share relevant information about why your degree worth."
+                  placeholder={t('education:placeholders.description')}
                   {...field}
                 />
               </FormControl>

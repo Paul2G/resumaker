@@ -1,0 +1,24 @@
+{
+  "title": "Education",
+  "fields": {
+    "title": "Degree",
+    "organization": "Institution",
+    "location": "Location",
+    "completionDate": "Completion Date",
+    "minor": "Minor",
+    "gpa": "GPA",
+    "description": "Description"
+  },
+  "placeholders": {
+    "title": "e.g. Bachelor of Science in Computer Science",
+    "organization": "e.g. University of Technology",
+    "location": "e.g. Boston, MA",
+    "completionDate": "DD/MM/YYYY",
+    "minor": "e.g. Mathematics",
+    "gpa": "e.g. 3.8/4.0",
+    "description": "Describe your studies and achievements."
+  },
+  "actions": {
+    "addItem": "Add Degree"
+  }
+}

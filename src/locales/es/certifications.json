@@ -1,0 +1,24 @@
+{
+  "title": "Certificaciones",
+  "fields": {
+    "title": "Título de certificación",
+    "organization": "Organización emisora",
+    "issueDate": "Fecha de asunto",
+    "expirationDate": "Fecha de expiración",
+    "credentialId": "ID de credencial",
+    "credentialUrl": "URL de credencial",
+    "description": "Descripción"
+  },
+  "placeholders": {
+    "title": "p.ej. Certificación Profesional de Diseño UX",
+    "organization": "p.ej. Google",
+    "issueDate": "DD/MM/AAAA",
+    "expirationDate": "DD/MM/AAAA",
+    "credentialId": "p.ej. ABCD-1234-EFGH-5678",
+    "credentialUrl": "p.ej. https://www.yourcert.com/verify/ABCD-1234-EFGH-5678",
+    "description": "Describe la certificación y su relevancia para tu carrera."
+  },
+  "actions": {
+    "addItem": "Agregar certificación"
+  }
+}

@@ -3,6 +3,7 @@ import type { Certification } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker } from '@/components/ui/date-picker';
 import {
@@ -21,6 +22,7 @@ import { courseSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
 
 export function CourseForm({ itemId }: CourseFormProps) {
+  const { t } = useTranslation();
   const { getSectionDataItem, updateSectionDataItem } = useResume();
 
   const defaultValues = useMemo(
@@ -47,9 +49,12 @@ export function CourseForm({ itemId }: CourseFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Course name</FormLabel>
+              <FormLabel>{t('courses:fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder="Java Backend Bootcamp" {...field} />
+                <Input
+                  placeholder={t('courses:placeholders.title')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,9 +65,12 @@ export function CourseForm({ itemId }: CourseFormProps) {
           name="organization"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Institution</FormLabel>
+              <FormLabel>{t('courses:fields.organization')}</FormLabel>
               <FormControl>
-                <Input placeholder="Platzi" {...field} />
+                <Input
+                  placeholder={t('courses:placeholders.organization')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,9 +81,12 @@ export function CourseForm({ itemId }: CourseFormProps) {
           name="completionDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Completion date</FormLabel>
+              <FormLabel>{t('courses:fields.completionDate')}</FormLabel>
               <FormControl>
-                <DatePicker {...field} />
+                <DatePicker
+                  placeholder={t('courses:placeholders.completionDate')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,10 +97,10 @@ export function CourseForm({ itemId }: CourseFormProps) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Course relevance</FormLabel>
+              <FormLabel>{t('courses:fields.description')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Describe what you learned and achieved with this course..."
+                  placeholder={t('courses:placeholders.description')}
                   {...field}
                 />
               </FormControl>

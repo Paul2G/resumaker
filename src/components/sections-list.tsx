@@ -1,4 +1,4 @@
-import type { ResumeSection, SectionKey } from '@/lib/types';
+import type { ResumeSection } from '@/lib/types';
 import type { Icon } from '@phosphor-icons/react';
 
 import {
@@ -12,46 +12,33 @@ import {
   FolderIcon,
   GraduationCapIcon,
   LightbulbIcon,
-  MedalIcon,
-  NewspaperClippingIcon,
   PlusIcon,
-  ScrollIcon,
 } from '@phosphor-icons/react';
+import { useTranslation } from 'react-i18next';
 
 import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
 import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
-import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
-
-const titles: Record<SectionKey, string> = {
-  certifications: 'Certifications',
-  courses: 'Courses',
-  education: 'Education',
-  experience: 'Experience',
-  projects: 'Projects',
-  skills: 'Skills',
-  summary: 'Summary',
-  contactInfo: 'Contact Info',
-};
+import { IterableSectionKey, SectionKey, StaticSectionKey } from '@/lib/types';
 
 const SectionIcon: Record<SectionKey, Icon> = {
-  contactInfo: AddressBookIcon,
-  summary: ArticleMediumIcon,
-  experience: BriefcaseIcon,
-  education: GraduationCapIcon,
-  projects: ArchiveIcon,
-  certifications: CertificateIcon,
-  courses: BooksIcon,
-  skills: LightbulbIcon,
+  [SectionKey.ContactInfo]: AddressBookIcon,
+  [SectionKey.Summary]: ArticleMediumIcon,
+  [SectionKey.Experience]: BriefcaseIcon,
+  [SectionKey.Education]: GraduationCapIcon,
+  [SectionKey.Projects]: ArchiveIcon,
+  [SectionKey.Certifications]: CertificateIcon,
+  [SectionKey.Courses]: BooksIcon,
+  [SectionKey.Skills]: LightbulbIcon,
 } as const;
 
 const SectionItemIcon: Record<IterableSectionKey, Icon> = {
-  experience: NewspaperClippingIcon,
-  education: ScrollIcon,
-  projects: FolderIcon,
-  certifications: MedalIcon,
-  courses: BookBookmarkIcon,
+  [IterableSectionKey.Experience]: BriefcaseIcon,
+  [IterableSectionKey.Education]: GraduationCapIcon,
+  [IterableSectionKey.Projects]: FolderIcon,
+  [IterableSectionKey.Certifications]: CertificateIcon,
+  [IterableSectionKey.Courses]: BookBookmarkIcon,
 } as const;
 
 export function SectionsList() {
@@ -64,6 +51,7 @@ export function SectionsList() {
     removeSectionDataItem,
     setSectionDataItemVisibility,
   } = useResume();
+  const { t } = useTranslation();
   const { selectedSectionKey, selectedItemId, setSidebarContent } =
     useSecondarySidebar();
 
@@ -72,8 +60,8 @@ export function SectionsList() {
 
     addSectionDataItem(sectionKey, {
       id: newItemId,
-      title: 'New entry',
-      organization: 'Somewhere',
+      title: t(`${sectionKey}:defaults.title`),
+      organization: t(`${sectionKey}:defaults.organization`),
       visible: true,
     });
 
@@ -87,7 +75,7 @@ export function SectionsList() {
   }
 
   function getSectionTitle(section: ResumeSection) {
-    return <b className="font-semibold">{titles[section.key]}</b>;
+    return <b className="font-semibold">{t(`${section.key}:title`)}</b>;
   }
 
   function getItemTitle(item: { title: string; organization: string }) {
@@ -152,7 +140,7 @@ export function SectionsList() {
               onClick={() => onCreateNewItem(section.key)}
             >
               <PlusIcon className="size-4 ms-5.5" />
-              Add new
+              {t(`${section.key}:actions.addItem`)}
             </Button>
           </>
         )

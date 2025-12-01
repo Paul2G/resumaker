@@ -1,0 +1,22 @@
+{
+  "title": "Projects",
+  "fields": {
+    "title": "Project Title",
+    "organization": "Organization",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "description": "Description",
+    "link": "Project Link"
+  },
+  "placeholders": {
+    "title": "e.g. Personal Portfolio Website",
+    "organization": "e.g. Self-initiated",
+    "startDate": "DD/MM/YYYY",
+    "endDate": "DD/MM/YYYY",
+    "description": "Describe the project, tools used, your role and relevant achievements.",
+    "link": "e.g. https://www.yourprojectlink.com"
+  },
+  "actions": {
+    "addItem": "Add Project"
+  }
+}

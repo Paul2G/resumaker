@@ -3,6 +3,7 @@ import type { ContactInfo } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import {
   Form,
@@ -24,6 +25,7 @@ import { contactInfoSchema } from '@/lib/schemas';
 import { StaticSectionKey } from '@/lib/types';
 
 export function ContactInfoForm() {
+  const { t } = useTranslation();
   const { getSectionData, setSectionData } = useResume();
 
   const defaultValues = useMemo(
@@ -48,9 +50,12 @@ export function ContactInfoForm() {
           name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full name</FormLabel>
+              <FormLabel>{t('contact:fields.fullName')}</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input
+                  placeholder={t('contact:placeholders.fullName')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,9 +66,12 @@ export function ContactInfoForm() {
           name="emailAddress"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel>{t('contact:fields.emailAddress')}</FormLabel>
               <FormControl>
-                <Input placeholder="example@email.com" {...field} />
+                <Input
+                  placeholder={t('contact:placeholders.emailAddress')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -74,9 +82,12 @@ export function ContactInfoForm() {
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone number</FormLabel>
+              <FormLabel>{t('contact:fields.phoneNumber')}</FormLabel>
               <FormControl>
-                <Input placeholder="+526641234567" {...field} />
+                <Input
+                  placeholder={t('contact:placeholders.phoneNumber')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -87,10 +98,10 @@ export function ContactInfoForm() {
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address</FormLabel>
+              <FormLabel>{t('contact:fields.address')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Tijuana, Baja California, México"
+                  placeholder={t('contact:placeholders.address')}
                   {...field}
                 />
               </FormControl>
@@ -103,14 +114,14 @@ export function ContactInfoForm() {
           name="linkedin"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Linkedin URL</FormLabel>
+              <FormLabel>{t('contact:fields.linkedin')}</FormLabel>
               <FormControl>
                 <InputGroup>
                   <InputGroupAddon>
                     <InputGroupText>https://linkedin.com/in/</InputGroupText>
                   </InputGroupAddon>
                   <InputGroupInput
-                    placeholder="Paul2G"
+                    placeholder={t('contact:placeholders.linkedin')}
                     className="!pl-0.5"
                     {...field}
                   />
@@ -125,9 +136,12 @@ export function ContactInfoForm() {
           name="website"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Website</FormLabel>
+              <FormLabel>{t('contact:fields.website')}</FormLabel>
               <FormControl>
-                <Input placeholder="paul2g.dev" {...field} />
+                <Input
+                  placeholder={t('contact:placeholders.website')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
