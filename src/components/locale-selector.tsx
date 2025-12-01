@@ -1,14 +1,15 @@
 import type { ProjectLocale } from '@/lib/locales';
 
 import { useMemo, useState } from 'react';
-import { CaretDownIcon } from '@phosphor-icons/react';
+import { TranslateIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -16,7 +17,6 @@ import {
   setLocaleInDocument,
   setUserLocalePreference,
 } from '@/lib/locales';
-import { cn } from '@/lib/utils';
 
 export function LocaleSelector() {
   const { i18n } = useTranslation();
@@ -36,23 +36,23 @@ export function LocaleSelector() {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <span>{selectedLocale.languageLabel}</span>
-          <CaretDownIcon
-            weight="bold"
-            className={cn('transition-transform', isOpen && 'rotate-180')}
-          />
+        <Button variant="outline" size="icon">
+          <TranslateIcon />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {projectLocales.map((locale) => (
-          <DropdownMenuItem
-            key={locale.key}
-            onClick={() => selectLocale(locale)}
-          >
-            {locale.languageLabel}
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenuRadioGroup
+          value={selectedLocale.key}
+          onValueChange={(value) =>
+            selectLocale(projectLocales.find((locale) => locale.key === value)!)
+          }
+        >
+          {projectLocales.map((locale) => (
+            <DropdownMenuRadioItem value={locale.key} key={locale.key}>
+              {locale.languageLabel}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

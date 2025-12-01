@@ -5,5 +5,13 @@
   "defaults": {
     "title": "Nueva entrada",
     "organization": "En algún lugar S.L."
+  },
+  "themes": {
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "actions": {
+    "toggleTheme": "Cambiar tema"
   }
 }

@@ -5,5 +5,13 @@
   "defaults": {
     "title": "New entry",
     "organization": "Somewhere Ltd."
+  },
+  "themes": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "actions": {
+    "toggleTheme": "Toggle Theme"
   }
 }
