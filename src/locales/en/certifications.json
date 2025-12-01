@@ -21,5 +21,8 @@
   },
   "actions": {
     "addItem": "Add Certification"
+  },
+  "item": {
+    "title": "Certification"
   }
 }

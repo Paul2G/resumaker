@@ -2,5 +2,8 @@
   "title": "Professional Summary",
   "fields": {
     "summary": "Summary"
+  },
+  "placeholders": {
+    "summary": "A brief summary of your professional background and key skills."
   }
 }

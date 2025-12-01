@@ -3,6 +3,7 @@ import type { Summary } from '@/lib/types';
 import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import {
   Form,
@@ -18,6 +19,7 @@ import { summarySchema } from '@/lib/schemas';
 import { SectionKey } from '@/lib/types';
 
 export function SummaryForm() {
+  const { t } = useTranslation();
   const { getSectionData, setSectionData } = useResume();
 
   const defaultValues = useMemo(() => getSectionData(SectionKey.Summary), []);
@@ -39,9 +41,12 @@ export function SummaryForm() {
           name="summary"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Summary</FormLabel>
+              <FormLabel>{t('summary:fields.summary')}</FormLabel>
               <FormControl>
-                <Textarea placeholder="Write about your career" {...field} />
+                <Textarea
+                  placeholder={t('summary:placeholders.summary')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

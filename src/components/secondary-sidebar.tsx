@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 import { CertificationForm } from '@/components/forms/certification-form';
 import { ContactInfoForm } from '@/components/forms/contact-info-form';
 import { CourseForm } from '@/components/forms/course-form';
 import { EducationItemForm } from '@/components/forms/education-item-form';
 import { ExperienceItemForm } from '@/components/forms/experience-item-form';
 import { ProjectForm } from '@/components/forms/project-form';
+import { SkillsForm } from '@/components/forms/skills-form';
 import { SummaryForm } from '@/components/forms/summary-form';
 import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { Typography } from '@/components/ui/typography';
@@ -11,6 +14,7 @@ import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
 import { SectionKey } from '@/lib/types';
 
 export function SecondarySidebar() {
+  const { t } = useTranslation();
   const { selectedSectionKey, selectedItemId } = useSecondarySidebar();
 
   function FormSelector() {
@@ -35,7 +39,7 @@ export function SecondarySidebar() {
       case SectionKey.Summary:
         return <SummaryForm />;
       case SectionKey.Skills:
-        return <Typography>Nada aqui</Typography>;
+        return <SkillsForm />;
       default:
         return <SecondarySidebarEmpty sectionKey={selectedSectionKey} />;
     }
@@ -43,6 +47,15 @@ export function SecondarySidebar() {
 
   return (
     <aside className="w-100 border-l p-4 overflow-y-auto">
+      {selectedItemId ? (
+        <Typography variant="h4" className="mb-4">
+          {t(`${selectedSectionKey}:item.title`)}
+        </Typography>
+      ) : (
+        <Typography variant="h4" className="mb-4">
+          {t(`${selectedSectionKey}:title`)}
+        </Typography>
+      )}
       <FormSelector />
     </aside>
   );

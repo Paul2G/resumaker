@@ -21,5 +21,8 @@
   },
   "actions": {
     "addItem": "Add Degree"
+  },
+  "item": {
+    "title": "Degree"
   }
 }

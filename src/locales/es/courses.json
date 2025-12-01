@@ -2,7 +2,7 @@
   "title": "Cursos",
   "description": "La sección de cursos en tu currículum destaca la formación adicional que has completado, mostrando a los empleadores tu compromiso con el aprendizaje continuo y la ampliación de tus habilidades profesionales.",
   "fields": {
-    "title": "Título del curso",
+    "title": "Nombre del curso",
     "organization": "Organización",
     "completionDate": "Fecha de finalización",
     "description": "Descripción"
@@ -15,5 +15,8 @@
   },
   "actions": {
     "addItem": "Agregar curso"
+  },
+  "item": {
+    "title": "Curso"
   }
 }

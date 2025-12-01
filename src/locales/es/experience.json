@@ -2,7 +2,7 @@
   "title": "Experiencia",
   "description": "La sección de experiencia en tu currículum muestra tus roles, responsabilidades y logros anteriores, demostrando a los empleadores cómo tu trayectoria te prepara para tener éxito en el puesto.",
   "fields": {
-    "title": "Título profesional",
+    "title": "Posición",
     "organization": "Organización",
     "location": "Ubicación",
     "startDate": "Fecha de inicio",
@@ -20,5 +20,8 @@
   },
   "actions": {
     "addItem": "Agregar experiencia"
+  },
+  "item": {
+    "title": "Empleo"
   }
 }

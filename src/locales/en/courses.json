@@ -2,7 +2,7 @@
   "title": "Courses",
   "description": "The courses section on a résumé highlights additional training you’ve completed, showing employers your commitment to continuous learning and expanding your professional skills.",
   "fields": {
-    "title": "Course Title",
+    "title": "Course Name",
     "organization": "Organization",
     "completionDate": "Completion Date",
     "description": "Description"
@@ -15,5 +15,8 @@
   },
   "actions": {
     "addItem": "Add Course"
+  },
+  "item": {
+    "title": "Course"
   }
 }

@@ -56,7 +56,8 @@ export function SecondarySidebarEmpty({
     );
   }
 
-  return <div>Nada aqui</div>;
+  // This should never happen, but maybe in the future so return a fallback UI
+  return <div>Nada aqui aun</div>;
 }
 
 export type SecondarySidebarEmptyProps = {
