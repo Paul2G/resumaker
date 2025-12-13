@@ -1,5 +1,6 @@
 import type { ResumeSection } from '@/lib/types';
 
+import { useEffect } from 'react';
 import { PlusIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +13,7 @@ import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
 
 export function SectionsList() {
   const {
+    id: resumeId,
     sections,
     setSections,
     setSectionVisibility,
@@ -21,8 +23,12 @@ export function SectionsList() {
     setSectionDataItemVisibility,
   } = useResume();
   const { t } = useTranslation();
-  const { selectedSectionKey, selectedItemId, setSidebarContent } =
-    useSecondarySidebar();
+  const {
+    selectedSectionKey,
+    selectedItemId,
+    setSidebarContent,
+    clearSidebarContent,
+  } = useSecondarySidebar();
 
   function onCreateNewItem(sectionKey: IterableSectionKey) {
     const newItemId = addSectionDataItem(sectionKey, {
@@ -60,6 +66,10 @@ export function SectionsList() {
   function getItemIcon(sectionKey: IterableSectionKey) {
     return SectionItemIconMap[sectionKey];
   }
+
+  useEffect(() => {
+    clearSidebarContent();
+  }, [resumeId]);
 
   return (
     <SortableTreeList
