@@ -4,7 +4,12 @@ import { SectionKey } from '@/lib/types';
 
 export const defaultResume: Resume = {
   id: '1',
-  title: 'New Resume',
+  name: 'New Resume',
+  config: {
+    pageSize: 'A4',
+    margin: 20,
+    font: 'Arial',
+  },
   sections: [
     {
       key: SectionKey.ContactInfo,

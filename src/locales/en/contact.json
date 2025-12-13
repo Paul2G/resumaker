@@ -13,7 +13,7 @@
     "emailAddress": "e.g. example@mail.com",
     "phoneNumber": "e.g. +1 234 567 8900",
     "address": "e.g. 123 Main St, City, Country",
-    "linkedin": "e.g. yourprofile",
+    "linkedin": "yourprofile",
     "website": "e.g. https://www.yourwebsite.com"
   }
 }

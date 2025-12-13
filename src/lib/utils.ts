@@ -1,10 +1,9 @@
-import type { Resume } from '@/lib/types';
 import type { ClassValue } from 'clsx';
 
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { defaultResume } from '@/lib/data';
+export const CURRENT_APP_VERSION = '1.0.0';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,12 +13,10 @@ export function isStringValid(value: string | undefined): boolean {
   return value !== undefined && value.trim() !== '';
 }
 
-export function saveResumeOnLocalStorage(resume: Resume) {
-  localStorage.setItem('resume', JSON.stringify(resume));
-}
+export function stringTruncate(s: string, len: number = 20) {
+  if (s.length > len) {
+    return s.slice(0, len - 3) + '...';
+  }
 
-export function loadResumeFromLocalStorage(): Resume {
-  const storedResume = localStorage.getItem('resume');
-
-  return storedResume ? JSON.parse(storedResume) : defaultResume;
+  return s;
 }

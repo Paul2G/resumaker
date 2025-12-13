@@ -12,6 +12,11 @@
     "system": "System"
   },
   "actions": {
-    "toggleTheme": "Toggle Theme"
+    "toggleTheme": "Toggle Theme",
+    "createNewResume": "New Resume",
+    "selectResume": "Select Resume"
+  },
+  "labels": {
+      "allResumes": "All Resumes"
   }
 }

@@ -12,6 +12,11 @@
     "system": "Sistema"
   },
   "actions": {
-    "toggleTheme": "Cambiar tema"
+    "toggleTheme": "Cambiar tema",
+    "createNewResume": "Nuevo currículum",
+    "selectResume": "Seleccionar currículum"
+  },
+  "labels": {
+    "allResumes": "Todos los currículums"
   }
 }

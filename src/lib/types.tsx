@@ -105,20 +105,23 @@ export type ResumeSection<K = SectionKey> = {
   | SkillsSection
 );
 
-export type SectionDataItem =
-  | EducationItem
-  | ExperienceItem
-  | Project
-  | Course
-  | Certification;
-
-export type AppData = {
-  resumes: Resume[];
-  version: string;
-};
-
 export type Resume = {
   id: string;
-  title: string;
+  name: string;
+  config: {
+    pageSize: 'A4' | 'Letter';
+    margin: number;
+    font: 'Arial' | 'Times New Roman' | 'Calibri' | 'Georgia';
+  };
   sections: ResumeSection[];
+};
+
+export type ResumeIndex = {
+  id: string;
+  name: string;
+};
+
+export type AppData = {
+  resumes: ResumeIndex[];
+  version: string;
 };
