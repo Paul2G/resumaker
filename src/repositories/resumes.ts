@@ -1,21 +1,27 @@
-import type { Resume, ResumeIndex } from '@/lib/types';
+import type { AppData, Resume } from '@/lib/types';
 
 import { CURRENT_APP_VERSION } from '@/lib/utils';
 
-export function saveResumesIndex(resumes: ResumeIndex[]) {
+export function saveAppData(appData: AppData) {
   localStorage.setItem(
     'app_data',
     JSON.stringify({
-      resumes: resumes.map(({ id, name }) => ({ id, name })),
+      resumes: appData.resumes.map(({ id, name }) => ({ id, name })),
+      selectedResumeId: appData.selectedResumeId,
       version: CURRENT_APP_VERSION,
     }),
   );
 }
 
-export function loadResumesIndex(): ResumeIndex[] {
+export function loadAppData() {
   const storedAppData = localStorage.getItem('app_data');
 
-  return storedAppData ? JSON.parse(storedAppData).resumes : [];
+  return storedAppData
+    ? JSON.parse(storedAppData)
+    : {
+        resumes: [],
+        version: CURRENT_APP_VERSION,
+      };
 }
 
 export function saveResume(resume: Resume) {

@@ -1,15 +1,9 @@
-import type { Resume, ResumeIndex } from '@/lib/types';
+import type { AppData, Resume, ResumeIndex } from '@/lib/types';
 
 import { createContext, useEffect, useState } from 'react';
 
 import { defaultResume } from '@/lib/data';
-import {
-  deleteResume,
-  loadResume,
-  loadResumesIndex,
-  saveResume,
-  saveResumesIndex,
-} from '@/repositories/resumes';
+import { deleteResume, loadResume, saveResume } from '@/repositories/resumes';
 
 export const ResumesIndexContext = createContext<ResumesIndexProviderValue>({
   resumes: [],
@@ -19,10 +13,16 @@ export const ResumesIndexContext = createContext<ResumesIndexProviderValue>({
   updateResume: () => {},
 });
 
-export function ResumesIndexProvider({ children }: ResumesIndexProviderProps) {
-  const [resumes, setResumes] = useState(loadResumesIndex() ?? []);
-  const [selectedResumeId, setSelectedResumeId] = useState<string>();
-  const [currentResume, setCurrentResume] = useState<Resume>();
+export function ResumesIndexProvider({
+  appData,
+  onSaveAppData,
+  children,
+}: ResumesIndexProviderProps) {
+  const [resumes, setResumes] = useState(appData.resumes);
+  const [selectedResumeId, setSelectedResumeId] = useState<string | undefined>(
+    appData?.selectedResumeId,
+  );
+  const [currentResume, setCurrentResume] = useState<Resume | undefined>();
 
   function setSelectedResume(resumeId: string) {
     const isResumeIndexed = resumes.some((resume) => resume.id === resumeId);
@@ -78,8 +78,11 @@ export function ResumesIndexProvider({ children }: ResumesIndexProviderProps) {
   }
 
   useEffect(() => {
-    saveResumesIndex(resumes);
-  }, [resumes]);
+    onSaveAppData({
+      resumes,
+      selectedResumeId,
+    });
+  }, [resumes, selectedResumeId]);
 
   useEffect(() => {
     if (selectedResumeId) {
@@ -126,6 +129,8 @@ export type ResumesIndexProviderValue = {
 };
 
 export type ResumesIndexProviderProps = {
+  appData: AppData;
+  onSaveAppData: (appData: AppData) => void;
   children:
     | React.ReactNode
     | ((args: ResumesIndexProviderValue) => React.ReactNode);

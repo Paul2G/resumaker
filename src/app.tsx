@@ -11,11 +11,13 @@ import { PrimaryHeader } from '@/components/primary-header';
 import { PrimarySidebar } from '@/components/primary-sidebar';
 import { SecondarySidebar } from '@/components/secondary-sidebar';
 import { getUserLocalePreference, setLocaleInDocument } from '@/lib/locales';
+import { loadAppData, saveAppData } from '@/repositories/resumes';
 
 function App() {
   const { i18n } = useTranslation();
 
   const loadedLocale = getUserLocalePreference();
+  const loadedAppData = loadAppData();
 
   useEffect(() => {
     i18n.changeLanguage(loadedLocale.language).then();
@@ -24,7 +26,7 @@ function App() {
 
   return (
     <ThemeProvider>
-      <ResumesIndexProvider>
+      <ResumesIndexProvider appData={loadedAppData} onSaveAppData={saveAppData}>
         {({ selectedResume, updateResume }) => {
           const isResumeSelected = !!selectedResume;
 

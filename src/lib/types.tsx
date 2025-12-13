@@ -123,5 +123,6 @@ export type ResumeIndex = {
 
 export type AppData = {
   resumes: ResumeIndex[];
-  version: string;
+  selectedResumeId?: string;
+  version?: string;
 };
