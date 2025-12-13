@@ -13,10 +13,20 @@
   },
   "actions": {
     "toggleTheme": "Toggle Theme",
-    "createNewResume": "New Resume",
+    "createNewResume": "Create New Resume",
     "selectResume": "Select Resume"
   },
   "labels": {
-      "allResumes": "All Resumes"
+    "allResumes": "All Resumes",
+    "newResume": "New Resume"
+  },
+  "dialogs": {
+    "cancel": "Cancel",
+    "accept": "Accept",
+    "create": "Create",
+    "createNewResume": {
+      "title": "Create New Resume",
+      "description": "Fill in the details to create a new resume."
+    }
   }
 }

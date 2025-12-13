@@ -13,10 +13,20 @@
   },
   "actions": {
     "toggleTheme": "Cambiar tema",
-    "createNewResume": "Nuevo currículum",
+    "createNewResume": "Crear nuevo currículum",
     "selectResume": "Seleccionar currículum"
   },
   "labels": {
-    "allResumes": "Todos los currículums"
+    "allResumes": "Todos los currículums",
+    "newResume": "Nuevo currículum"
+  },
+  "dialogs": {
+    "cancel": "Cancelar",
+    "accept": "Aceptar",
+    "create": "Crear",
+    "createNewResume": {
+      "title": "Crear nuevo currículum",
+      "description": "Rellena los detalles para crear un nuevo currículum."
+    }
   }
 }

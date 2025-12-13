@@ -1,0 +1,8 @@
+{
+  "fields": {
+    "name": "Nombre del currículum"
+  },
+  "placeholders": {
+      "name": "p.ej. Mi currículum profesional"
+  }
+}

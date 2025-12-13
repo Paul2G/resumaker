@@ -1,0 +1,8 @@
+{
+  "fields": {
+    "name": "Resume Name"
+  },
+  "placeholders": {
+    "name": "e.g. My Professional Resume"
+  }
+}

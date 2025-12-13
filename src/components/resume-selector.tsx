@@ -95,21 +95,22 @@ export function ResumeSelector() {
       </DropdownMenu>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create new resume</DialogTitle>
+          <DialogTitle>{t('core:dialogs.createNewResume.title')}</DialogTitle>
           <DialogDescription>
-            Fill in the details to create a new resume.
+            {t('core:dialogs.createNewResume.description')}
           </DialogDescription>
         </DialogHeader>
         <Field>
-          <FieldLabel>Name</FieldLabel>
+          <FieldLabel>{t('resume:fields.name')}</FieldLabel>
           <Input
+            placeholder={t('resume:placeholders.name')}
             value={newResumeName}
             onChange={({ target }) => setNewResumeName(target.value)}
           ></Input>
         </Field>
         <DialogFooter>
           <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-            Cancel
+            {t('dialogs.cancel')}
           </Button>
           <Button
             type="submit"
@@ -120,7 +121,7 @@ export function ResumeSelector() {
               setIsDialogOpen(false);
             }}
           >
-            Create
+            {t('dialogs.create')}
           </Button>
         </DialogFooter>
       </DialogContent>
