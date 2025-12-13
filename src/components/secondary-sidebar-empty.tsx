@@ -1,4 +1,4 @@
-import { PlusIcon } from '@phosphor-icons/react';
+import { InfoIcon, PlusIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -57,7 +57,19 @@ export function SecondarySidebarEmpty({
   }
 
   // This should never happen, but maybe in the future so return a fallback UI
-  return <div>Nada aqui aun</div>;
+  return (
+    <Empty>
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <InfoIcon />
+        </EmptyMedia>
+        <EmptyTitle>{t('dialogs.noSectionSelected.title')}</EmptyTitle>
+        <EmptyDescription>
+          {t('dialogs.noSectionSelected.description')}
+        </EmptyDescription>
+      </EmptyHeader>
+    </Empty>
+  );
 }
 
 export type SecondarySidebarEmptyProps = {

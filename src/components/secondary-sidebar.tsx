@@ -47,11 +47,12 @@ export function SecondarySidebar() {
 
   return (
     <aside className="w-100 border-l p-4 overflow-y-auto">
-      {selectedItemId ? (
+      {selectedItemId && (
         <Typography variant="h4" className="mb-4">
           {t(`${selectedSectionKey}:item.title`)}
         </Typography>
-      ) : (
+      )}
+      {selectedSectionKey && !selectedItemId && (
         <Typography variant="h4" className="mb-4">
           {t(`${selectedSectionKey}:title`)}
         </Typography>

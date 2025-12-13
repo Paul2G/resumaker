@@ -11,9 +11,7 @@ export const SecondarySidebarContext =
 export function SecondarySidebarProvider({
   children,
 }: SecondarySidebarProviderProps) {
-  const [selectedSectionKey, setSelectedSectionKey] = useState<
-    SectionKey | undefined
-  >(SectionKey.ContactInfo);
+  const [selectedSectionKey, setSelectedSectionKey] = useState<SectionKey>();
 
   const [selectedItemId, setSelectedItemId] = useState<string>();
 

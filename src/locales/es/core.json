@@ -27,6 +27,10 @@
     "createNewResume": {
       "title": "Crear nuevo currículum",
       "description": "Rellena los detalles para crear un nuevo currículum."
+    },
+    "noSectionSelected": {
+      "title": "Ninguna sección seleccionada",
+      "description": "Por favor, selecciona una sección, elemento o crea uno nuevo para empezar a editar."
     }
   }
 }

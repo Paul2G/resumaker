@@ -27,6 +27,10 @@
     "createNewResume": {
       "title": "Create New Resume",
       "description": "Fill in the details to create a new resume."
+    },
+    "noSectionSelected": {
+      "title": "No Section Selected",
+      "description": "Please select a section, item or create a new one to start editing."
     }
   }
 }
