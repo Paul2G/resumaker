@@ -11,6 +11,9 @@ import {
   FolderIcon,
   GraduationCapIcon,
   LightbulbIcon,
+  MedalIcon,
+  NewspaperClippingIcon,
+  ScrollIcon,
 } from '@phosphor-icons/react';
 
 import { IterableSectionKey, SectionKey } from '@/lib/types';
@@ -27,9 +30,9 @@ export const SectionIconMap: Record<SectionKey, Icon> = {
 } as const;
 
 export const SectionItemIconMap: Record<IterableSectionKey, Icon> = {
-  [IterableSectionKey.Experience]: BriefcaseIcon,
-  [IterableSectionKey.Education]: GraduationCapIcon,
+  [IterableSectionKey.Experience]: NewspaperClippingIcon,
+  [IterableSectionKey.Education]: ScrollIcon,
   [IterableSectionKey.Projects]: FolderIcon,
-  [IterableSectionKey.Certifications]: CertificateIcon,
+  [IterableSectionKey.Certifications]: MedalIcon,
   [IterableSectionKey.Courses]: BookBookmarkIcon,
 } as const;
