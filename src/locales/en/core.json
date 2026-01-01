@@ -12,6 +12,7 @@
     "system": "System"
   },
   "actions": {
+    "save": "Save",
     "toggleTheme": "Toggle Theme",
     "createNewResume": "Create New Resume",
     "selectResume": "Select Resume"

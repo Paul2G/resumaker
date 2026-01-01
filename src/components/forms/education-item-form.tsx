@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { Button } from '@/components/ui/button';
 import { DatePicker } from '@/components/ui/date-picker';
 import {
   Form,
@@ -16,7 +17,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { useResume } from '@/hooks/use-resume';
 import { educationItemSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
@@ -39,11 +39,9 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
     updateSectionDataItem(IterableSectionKey.Education, values);
   }
 
-  useFormSubmitter(form, onSave);
-
   return (
     <Form {...form}>
-      <form className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="title"
@@ -153,6 +151,7 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
             </FormItem>
           )}
         />
+        <Button type="submit">{t('actions.save')}</Button>
       </form>
     </Form>
   );

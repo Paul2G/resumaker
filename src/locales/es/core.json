@@ -12,6 +12,7 @@
     "system": "Sistema"
   },
   "actions": {
+    "save": "Guardar",
     "toggleTheme": "Cambiar tema",
     "createNewResume": "Crear nuevo currículum",
     "selectResume": "Seleccionar currículum"

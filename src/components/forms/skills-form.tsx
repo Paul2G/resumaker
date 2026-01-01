@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -35,7 +36,7 @@ export function SkillsForm() {
 
   return (
     <Form {...form}>
-      <form onChange={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="skills"
@@ -52,6 +53,7 @@ export function SkillsForm() {
             </FormItem>
           )}
         />
+        <Button type="submit">{t('actions.save')}</Button>
       </form>
     </Form>
   );
