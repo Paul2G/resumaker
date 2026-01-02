@@ -30,7 +30,7 @@ export const experienceItemSchema = z.object({
   startDate: z.date().optional(),
   endDate: z.date().optional(),
   isCurrentlyWorkingHere: z.boolean().optional(),
-  description: z.array(z.string()),
+  description: z.array(z.string()).optional(),
   visible: z.boolean(),
 });
 
@@ -42,7 +42,7 @@ export const educationItemSchema = z.object({
   completionDate: z.date().optional(),
   minor: z.string().optional(),
   gpa: z.string().optional(),
-  description: z.array(z.string()),
+  description: z.array(z.string()).optional(),
   visible: z.boolean(),
 });
 
@@ -52,7 +52,7 @@ export const projectSchema = z.object({
   organization: z.string(),
   startDate: z.date().optional(),
   endDate: z.date().optional(),
-  description: z.array(z.string()),
+  description: z.array(z.string()).optional(),
   link: z.url().optional(),
   visible: z.boolean(),
 });
@@ -65,7 +65,7 @@ export const certificationSchema = z.object({
   expirationDate: z.date().optional(),
   credentialId: z.string().optional(),
   credentialUrl: z.url().optional(),
-  description: z.array(z.string()),
+  description: z.array(z.string()).optional(),
   visible: z.boolean(),
 });
 
@@ -74,6 +74,6 @@ export const courseSchema = z.object({
   title: z.string().min(1),
   organization: z.string(),
   completionDate: z.date().optional(),
-  description: z.array(z.string()),
+  description: z.array(z.string()).optional(),
   visible: z.boolean(),
 });

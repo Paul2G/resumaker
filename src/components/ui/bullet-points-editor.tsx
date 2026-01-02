@@ -1,9 +1,19 @@
+import {
+  TextBIcon,
+  TextItalicIcon,
+  TextUnderlineIcon,
+} from '@phosphor-icons/react';
+import Bold from '@tiptap/extension-bold';
 import Document from '@tiptap/extension-document';
+import Italic from '@tiptap/extension-italic';
 import { BulletList, ListItem, ListKeymap } from '@tiptap/extension-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
+import Underline from '@tiptap/extension-underline';
 import { EditorContent, Extension, useEditor } from '@tiptap/react';
 
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
 const DisableTab = Extension.create({
@@ -30,6 +40,9 @@ export function BulletPointsEditor({
       Document,
       Paragraph,
       Text,
+      Bold,
+      Italic,
+      Underline,
       BulletList.configure({
         HTMLAttributes: {
           class: 'list-disc ps-4',
@@ -40,17 +53,16 @@ export function BulletPointsEditor({
       DisableTab,
     ],
     content: generateHTMLList(value),
-    onCreate: ({ editor }) => editor.chain().focus().toggleBulletList().run(),
     onUpdate: ({ editor }) => {
       if (!editor.isActive('bulletList'))
-        editor.chain().focus().toggleBulletList().run();
+        editor.chain().toggleBulletList().run();
 
       onChange(parseHTMLList(editor.getHTML()));
     },
   });
 
   function generateHTMLList(items: string[]) {
-    return `<ul>${items.map((item) => `<li><p>${item}</p></li>`).join('')}</ul>`;
+    return `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
   }
 
   function parseHTMLList(html: string) {
@@ -58,7 +70,7 @@ export function BulletPointsEditor({
     const doc = parser.parseFromString(html, 'text/html');
     const listItems = doc.querySelectorAll('li');
     return Array.from(listItems)
-      .map((li) => li.textContent || null)
+      .map((li) => li.innerHTML || null)
       .filter(Boolean) as string[];
   }
 
@@ -69,13 +81,37 @@ export function BulletPointsEditor({
   return (
     <div
       className={cn(
-        'placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+        'placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent  text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
         'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
         'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
         className,
       )}
     >
-      <EditorContent className="bullet-points-editor" editor={editor} />
+      <div className="p-1 flex gap-1">
+        <Button
+          size="icon-sm"
+          variant={editor.isActive('bold') ? 'outline' : 'ghost'}
+          onClick={() => editor.chain().focus().toggleBold().run()}
+        >
+          <TextBIcon />
+        </Button>
+        <Button
+          size="icon-sm"
+          variant={editor.isActive('italic') ? 'outline' : 'ghost'}
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+        >
+          <TextItalicIcon />
+        </Button>
+        <Button
+          size="icon-sm"
+          variant={editor.isActive('underline') ? 'outline' : 'ghost'}
+          onClick={() => editor.chain().focus().toggleUnderline().run()}
+        >
+          <TextUnderlineIcon />
+        </Button>
+      </div>
+      <Separator />
+      <EditorContent className="px-3 py-2" editor={editor} />
     </div>
   );
 }

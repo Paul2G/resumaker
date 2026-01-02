@@ -1,7 +1,7 @@
 {
   "title": "Skills",
   "fields": {
-    "skills": "Skills"
+    "skills": "Skills list"
   },
   "placeholders": {
     "skills": "e.g. JavaScript, React, Node.js"
