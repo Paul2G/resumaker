@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,7 +15,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { useResume } from '@/hooks/use-resume';
 import { skillsSchema } from '@/lib/schemas';
 import { SectionKey } from '@/lib/types';
@@ -44,10 +44,7 @@ export function SkillsForm() {
             <FormItem>
               <FormLabel>{t('skills:fields.skills')}</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder={t('skills:placeholders.skills')}
-                  {...field}
-                />
+                <BulletPointsEditor {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

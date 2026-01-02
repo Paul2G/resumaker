@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
 import { Button } from '@/components/ui/button';
 import { DatePicker } from '@/components/ui/date-picker';
 import {
@@ -16,7 +17,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { useResume } from '@/hooks/use-resume';
 import { educationItemSchema } from '@/lib/schemas';
 import { IterableSectionKey, SectionKey } from '@/lib/types';
@@ -142,10 +142,7 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
             <FormItem>
               <FormLabel>{t('education:fields.description')}</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder={t('education:placeholders.description')}
-                  {...field}
-                />
+                <BulletPointsEditor {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

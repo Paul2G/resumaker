@@ -54,7 +54,7 @@ export const defaultResume: Resume = {
       key: SectionKey.Skills,
       visible: true,
       data: {
-        skills: '',
+        skills: [],
       },
     },
   ],
