@@ -145,7 +145,10 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
             <FormItem>
               <FormLabel>{t('experience:fields.description')}</FormLabel>
               <FormControl>
-                <BulletPointsEditor {...field} />
+                <BulletPointsEditor
+                  placeholder={t('experience:placeholders.description')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

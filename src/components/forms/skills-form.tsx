@@ -44,7 +44,10 @@ export function SkillsForm() {
             <FormItem>
               <FormLabel>{t('skills:fields.skills')}</FormLabel>
               <FormControl>
-                <BulletPointsEditor {...field} />
+                <BulletPointsEditor
+                  placeholder="<ul><li>Enter bullet points...</li></ul>"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

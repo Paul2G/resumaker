@@ -16,7 +16,7 @@
     "location": "p.ej. Los Ángeles, CA",
     "startDate": "DD/MM/YYYY",
     "endDate": "DD/MM/YYYY",
-    "description": "Describe tu función y tus logros (preferiblemente en viñetas)"
+    "description": "Describe tu función y tus logros"
   },
   "actions": {
     "addItem": "Agregar experiencia"

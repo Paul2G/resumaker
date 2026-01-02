@@ -16,7 +16,7 @@
     "location": "e.g. New York, NY",
     "startDate": "DD/MM/YYYY",
     "endDate": "DD/MM/YYYY",
-    "description": "Describe your role and achievements (preferably in bullet points)"
+    "description": "Describe your role and achievements"
   },
   "actions": {
     "addItem": "Add Experience"

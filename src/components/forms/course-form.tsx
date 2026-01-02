@@ -97,7 +97,10 @@ export function CourseForm({ itemId }: CourseFormProps) {
             <FormItem>
               <FormLabel>{t('courses:fields.description')}</FormLabel>
               <FormControl>
-                <BulletPointsEditor {...field} />
+                <BulletPointsEditor
+                  placeholder={t('courses:placeholders.description')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

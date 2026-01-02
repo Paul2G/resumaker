@@ -129,7 +129,10 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
             <FormItem>
               <FormLabel>{t('projects:fields.description')}</FormLabel>
               <FormControl>
-                <BulletPointsEditor {...field} />
+                <BulletPointsEditor
+                  placeholder={t('projects:placeholders.description')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

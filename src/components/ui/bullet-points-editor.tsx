@@ -10,6 +10,7 @@ import { BulletList, ListItem, ListKeymap } from '@tiptap/extension-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
+import { Placeholder } from '@tiptap/extensions';
 import { EditorContent, Extension, useEditor } from '@tiptap/react';
 
 import { Button } from '@/components/ui/button';
@@ -27,13 +28,15 @@ const DisableTab = Extension.create({
 
 export function BulletPointsEditor({
   value = [],
+  placeholder,
   onChange = () => {},
   className,
 }: BulletPointsEditorProps) {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: 'outline-none',
+        class:
+          'outline-none relative min-h-20 [&>p.is-editor-empty]:before:content-[attr(data-placeholder)] [&>p.is-editor-empty]:before:text-muted-foreground [&>p.is-editor-empty]:before:absolute [&>p.is-editor-empty]:before:top-0 [&>p.is-editor-empty]:before:pointer-events-none',
       },
     },
     extensions: [
@@ -50,11 +53,14 @@ export function BulletPointsEditor({
       }),
       ListItem,
       ListKeymap,
+      Placeholder.configure({
+        placeholder: placeholder,
+      }),
       DisableTab,
     ],
     content: generateHTMLList(value),
     onUpdate: ({ editor }) => {
-      if (!editor.isActive('bulletList'))
+      if (!editor.isActive('bulletList') && !editor.isEmpty)
         editor.chain().toggleBulletList().run();
 
       onChange(parseHTMLList(editor.getHTML()));
@@ -62,7 +68,9 @@ export function BulletPointsEditor({
   });
 
   function generateHTMLList(items: string[]) {
-    return `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+    return items.length
+      ? `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`
+      : undefined;
   }
 
   function parseHTMLList(html: string) {
@@ -121,5 +129,6 @@ export type BulletPointsEditorProps = Omit<
   'onChange'
 > & {
   value?: string[];
+  placeholder?: string;
   onChange?: (value: string[]) => void;
 };

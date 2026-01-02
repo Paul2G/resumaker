@@ -145,7 +145,10 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
             <FormItem>
               <FormLabel>{t('certifications:fields.description')}</FormLabel>
               <FormControl>
-                <BulletPointsEditor {...field} />
+                <BulletPointsEditor
+                  placeholder={t('certifications:placeholders.description')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
