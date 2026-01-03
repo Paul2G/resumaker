@@ -23,7 +23,7 @@ export function DatePicker({
   className,
   ...props
 }: DatePickerProps) {
-  const [date, setDate] = useState<Date | undefined>(parseDate(value));
+  const [date, setDate] = useState<Date | undefined>(value);
   const [inputValue, setInputValue] = useState<string>(formatDate(value));
 
   const [open, setOpen] = useState(false);
@@ -90,6 +90,6 @@ export type DatePickerProps = Omit<
   React.ComponentProps<'input'>,
   'value' | 'onChange'
 > & {
-  value?: Date | string;
+  value?: Date;
   onChange: (...event: any[]) => void;
 };

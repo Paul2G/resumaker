@@ -32,7 +32,7 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
 
   const form = useForm({
     resolver: zodResolver(educationItemSchema),
-    defaultValues,
+    defaultValues: educationItemSchema.parse(defaultValues),
   });
 
   function onSave(values: EducationItem) {
@@ -99,7 +99,8 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('courses:placeholders.completionDate')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />

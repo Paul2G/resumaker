@@ -32,7 +32,7 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
 
   const form = useForm({
     resolver: zodResolver(projectSchema),
-    defaultValues,
+    defaultValues: projectSchema.parse(defaultValues),
   });
 
   function onSave(values: Project) {
@@ -83,7 +83,8 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('projects:placeholders.startDate')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />
@@ -99,7 +100,8 @@ export function ProjectForm({ itemId }: ProjectFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('projects:placeholders.endDate')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />

@@ -32,7 +32,7 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
 
   const form = useForm({
     resolver: zodResolver(certificationSchema),
-    defaultValues,
+    defaultValues: certificationSchema.parse(defaultValues),
   });
 
   function onSave(values: Certification) {
@@ -83,7 +83,8 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('certifications:placeholders.issueDate')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />
@@ -99,7 +100,8 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('certifications:placeholders.expirationDate')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />

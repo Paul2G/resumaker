@@ -33,7 +33,7 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
 
   const form = useForm({
     resolver: zodResolver(experienceItemSchema),
-    defaultValues,
+    defaultValues: experienceItemSchema.parse(defaultValues),
   });
 
   function onSave(values: ExperienceItem) {
@@ -97,7 +97,8 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('experience:placeholders.startDate')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />
@@ -131,7 +132,8 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
                 <DatePicker
                   placeholder={t('experience:placeholders.endDate')}
                   disabled={form.getValues('isCurrentlyWorkingHere')}
-                  {...field}
+                  value={field.value as Date}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />
