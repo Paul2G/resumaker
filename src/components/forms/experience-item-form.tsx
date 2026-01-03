@@ -40,6 +40,8 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
     updateSectionDataItem(IterableSectionKey.Experience, values);
   }
 
+  const isCurrentlyWorkingHere = form.watch('isCurrentlyWorkingHere');
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
@@ -131,7 +133,7 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
               <FormControl>
                 <DatePicker
                   placeholder={t('experience:placeholders.endDate')}
-                  disabled={form.getValues('isCurrentlyWorkingHere')}
+                  disabled={isCurrentlyWorkingHere}
                   value={field.value as Date}
                   onChange={field.onChange}
                 />
