@@ -30,7 +30,7 @@ importers:
         specifier: 1.1.12
         version: 1.1.12(@types/react-dom@19.1.9(@types/react@19.1.16))(@types/react@19.1.16)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-dialog':
-        specifier: ^1.1.15
+        specifier: 1.1.15
         version: 1.1.15(@types/react-dom@19.1.9(@types/react@19.1.16))(@types/react@19.1.16)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@radix-ui/react-dropdown-menu':
         specifier: 2.1.16
@@ -60,37 +60,37 @@ importers:
         specifier: 4.1.16
         version: 4.1.16(vite@7.1.11(@types/node@24.6.0)(jiti@2.6.1)(lightningcss@1.30.2))
       '@tiptap/extension-bold':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))
       '@tiptap/extension-document':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))
       '@tiptap/extension-italic':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))
       '@tiptap/extension-list':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)
       '@tiptap/extension-paragraph':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))
       '@tiptap/extension-text':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))
       '@tiptap/extension-underline':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))
       '@tiptap/extensions':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)
       '@tiptap/pm':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0
       '@tiptap/react':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)(@types/react-dom@19.1.9(@types/react@19.1.16))(@types/react@19.1.16)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@tiptap/starter-kit':
-        specifier: ^3.14.0
+        specifier: 3.14.0
         version: 3.14.0
       class-variance-authority:
         specifier: 0.7.1
