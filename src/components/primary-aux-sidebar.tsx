@@ -28,7 +28,7 @@ export function PrimaryAuxSidebar() {
         const IconComponent = OptionIconMap[option];
 
         return (
-          <Tooltip>
+          <Tooltip key={option}>
             <TooltipTrigger asChild>
               <Button
                 variant={
