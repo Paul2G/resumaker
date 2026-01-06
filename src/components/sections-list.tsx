@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
-import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
+import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 import { SectionIconMap, SectionItemIconMap } from '@/lib/icons-maps';
 import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
 
@@ -28,7 +28,7 @@ export function SectionsList() {
     selectedItemId,
     setSidebarContent,
     clearSidebarContent,
-  } = useSecondarySidebar();
+  } = useSidebarsContent();
 
   function onCreateNewItem(sectionKey: IterableSectionKey) {
     const newItemId = addSectionDataItem(sectionKey, {

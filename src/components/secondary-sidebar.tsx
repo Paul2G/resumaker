@@ -10,12 +10,12 @@ import { SkillsForm } from '@/components/forms/skills-form';
 import { SummaryForm } from '@/components/forms/summary-form';
 import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { Typography } from '@/components/ui/typography';
-import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
+import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 import { SectionKey } from '@/lib/types';
 
 export function SecondarySidebar() {
   const { t } = useTranslation();
-  const { selectedSectionKey, selectedItemId } = useSecondarySidebar();
+  const { selectedSectionKey, selectedItemId } = useSidebarsContent();
 
   function FormSelector() {
     if (selectedItemId) {

@@ -2,17 +2,25 @@ import React, { createContext, useState } from 'react';
 
 import { SectionKey } from '@/lib/types';
 
-export const SecondarySidebarContext =
-  createContext<SecondarySidebarProviderValue>({
+export enum AuxSidebarOption {
+  Sections = 'sections',
+  DocumentSettings = 'documentSettings',
+}
+
+export const SidebarsContentContext =
+  createContext<SidebarsContentProviderValue>({
+    selectedAuxSidebarOption: AuxSidebarOption.Sections,
+    setAuxSidebarOption: () => {},
     setSidebarContent: () => {},
     clearSidebarContent: () => {},
   });
 
-export function SecondarySidebarProvider({
+export function SidebarsContentProvider({
   children,
-}: SecondarySidebarProviderProps) {
+}: SidebarsContentProviderProps) {
+  const [selectedAuxSidebarOption, setAuxSidebarOption] =
+    useState<AuxSidebarOption>(AuxSidebarOption.Sections);
   const [selectedSectionKey, setSelectedSectionKey] = useState<SectionKey>();
-
   const [selectedItemId, setSelectedItemId] = useState<string>();
 
   function setSidebarContent(sectionKey: SectionKey, itemId?: string) {
@@ -26,26 +34,30 @@ export function SecondarySidebarProvider({
   }
 
   return (
-    <SecondarySidebarContext.Provider
+    <SidebarsContentContext.Provider
       value={{
+        selectedAuxSidebarOption,
         selectedSectionKey,
         selectedItemId,
+        setAuxSidebarOption,
         setSidebarContent,
         clearSidebarContent,
       }}
     >
       {children}
-    </SecondarySidebarContext.Provider>
+    </SidebarsContentContext.Provider>
   );
 }
 
-export type SecondarySidebarProviderProps = {
+export type SidebarsContentProviderProps = {
   children: React.ReactNode;
 };
 
-export type SecondarySidebarProviderValue = {
+export type SidebarsContentProviderValue = {
+  selectedAuxSidebarOption: AuxSidebarOption;
   selectedSectionKey?: SectionKey;
   selectedItemId?: string;
+  setAuxSidebarOption: (option: AuxSidebarOption) => void;
   setSidebarContent: (sectionKey: SectionKey, itemId?: string) => void;
   clearSidebarContent: () => void;
 };

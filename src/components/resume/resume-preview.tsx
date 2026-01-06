@@ -12,6 +12,7 @@ export function ResumePreview() {
         id="sheet-1"
         className="bg-white max-w-full w-[50rem] aspect-[17/22] mx-auto flex flex-col gap-2 shadow-md border py-16 px-12"
       >
+        <pre className="text-xs">{JSON.stringify(sections, null, 2)}</pre>
         {sections.map(({ key, data, visible }) => {
           if (!visible) return null;
 

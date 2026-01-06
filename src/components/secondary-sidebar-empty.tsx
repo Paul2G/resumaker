@@ -11,7 +11,7 @@ import {
   EmptyTitle,
 } from '@/components/ui/empty';
 import { useResume } from '@/hooks/use-resume';
-import { useSecondarySidebar } from '@/hooks/use-secondary-sidebar';
+import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 import { SectionIconMap } from '@/lib/icons-maps';
 import { IterableSectionKey } from '@/lib/types';
 
@@ -20,7 +20,7 @@ export function SecondarySidebarEmpty({
 }: SecondarySidebarEmptyProps) {
   const { t } = useTranslation();
   const { addSectionDataItem } = useResume();
-  const { setSidebarContent } = useSecondarySidebar();
+  const { setSidebarContent } = useSidebarsContent();
 
   if (sectionKey) {
     const Icon = SectionIconMap[sectionKey];
