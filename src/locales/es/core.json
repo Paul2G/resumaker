@@ -25,6 +25,7 @@
     "cancel": "Cancelar",
     "accept": "Aceptar",
     "create": "Crear",
+    "dataSaved": "Datos guardados con éxito",
     "createNewResume": {
       "title": "Crear nuevo currículum",
       "description": "Rellena los detalles para crear un nuevo currículum."

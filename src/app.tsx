@@ -10,6 +10,7 @@ import { PrimaryAuxSidebar } from '@/components/primary-aux-sidebar';
 import { PrimaryHeader } from '@/components/primary-header';
 import { PrimarySidebar } from '@/components/primary-sidebar';
 import { SecondarySidebar } from '@/components/secondary-sidebar';
+import { Toaster } from '@/components/ui/sonner';
 import { getUserLocalePreference, setLocaleInDocument } from '@/lib/locales';
 import { loadAppData, saveAppData } from '@/repositories/resumes';
 
@@ -52,6 +53,7 @@ function App() {
           );
         }}
       </ResumesIndexProvider>
+      <Toaster />
     </ThemeProvider>
   );
 }

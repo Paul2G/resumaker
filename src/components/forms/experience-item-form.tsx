@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
 import { Button } from '@/components/ui/button';
@@ -38,6 +39,7 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
 
   function onSave(values: ExperienceItem) {
     updateSectionDataItem(IterableSectionKey.Experience, values);
+    toast.success(t('dialogs.dataSaved'));
   }
 
   const isCurrentlyWorkingHere = form.watch('isCurrentlyWorkingHere');

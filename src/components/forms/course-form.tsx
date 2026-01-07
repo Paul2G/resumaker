@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
 import { Button } from '@/components/ui/button';
@@ -37,6 +38,7 @@ export function CourseForm({ itemId }: CourseFormProps) {
 
   function onSave(values: Certification) {
     updateSectionDataItem(IterableSectionKey.Courses, values);
+    toast.success(t('dialogs.dataSaved'));
   }
 
   return (

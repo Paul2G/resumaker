@@ -25,6 +25,7 @@
     "cancel": "Cancel",
     "accept": "Accept",
     "create": "Create",
+    "dataSaved": "Data saved successfully",
     "createNewResume": {
       "title": "Create New Resume",
       "description": "Fill in the details to create a new resume."

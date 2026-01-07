@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +33,7 @@ export function SummaryForm() {
 
   function onSave(values: Summary) {
     setSectionData(SectionKey.Summary, values);
+    toast.success(t('dialogs.dataSaved'));
   }
 
   return (
