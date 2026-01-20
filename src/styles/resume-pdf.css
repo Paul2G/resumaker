@@ -1,0 +1,131 @@
+.resume {
+  --sheet-margin: 15mm;
+  --sheet-font-size: 8pt;
+  --sheet-font-color: #444444;
+  --sheet-background-color: #ffffff;
+
+  font-size: var(--sheet-font-size);
+  font-family: 'Verdana', serif;
+
+  i {
+    font-size: 1em;
+  }
+}
+
+.resume--a4 {
+  --sheet-width: 210mm;
+  --sheet-height: 297mm;
+}
+
+.resume--letter {
+  --sheet-width: 8.5in;
+  --sheet-height: 11in;
+}
+
+.resume__sheet {
+  width: var(--sheet-width);
+  min-height: var(--sheet-height);
+  padding: var(--sheet-margin);
+
+  background-color: var(--sheet-background-color);
+  color: var(--sheet-font-color);
+}
+
+.resume__title {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Resume section styles */
+
+.resume__section {
+}
+
+.resume__section:not(:first-child) {
+  margin-top: 0.8em;
+}
+
+.resume__contact-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+
+  span {
+    display: contents;
+  }
+}
+
+.resume__subtitle {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.resume__subtitle--underlined {
+  border-bottom: 1.3pt solid var(--sheet-font-color);
+  padding-bottom: 0.2em;
+  margin-bottom: 0.3em;
+}
+
+/* Resume section items styles */
+
+.resume__items {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.resume__item-header {
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: bold;
+}
+
+.resume__item-title {
+  font-size: 1.1em;
+}
+
+.resume__item-subheader {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.resume__item-details {
+  display: flex;
+
+  > li:not(:first-child) {
+    margin-left: 0.5em;
+
+    &::before {
+      content: '•';
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.resume__bullet-list {
+  list-style-type: disc;
+  padding: 0 1.5em;
+
+  li {
+    padding-left: 0.5em;
+  }
+}
+
+@media print {
+  body {
+    visibility: hidden;
+  }
+
+  .resume {
+    visibility: visible;
+
+    position: fixed;
+    inset: 0;
+  }
+}

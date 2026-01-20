@@ -1,71 +1,55 @@
 import type { ContactInfo } from '@/lib/types';
 
-import {
-  EnvelopeIcon,
-  GlobeIcon,
-  LinkedinLogoIcon,
-  MapPinIcon,
-  PhoneIcon,
-} from '@phosphor-icons/react';
-
-import { cn, isStringValid } from '@/lib/utils';
+import { isStringValid } from '@/lib/utils';
 
 export function ResumePreviewContactInfo({
   data,
-  className,
   ...props
 }: ResumeContactInfoProps) {
   return (
-    <div id="contact" className={cn('contents', className)} {...props}>
-      <h1 id="fullname" className="text-2xl text-center font-bold">
-        {data.fullName}
-      </h1>
-      <div
-        id="contact-items"
-        className="w-full flex gap-1 items-center justify-center text-xs"
-      >
+    <section className="resume__section resume__section--contact" {...props}>
+      <h1 className="resume__title">{data.fullName}</h1>
+      <div className="resume__contact-items">
         {isStringValid(data.address) && (
-          <>
-            <MapPinIcon weight="fill" className="size-3" />
-            <span>{data.address}</span>
-          </>
+          <span>
+            <i className="ph-fill ph-map-pin" />
+            <div>{data.address}</div>
+          </span>
         )}
         {isStringValid(data.emailAddress) && (
-          <>
-            <EnvelopeIcon weight="fill" className="size-3" />
-            <span>{data.emailAddress}</span>
-          </>
+          <span>
+            <i className="ph-fill ph-envelope" />
+            <div>{data.emailAddress}</div>
+          </span>
         )}
         {isStringValid(data.phoneNumber) && (
-          <>
-            <PhoneIcon weight="fill" className="size-3" />
-            <span>{data.phoneNumber}</span>
-          </>
+          <span>
+            <i className="ph-fill ph-phone" />
+            <div>{data.phoneNumber}</div>
+          </span>
         )}
         {isStringValid(data.linkedin) && (
-          <a
-            href={'https://www.linkedin.com/in/' + data.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contents"
-          >
-            <LinkedinLogoIcon weight="fill" className="size-3" />
-            <span>{'in/' + data.linkedin}</span>
-          </a>
+          <span>
+            <i className="ph-fill ph-linkedin-logo" />
+            <a
+              href={'https://www.linkedin.com/in/' + data.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {'in/' + data.linkedin}
+            </a>
+          </span>
         )}
         {isStringValid(data.website) && (
-          <a
-            href={data.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contents"
-          >
-            <GlobeIcon weight="fill" className="size-3" />
-            <span>{data.website?.replace('https://', '')}</span>
-          </a>
+          <span>
+            <i className="ph-fill ph-globe" />
+            <a href={data.website} target="_blank" rel="noopener noreferrer">
+              {data.website?.replace('https://', '')}
+            </a>
+          </span>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 

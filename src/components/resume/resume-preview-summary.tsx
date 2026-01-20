@@ -1,18 +1,14 @@
 import type { Summary } from '@/lib/types';
 
-import React from 'react';
+import { isStringValid } from '@/lib/utils';
 
-import { cn } from '@/lib/utils';
+export function ResumePreviewSummary({ data, ...props }: ResumeSummaryProps) {
+  if (!isStringValid(data.summary)) return null;
 
-export function ResumePreviewSummary({
-  data,
-  className,
-  ...props
-}: ResumeSummaryProps) {
   return (
-    <p id="summary" className={cn('text-xs', className)} {...props}>
-      {data.summary}
-    </p>
+    <section className="resume__section resume__section--summary" {...props}>
+      <p>{data.summary}</p>
+    </section>
   );
 }
 
