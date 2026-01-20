@@ -26,6 +26,9 @@ importers:
       '@phosphor-icons/react':
         specifier: 2.1.10
         version: 2.1.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@phosphor-icons/web':
+        specifier: ^2.1.2
+        version: 2.1.2
       '@radix-ui/react-collapsible':
         specifier: 1.1.12
         version: 1.1.12(@types/react-dom@19.1.9(@types/react@19.1.16))(@types/react@19.1.16)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -595,6 +598,9 @@ packages:
     peerDependencies:
       react: '>= 16.8'
       react-dom: '>= 16.8'
+
+  '@phosphor-icons/web@2.1.2':
+    resolution: {integrity: sha512-rPAR9o/bEcp4Cw4DEeZHXf+nlGCMNGkNDRizYHM47NLxz9vvEHp/Tt6FMK1NcWadzw/pFDPnRBGi/ofRya958A==}
 
   '@radix-ui/number@1.1.1':
     resolution: {integrity: sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g==}
@@ -2807,6 +2813,8 @@ snapshots:
     dependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
+
+  '@phosphor-icons/web@2.1.2': {}
 
   '@radix-ui/number@1.1.1': {}
 
