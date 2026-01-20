@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { formatDate, isValidStringDate, parseDate } from '@/lib/dates';
+import { formatDate, isStringCustomDate, parseDate } from '@/lib/dates';
 import { cn } from '@/lib/utils';
 
 /* DatePicker component allowing users to select a date either by typing or using a calendar popover.
@@ -38,7 +38,7 @@ export function DatePicker({
         onChange={(e) => {
           const inputDate = e.target.value;
           setInputValue(inputDate);
-          if (isValidStringDate(inputDate)) {
+          if (isStringCustomDate(inputDate)) {
             const newDate = parseDate(inputDate);
             setDate(newDate);
             onChange(newDate);
