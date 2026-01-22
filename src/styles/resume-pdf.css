@@ -111,10 +111,6 @@
 .resume__bullet-list {
   list-style-type: disc;
   padding: 0 1.5em;
-
-  li {
-    padding-left: 0.5em;
-  }
 }
 
 @media print {

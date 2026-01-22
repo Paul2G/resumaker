@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { FloppyDiskIcon, PrinterIcon } from '@phosphor-icons/react';
-import { jsPDF } from 'jspdf';
+import { PrinterIcon } from '@phosphor-icons/react';
 
 import { ResumePreview } from '@/components/resume/resume-preview';
 import { Button } from '@/components/ui/button';
@@ -10,28 +9,28 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
   const previewRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  function saveDocument() {
-    const doc = new jsPDF({
-      format: 'letter',
-      unit: 'in',
-      orientation: 'portrait',
-      putOnlyUsedFonts: true,
-    });
-    if (previewRef.current) {
-      const $resume = previewRef.current.cloneNode(true) as HTMLDivElement;
-      $resume?.style.removeProperty('transform');
-
-      doc.html($resume, {
-        callback: function (doc) {
-          doc.save('resume.pdf');
-        },
-        margin: 0,
-        html2canvas: {
-          scale: 1 / 96, // 1/96in
-        },
-      });
-    }
-  }
+  // function saveDocument() {
+  //   const doc = new jsPDF({
+  //     format: 'letter',
+  //     unit: 'in',
+  //     orientation: 'portrait',
+  //     putOnlyUsedFonts: true,
+  //   });
+  //   if (previewRef.current) {
+  //     const $resume = previewRef.current.cloneNode(true) as HTMLDivElement;
+  //     $resume?.style.removeProperty('transform');
+  //
+  //     doc.html($resume, {
+  //       callback: function (doc) {
+  //         doc.save('resume.pdf');
+  //       },
+  //       margin: 0,
+  //       html2canvas: {
+  //         scale: 1 / 96, // 1/96in
+  //       },
+  //     });
+  //   }
+  // }
 
   function printDocument() {
     window.print();
@@ -54,12 +53,12 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
   return (
     <div
       id="preview-container"
-      className="relative overflow-hidden h-full"
+      className="relative h-full"
       ref={containerRef}
       {...props}
     >
       <ScrollArea className="h-full">
-        <div className="flex justify-center h-full p-8">
+        <div className="overflow-hidden flex justify-center h-full p-8">
           <ResumePreview className="origin-top" ref={previewRef} />
         </div>
       </ScrollArea>
@@ -67,10 +66,9 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
         <Button size="icon" onClick={printDocument}>
           <PrinterIcon weight="light" className="size-6" />
         </Button>
-
-        <Button size="icon" onClick={saveDocument}>
-          <FloppyDiskIcon weight="light" className="size-6" />
-        </Button>
+        {/*<Button size="icon" onClick={saveDocument}>*/}
+        {/*  <FloppyDiskIcon weight="light" className="size-6" />*/}
+        {/*</Button>*/}
       </div>
     </div>
   );

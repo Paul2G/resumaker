@@ -1,32 +1,38 @@
-import type { EducationItem } from '@/lib/types';
+import type { ExperienceItem, Project } from '@/lib/types';
 
-import { isDateValid } from '@/lib/dates';
+import { formatDate } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
-export function ResumePreviewEducation({
+export function ResumePreviewProjects({
   data,
   ...props
-}: ResumePreviewEducationProps) {
-  function getItemDetails(item: EducationItem) {
-    const fullYear = isDateValid(item?.completionDate)
-      ? new Date(item.completionDate!).getFullYear().toString()
-      : '';
+}: ResumePreviewProjectsProps) {
+  function getDuration(item: ExperienceItem) {
+    if (item.startDate && (!item.endDate || item.isCurrentlyWorkingHere)) {
+      return `${formatDate(item.startDate)} - Present`;
+    }
 
-    const details = [
-      item.minor,
-      item.organization,
-      item.location,
-      fullYear,
-      item.gpa,
-    ];
+    if (item.startDate && item.endDate) {
+      return `${formatDate(item.startDate)} - ${formatDate(item.endDate)}`;
+    }
+
+    if (item.endDate) {
+      return `Until ${formatDate(item.endDate)}`;
+    }
+
+    return '';
+  }
+
+  function getItemDetails(item: Project) {
+    const details = [item.organization, item.link, getDuration(item)];
 
     return details.filter((detail) => Boolean(detail) && isStringValid(detail));
   }
 
   return (
-    <section className="resume__section resume__section--experience" {...props}>
+    <section className="resume__section resume__section--projects" {...props}>
       <h2 className="resume__subtitle resume__subtitle--underlined">
-        Education
+        Projects
       </h2>
       <div className="resume__items">
         {data.map((item) => {
@@ -64,6 +70,6 @@ export function ResumePreviewEducation({
   );
 }
 
-export type ResumePreviewEducationProps = React.ComponentProps<'div'> & {
-  data: EducationItem[];
+export type ResumePreviewProjectsProps = React.ComponentProps<'div'> & {
+  data: Project[];
 };

@@ -1,33 +1,25 @@
-import type { EducationItem } from '@/lib/types';
+import type { Course } from '@/lib/types';
 
 import { isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
-export function ResumePreviewEducation({
+export function ResumePreviewCourses({
   data,
   ...props
-}: ResumePreviewEducationProps) {
-  function getItemDetails(item: EducationItem) {
+}: ResumePreviewCoursesProps) {
+  function getItemDetails(item: Course) {
     const fullYear = isDateValid(item?.completionDate)
       ? new Date(item.completionDate!).getFullYear().toString()
       : '';
 
-    const details = [
-      item.minor,
-      item.organization,
-      item.location,
-      fullYear,
-      item.gpa,
-    ];
+    const details = [item.organization, fullYear];
 
     return details.filter((detail) => Boolean(detail) && isStringValid(detail));
   }
 
   return (
-    <section className="resume__section resume__section--experience" {...props}>
-      <h2 className="resume__subtitle resume__subtitle--underlined">
-        Education
-      </h2>
+    <section className="resume__section resume__section--courses" {...props}>
+      <h2 className="resume__subtitle resume__subtitle--underlined">Courses</h2>
       <div className="resume__items">
         {data.map((item) => {
           if (!item.visible) return null;
@@ -64,6 +56,6 @@ export function ResumePreviewEducation({
   );
 }
 
-export type ResumePreviewEducationProps = React.ComponentProps<'div'> & {
-  data: EducationItem[];
+export type ResumePreviewCoursesProps = React.ComponentProps<'div'> & {
+  data: Course[];
 };
