@@ -1,6 +1,6 @@
 import type { Icon } from '@phosphor-icons/react';
 
-import { GearIcon, RowsPlusBottomIcon } from '@phosphor-icons/react';
+import { RowsPlusBottomIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 import { AuxSidebarOption } from '@/context/sidebars-content-provider';
@@ -14,7 +14,7 @@ import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 
 const OptionIconMap: Record<AuxSidebarOption, Icon> = {
   [AuxSidebarOption.Sections]: RowsPlusBottomIcon,
-  [AuxSidebarOption.DocumentSettings]: GearIcon,
+  //[AuxSidebarOption.DocumentSettings]: GearIcon,
 };
 
 export function PrimaryAuxSidebar() {

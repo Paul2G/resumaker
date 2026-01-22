@@ -4,7 +4,7 @@ import { SectionKey } from '@/lib/types';
 
 export enum AuxSidebarOption {
   Sections = 'sections',
-  DocumentSettings = 'documentSettings',
+  //DocumentSettings = 'documentSettings',
 }
 
 export const SidebarsContentContext =
