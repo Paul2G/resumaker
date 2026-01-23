@@ -11,6 +11,8 @@
     "present": "presente",
     "from": "desde",
     "to": "hasta",
-    "until": "hasta"
+    "until": "hasta",
+    "issued": "Emitido",
+    "expiry": "Vencimiento"
   }
 }

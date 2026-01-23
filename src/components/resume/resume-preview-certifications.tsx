@@ -1,7 +1,7 @@
 import type { Certification } from '@/lib/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
-import { isDateValid } from '@/lib/dates';
+import { formatDate, isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
 export function ResumePreviewCertifications({
@@ -9,16 +9,6 @@ export function ResumePreviewCertifications({
   ...props
 }: ResumePreviewCertificationsProps) {
   const { t } = usePreviewUtils();
-
-  function getItemDetails(item: Certification) {
-    const fullYear = isDateValid(item?.issueDate)
-      ? new Date(item.issueDate!).getFullYear().toString()
-      : '';
-
-    const details = [item.organization, fullYear];
-
-    return details.filter((detail) => Boolean(detail) && isStringValid(detail));
-  }
 
   if (!data.some((item) => item.visible)) return null;
 
@@ -37,13 +27,40 @@ export function ResumePreviewCertifications({
           return (
             <div className="resume__item" key={item.id}>
               <div className="resume__item-header">
-                <h2 className="resume__item-title">{item.title}</h2>
+                <h2 className="resume__item-title">
+                  {item.title}
+                  {isStringValid(item.credentialId) &&
+                    (isStringValid(item.credentialUrl) ? (
+                      <a
+                        href={item.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <small>
+                          ({item.credentialId}
+                          <i className="ph-bold ph-arrow-square-out" />)
+                        </small>
+                      </a>
+                    ) : (
+                      <small>{`(${item.credentialId})`}</small>
+                    ))}
+                </h2>
               </div>
               <div className="resume__item-subheader">
                 <ul className="resume__item-details">
-                  {getItemDetails(item).map((detail, ix) => (
-                    <li key={ix}>{detail}</li>
-                  ))}
+                  {isStringValid(item.organization) && (
+                    <span>{item.organization}</span>
+                  )}
+                  {isDateValid(item.issueDate) && (
+                    <li>
+                      <span>{`${t('dates.issued')} ${formatDate(item.issueDate)}`}</span>
+                    </li>
+                  )}
+                  {isDateValid(item.expirationDate) && (
+                    <li>
+                      <span>{`${t('dates.expiry')} ${formatDate(item.expirationDate)}`}</span>
+                    </li>
+                  )}
                 </ul>
               </div>
               <div className="resume__item-body">

@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import "@phosphor-icons/web/fill";
+@import "@phosphor-icons/web/bold";
 
 @custom-variant dark (&:is(.dark *));
 

@@ -1,14 +1,21 @@
 .resume {
+  --sheet-rgb-font-color: 68, 68, 68;
+  --sheet-rgb-background-color: 255, 255, 255;
+
   --sheet-margin: 15mm;
   --sheet-font-size: 8pt;
-  --sheet-font-color: #444444;
-  --sheet-background-color: #ffffff;
+  --sheet-font-color: rgb(var(--sheet-rgb-font-color));
+  --sheet-background-color: rgb(var(--sheet-rgb-background-color));
 
   font-size: var(--sheet-font-size);
   font-family: 'Verdana', serif;
 
   i {
     font-size: 1em;
+  }
+
+  a i {
+    margin-left: 0.3em;
   }
 }
 
@@ -60,6 +67,7 @@
 .resume__subtitle {
   font-size: 1.5em;
   font-weight: bold;
+
 }
 
 .resume__subtitle--underlined {
@@ -85,6 +93,12 @@
 
 .resume__item-title {
   font-size: 1.1em;
+
+  small {
+    margin-left: 0.5em;
+    font-size: 0.9em;
+    color: rgba(var(--sheet-rgb-font-color), 0.8);
+  }
 }
 
 .resume__item-subheader {

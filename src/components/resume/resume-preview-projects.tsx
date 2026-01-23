@@ -9,16 +9,6 @@ export function ResumePreviewProjects({
 }: ResumePreviewProjectsProps) {
   const { t, getDuration } = usePreviewUtils();
 
-  function getItemDetails(item: Project) {
-    const details = [
-      item.organization,
-      item.link,
-      getDuration(item.startDate, item.endDate),
-    ];
-
-    return details.filter((detail) => Boolean(detail) && isStringValid(detail));
-  }
-
   if (!data.some((item) => item.visible)) return null;
 
   return (
@@ -37,9 +27,28 @@ export function ResumePreviewProjects({
               </div>
               <div className="resume__item-subheader">
                 <ul className="resume__item-details">
-                  {getItemDetails(item).map((detail, ix) => (
-                    <li key={ix}>{detail}</li>
-                  ))}
+                  {isStringValid(item.organization) && (
+                    <li>
+                      <span>{item.organization}</span>
+                    </li>
+                  )}
+                  {isStringValid(item.link) && (
+                    <li>
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.link?.replace('https://', '')}
+                        <i className="ph-bold ph-arrow-square-out" />
+                      </a>
+                    </li>
+                  )}
+                  {isStringValid(getDuration(item.startDate, item.endDate)) && (
+                    <li>
+                      <span>{getDuration(item.startDate, item.endDate)}</span>
+                    </li>
+                  )}
                 </ul>
               </div>
               <div className="resume__item-body">

@@ -32,3 +32,7 @@ export function isDateValid(d?: Date | string) {
 
   return !isNaN(date.getTime());
 }
+
+export function getYear(d?: Date | string): string | undefined {
+  return isDateValid(d) ? new Date(d!).getFullYear().toString() : undefined;
+}

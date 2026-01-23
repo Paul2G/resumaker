@@ -19,7 +19,13 @@ export function ResumePreviewContactInfo({
         {isStringValid(data.emailAddress) && (
           <span>
             <i className="ph-fill ph-envelope" />
-            <div>{data.emailAddress}</div>
+            <a
+              href={`mailto:${data.emailAddress}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {data.emailAddress}
+            </a>
           </span>
         )}
         {isStringValid(data.phoneNumber) && (

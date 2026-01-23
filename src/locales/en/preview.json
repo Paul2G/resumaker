@@ -11,6 +11,8 @@
     "present": "Present",
     "from": "from",
     "to": "to",
-    "until": "until"
+    "until": "until",
+    "issued": "Issued",
+    "expiry": "Expiry"
   }
 }

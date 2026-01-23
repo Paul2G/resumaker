@@ -1,7 +1,7 @@
 import type { Course } from '@/lib/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
-import { isDateValid } from '@/lib/dates';
+import { getYear } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
 export function ResumePreviewCourses({
@@ -9,16 +9,6 @@ export function ResumePreviewCourses({
   ...props
 }: ResumePreviewCoursesProps) {
   const { t } = usePreviewUtils();
-
-  function getItemDetails(item: Course) {
-    const fullYear = isDateValid(item?.completionDate)
-      ? new Date(item.completionDate!).getFullYear().toString()
-      : '';
-
-    const details = [item.organization, fullYear];
-
-    return details.filter((detail) => Boolean(detail) && isStringValid(detail));
-  }
 
   if (!data.some((item) => item.visible)) return null;
 
@@ -38,9 +28,14 @@ export function ResumePreviewCourses({
               </div>
               <div className="resume__item-subheader">
                 <ul className="resume__item-details">
-                  {getItemDetails(item).map((detail, ix) => (
-                    <li key={ix}>{detail}</li>
-                  ))}
+                  {isStringValid(item.organization) && (
+                    <span>{item.organization}</span>
+                  )}
+                  {item.completionDate && (
+                    <li>
+                      <span>{getYear(item.completionDate)}</span>
+                    </li>
+                  )}
                 </ul>
               </div>
               <div className="resume__item-body">

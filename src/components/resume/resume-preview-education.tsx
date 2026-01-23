@@ -1,7 +1,7 @@
 import type { EducationItem } from '@/lib/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
-import { isDateValid } from '@/lib/dates';
+import { getYear, isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
 export function ResumePreviewEducation({
@@ -9,22 +9,6 @@ export function ResumePreviewEducation({
   ...props
 }: ResumePreviewEducationProps) {
   const { t } = usePreviewUtils();
-
-  function getItemDetails(item: EducationItem) {
-    const fullYear = isDateValid(item?.completionDate)
-      ? new Date(item.completionDate!).getFullYear().toString()
-      : '';
-
-    const details = [
-      item.minor,
-      item.organization,
-      item.location,
-      fullYear,
-      item.gpa,
-    ];
-
-    return details.filter((detail) => Boolean(detail) && isStringValid(detail));
-  }
 
   if (!data.some((item) => item.visible)) return null;
 
@@ -44,9 +28,26 @@ export function ResumePreviewEducation({
               </div>
               <div className="resume__item-subheader">
                 <ul className="resume__item-details">
-                  {getItemDetails(item).map((detail, ix) => (
-                    <li key={ix}>{detail}</li>
-                  ))}
+                  {isStringValid(item.minor) && (
+                    <li>
+                      <span>{item.gpa}</span>
+                    </li>
+                  )}
+                  {isStringValid(item.organization) && (
+                    <li>
+                      <span>{item.organization} </span>
+                    </li>
+                  )}
+                  {isStringValid(item.location) && (
+                    <li>
+                      <span>{item.location}</span>
+                    </li>
+                  )}
+                  {isDateValid(item.completionDate) && (
+                    <li>
+                      <span>{getYear(item.completionDate)}</span>
+                    </li>
+                  )}
                 </ul>
               </div>
               <div className="resume__item-body">
