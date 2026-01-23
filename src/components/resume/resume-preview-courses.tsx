@@ -1,5 +1,7 @@
 import type { Course } from '@/lib/types';
 
+import { useTranslation } from 'react-i18next';
+
 import { isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
@@ -7,6 +9,8 @@ export function ResumePreviewCourses({
   data,
   ...props
 }: ResumePreviewCoursesProps) {
+  const { t } = useTranslation('preview');
+
   function getItemDetails(item: Course) {
     const fullYear = isDateValid(item?.completionDate)
       ? new Date(item.completionDate!).getFullYear().toString()
@@ -21,7 +25,9 @@ export function ResumePreviewCourses({
 
   return (
     <section className="resume__section resume__section--courses" {...props}>
-      <h2 className="resume__subtitle resume__subtitle--underlined">Courses</h2>
+      <h2 className="resume__subtitle resume__subtitle--underlined">
+        {t('sections.courses')}
+      </h2>
       <div className="resume__items">
         {data.map((item) => {
           if (!item.visible) return null;

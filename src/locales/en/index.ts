@@ -4,6 +4,7 @@ import core from './core.json';
 import courses from './courses.json';
 import education from './education.json';
 import experience from './experience.json';
+import preview from './preview.json';
 import projects from './projects.json';
 import resume from './resume.json';
 import skills from './skills.json';
@@ -17,6 +18,7 @@ export default {
   summary,
   education,
   experience,
+  preview,
   projects,
   contact,
   resume,

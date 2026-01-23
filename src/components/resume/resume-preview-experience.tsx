@@ -1,11 +1,15 @@
 import type { ExperienceItem } from '@/lib/types';
 
+import { useTranslation } from 'react-i18next';
+
 import { formatDate } from '@/lib/dates';
 
 export function ResumePreviewExperience({
   data,
   ...props
 }: ResumeExperienceProps) {
+  const { t } = useTranslation('preview');
+
   function getDuration(item: ExperienceItem) {
     if (item.startDate && (!item.endDate || item.isCurrentlyWorkingHere)) {
       return `${formatDate(item.startDate)} - Present`;
@@ -27,7 +31,7 @@ export function ResumePreviewExperience({
   return (
     <section className="resume__section resume__section--experience" {...props}>
       <h2 className="resume__subtitle resume__subtitle--underlined">
-        Experience
+        {t('sections.experience')}
       </h2>
       <div className="resume__items">
         {data.map((item) => {

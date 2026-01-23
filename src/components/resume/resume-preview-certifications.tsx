@@ -1,5 +1,7 @@
 import type { Certification } from '@/lib/types';
 
+import { useTranslation } from 'react-i18next';
+
 import { isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
@@ -7,6 +9,8 @@ export function ResumePreviewCertifications({
   data,
   ...props
 }: ResumePreviewCertificationsProps) {
+  const { t } = useTranslation('preview');
+
   function getItemDetails(item: Certification) {
     const fullYear = isDateValid(item?.issueDate)
       ? new Date(item.issueDate!).getFullYear().toString()
@@ -25,7 +29,7 @@ export function ResumePreviewCertifications({
       {...props}
     >
       <h2 className="resume__subtitle resume__subtitle--underlined">
-        Certifications
+        {t('sections.certifications')}
       </h2>
       <div className="resume__items">
         {data.map((item) => {

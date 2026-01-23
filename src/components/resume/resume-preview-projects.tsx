@@ -1,5 +1,7 @@
 import type { ExperienceItem, Project } from '@/lib/types';
 
+import { useTranslation } from 'react-i18next';
+
 import { formatDate } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
@@ -7,6 +9,8 @@ export function ResumePreviewProjects({
   data,
   ...props
 }: ResumePreviewProjectsProps) {
+  const { t } = useTranslation('preview');
+
   function getDuration(item: ExperienceItem) {
     if (item.startDate && (!item.endDate || item.isCurrentlyWorkingHere)) {
       return `${formatDate(item.startDate)} - Present`;
@@ -34,7 +38,7 @@ export function ResumePreviewProjects({
   return (
     <section className="resume__section resume__section--projects" {...props}>
       <h2 className="resume__subtitle resume__subtitle--underlined">
-        Projects
+        {t('sections.projects')}
       </h2>
       <div className="resume__items">
         {data.map((item) => {
