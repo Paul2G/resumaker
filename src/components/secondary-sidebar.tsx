@@ -46,7 +46,7 @@ export function SecondarySidebar() {
   }
 
   return (
-    <aside className="w-100 border-l p-4 overflow-y-auto">
+    <aside className="w-100 shrink-0 border-l p-4 overflow-y-auto">
       {selectedItemId && (
         <Typography variant="h4" className="mb-4">
           {t(`${selectedSectionKey}:item.title`)}

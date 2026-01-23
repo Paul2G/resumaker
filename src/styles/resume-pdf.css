@@ -121,6 +121,7 @@
   .resume {
     visibility: visible;
 
+    transform: none !important;
     position: fixed;
     inset: 0;
   }

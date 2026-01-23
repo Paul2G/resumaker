@@ -7,7 +7,7 @@ export function PrimaryHeader() {
     <header className="bg-background top-0 z-50 w-full flex p-2 border border-b">
       <div className="flex gap-2">
         <h1 className="my-auto text-xl font-bold uppercase italic px-4">
-          Resume Maker
+          Resumaker
         </h1>
         <ResumeSelector />
       </div>

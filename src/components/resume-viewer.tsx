@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { PrinterIcon } from '@phosphor-icons/react';
 
 import { ResumePreview } from '@/components/resume/resume-preview';
@@ -35,20 +35,6 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
   function printDocument() {
     window.print();
   }
-
-  useEffect(() => {
-    if (containerRef.current && previewRef.current) {
-      new ResizeObserver(() => {
-        const containerWidth = containerRef.current?.offsetWidth || 1;
-        const previewWidth = previewRef.current?.offsetWidth || 0;
-
-        if (previewWidth > containerWidth) {
-          const scale = containerWidth / previewWidth;
-          previewRef.current!.style.transform = `scale(${scale})`;
-        }
-      }).observe(containerRef.current);
-    }
-  }, [containerRef, previewRef]);
 
   return (
     <div
