@@ -1,12 +1,12 @@
 import type { Skills } from '@/lib/types';
 
-import { useTranslation } from 'react-i18next';
+import { usePreviewUtils } from '@/hooks/use-preview-utils';
 
 export function ResumePreviewSkills({
   data,
   ...props
 }: ResumePreviewSkillsProps) {
-  const { t } = useTranslation('preview');
+  const { t } = usePreviewUtils();
 
   if (!data?.skills || data.skills.length === 0) return null;
 

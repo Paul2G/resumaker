@@ -1,34 +1,20 @@
-import type { ExperienceItem, Project } from '@/lib/types';
+import type { Project } from '@/lib/types';
 
-import { useTranslation } from 'react-i18next';
-
-import { formatDate } from '@/lib/dates';
+import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { isStringValid } from '@/lib/utils';
 
 export function ResumePreviewProjects({
   data,
   ...props
 }: ResumePreviewProjectsProps) {
-  const { t } = useTranslation('preview');
-
-  function getDuration(item: ExperienceItem) {
-    if (item.startDate && (!item.endDate || item.isCurrentlyWorkingHere)) {
-      return `${formatDate(item.startDate)} - Present`;
-    }
-
-    if (item.startDate && item.endDate) {
-      return `${formatDate(item.startDate)} - ${formatDate(item.endDate)}`;
-    }
-
-    if (item.endDate) {
-      return `Until ${formatDate(item.endDate)}`;
-    }
-
-    return '';
-  }
+  const { t, getDuration } = usePreviewUtils();
 
   function getItemDetails(item: Project) {
-    const details = [item.organization, item.link, getDuration(item)];
+    const details = [
+      item.organization,
+      item.link,
+      getDuration(item.startDate, item.endDate),
+    ];
 
     return details.filter((detail) => Boolean(detail) && isStringValid(detail));
   }

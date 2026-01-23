@@ -1,7 +1,6 @@
 import type { Certification } from '@/lib/types';
 
-import { useTranslation } from 'react-i18next';
-
+import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
@@ -9,7 +8,7 @@ export function ResumePreviewCertifications({
   data,
   ...props
 }: ResumePreviewCertificationsProps) {
-  const { t } = useTranslation('preview');
+  const { t } = usePreviewUtils();
 
   function getItemDetails(item: Certification) {
     const fullYear = isDateValid(item?.issueDate)

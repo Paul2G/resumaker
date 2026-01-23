@@ -1,30 +1,12 @@
 import type { ExperienceItem } from '@/lib/types';
 
-import { useTranslation } from 'react-i18next';
-
-import { formatDate } from '@/lib/dates';
+import { usePreviewUtils } from '@/hooks/use-preview-utils';
 
 export function ResumePreviewExperience({
   data,
   ...props
 }: ResumeExperienceProps) {
-  const { t } = useTranslation('preview');
-
-  function getDuration(item: ExperienceItem) {
-    if (item.startDate && (!item.endDate || item.isCurrentlyWorkingHere)) {
-      return `${formatDate(item.startDate)} - Present`;
-    }
-
-    if (item.startDate && item.endDate) {
-      return `${formatDate(item.startDate)} - ${formatDate(item.endDate)}`;
-    }
-
-    if (item.endDate) {
-      return `Until ${formatDate(item.endDate)}`;
-    }
-
-    return '';
-  }
+  const { t, getDuration } = usePreviewUtils();
 
   if (!data.some((item) => item.visible)) return null;
 
@@ -45,7 +27,13 @@ export function ResumePreviewExperience({
               </div>
               <div className="resume__item-subheader">
                 <span>{item.organization}</span>
-                <span>{getDuration(item)}</span>
+                <span>
+                  {getDuration(
+                    item.startDate,
+                    item.endDate,
+                    item.isCurrentlyWorkingHere,
+                  )}
+                </span>
               </div>
               <div className="resume__item-body">
                 {item?.description && item.description.length > 0 && (

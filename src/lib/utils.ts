@@ -20,3 +20,7 @@ export function stringTruncate(s: string, len: number = 20) {
 
   return s;
 }
+
+export function toSentenceCase(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}

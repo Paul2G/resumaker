@@ -6,5 +6,11 @@
     "certifications": "Certifications",
     "courses": "Courses",
     "skills": "Skills"
+  },
+  "dates": {
+    "present": "Present",
+    "from": "from",
+    "to": "to",
+    "until": "until"
   }
 }

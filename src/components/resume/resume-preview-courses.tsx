@@ -1,7 +1,6 @@
 import type { Course } from '@/lib/types';
 
-import { useTranslation } from 'react-i18next';
-
+import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
@@ -9,7 +8,7 @@ export function ResumePreviewCourses({
   data,
   ...props
 }: ResumePreviewCoursesProps) {
-  const { t } = useTranslation('preview');
+  const { t } = usePreviewUtils();
 
   function getItemDetails(item: Course) {
     const fullYear = isDateValid(item?.completionDate)
