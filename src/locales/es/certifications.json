@@ -4,7 +4,7 @@
   "fields": {
     "title": "Título de certificación",
     "organization": "Organización emisora",
-    "issueDate": "Fecha de asunto",
+    "issueDate": "Fecha de emisión",
     "expirationDate": "Fecha de expiración",
     "credentialId": "ID de credencial",
     "credentialUrl": "URL de credencial",
