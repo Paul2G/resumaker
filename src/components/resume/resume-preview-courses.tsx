@@ -17,6 +17,8 @@ export function ResumePreviewCourses({
     return details.filter((detail) => Boolean(detail) && isStringValid(detail));
   }
 
+  if (!data.some((item) => item.visible)) return null;
+
   return (
     <section className="resume__section resume__section--courses" {...props}>
       <h2 className="resume__subtitle resume__subtitle--underlined">Courses</h2>
