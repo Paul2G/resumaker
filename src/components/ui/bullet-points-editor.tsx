@@ -97,6 +97,7 @@ export function BulletPointsEditor({
     >
       <div className="p-1 flex gap-1">
         <Button
+          type="button"
           size="icon-sm"
           variant={editor.isActive('bold') ? 'outline' : 'ghost'}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -104,6 +105,7 @@ export function BulletPointsEditor({
           <TextBIcon />
         </Button>
         <Button
+          type="button"
           size="icon-sm"
           variant={editor.isActive('italic') ? 'outline' : 'ghost'}
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -111,6 +113,7 @@ export function BulletPointsEditor({
           <TextItalicIcon />
         </Button>
         <Button
+          type="button"
           size="icon-sm"
           variant={editor.isActive('underline') ? 'outline' : 'ghost'}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
