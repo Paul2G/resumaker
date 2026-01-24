@@ -11,7 +11,7 @@ export const contactInfoSchema = z.object({
     .optional(),
   address: z.string().optional(),
   linkedin: z.string().optional(),
-  website: z.url().optional(),
+  website: z.url().optional().or(z.literal('')),
 });
 
 export const summarySchema = z.object({
@@ -53,7 +53,7 @@ export const projectSchema = z.object({
   startDate: z.coerce.date().optional(),
   endDate: z.coerce.date().optional(),
   description: z.array(z.string()).optional(),
-  link: z.url().optional(),
+  link: z.url().optional().or(z.literal('')),
   visible: z.boolean(),
 });
 
@@ -64,7 +64,7 @@ export const certificationSchema = z.object({
   issueDate: z.coerce.date().optional(),
   expirationDate: z.coerce.date().optional(),
   credentialId: z.string().optional(),
-  credentialUrl: z.url().optional(),
+  credentialUrl: z.url().optional().or(z.literal('')),
   description: z.array(z.string()).optional(),
   visible: z.boolean(),
 });
