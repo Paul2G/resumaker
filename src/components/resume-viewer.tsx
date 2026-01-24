@@ -33,7 +33,10 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
   // }
 
   function printDocument() {
+    const pageTitle = document.title;
+    document.title = 'resume';
     window.print();
+    document.title = pageTitle;
   }
 
   return (
