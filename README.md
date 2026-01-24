@@ -1,75 +1,97 @@
-# React + TypeScript + Vite
+# Resumaker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **free, no-login resume builder** that lets users create, edit, and manage multiple professional resumes directly in the browser.
 
-Currently, two official plugins are available:
+Resumaker focuses on simplicity, speed, and privacy — all data is stored locally, with no accounts, no tracking, and no backend required.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- 📝 Create and manage multiple resumes
+- 🧩 Structured sections (Experience, Education, Skills, etc.)
+- 💾 Client-side persistence using `localStorage`
+- ⚡ Fast, intuitive, and distraction-free UI
+- 🔒 No login, no signup, no data leaving the browser
+- 🌐 Fully web-based
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend:** React + TypeScript
+- **Build Tool:** Vite
+- **Package Manager:** pnpm
+- **State Management:** React hooks
+- **Persistence:** Browser `localStorage`
+- **Styling:** CSS / TailwindCSS
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### Prerequisites
+
+- Node.js (v20 or later recommended)
+- **pnpm**
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/paul2g/resumaker.git
+
+# Navigate to the project folder
+cd resumaker
+
+# Install dependencies
+pnpm install
+
+# Start the development server
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open your browser at `http://localhost:5173` (or the port shown in the terminal).
 
-```js
-// eslint.config.js
-import reactDom from 'eslint-plugin-react-dom';
-import reactX from 'eslint-plugin-react-x';
+### Available Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+pnpm dev       # Start development server
+pnpm build     # Type-check and build for production
+pnpm preview   # Preview the production build
+pnpm lint      # Run ESLint
+pnpm format    # Format code with Prettier
 ```
+
+---
+
+## 🗂 Project Structure (simplified)
+
+```
+src/
+ ├─ components/         # Reusable UI components
+ ├─ context/            # React context providers
+ ├─ locales/            # i18n translation files
+ ├─ hooks/              # Custom hooks (localStorage, state)
+ ├─ lib/                # Helpers and storage utilities
+ └─ App.tsx
+```
+
+---
+
+## 📦 Data Storage
+
+Resumaker uses **localStorage** to persist data.
+
+- Each resume is stored independently
+- A lightweight index stores resume metadata (id)
+- No backend or external database is required
+
+This ensures fast access and full user privacy.
+
+---
+
+## 🌟 Acknowledgments
+
+Built as a personal project to practice frontend architecture, state management, and UX-focused design.
+
