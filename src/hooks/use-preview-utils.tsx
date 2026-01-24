@@ -7,7 +7,7 @@ export function usePreviewUtils() {
   const { t } = useTranslation('preview');
 
   function getDuration(from?: Date, to?: Date, currently?: boolean) {
-    if (from && (!from || currently)) {
+    if (from && (!to || currently)) {
       return `${formatDate(from)} - ${toSentenceCase(t('dates.present'))}`;
     }
 
