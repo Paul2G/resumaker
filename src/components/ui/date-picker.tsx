@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CalendarIcon } from '@phosphor-icons/react';
 
 import { Button } from '@/components/ui/button';
@@ -29,6 +29,10 @@ export function DatePicker({
   const [open, setOpen] = useState(false);
   const [month, setMonth] = useState<Date | undefined>(date);
 
+  useEffect(() => {
+    onChange(date);
+  }, [date]);
+
   return (
     <div className={cn('relative w-full', className)}>
       <Input
@@ -41,11 +45,9 @@ export function DatePicker({
           if (isStringCustomDate(inputDate)) {
             const newDate = parseDate(inputDate);
             setDate(newDate);
-            onChange(newDate);
+          } else if (inputDate === '') {
+            setDate(undefined);
           }
-        }}
-        onBlur={() => {
-          setInputValue(formatDate(date));
         }}
         {...props}
       />
@@ -77,7 +79,6 @@ export function DatePicker({
             onSelect={(newDate) => {
               setDate(newDate);
               setInputValue(formatDate(newDate));
-              onChange(newDate);
               setOpen(false);
             }}
           />
