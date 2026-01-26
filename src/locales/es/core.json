@@ -13,22 +13,28 @@
   },
   "actions": {
     "save": "Guardar",
+    "create": "Crear",
+    "delete": "Eliminar",
     "toggleTheme": "Cambiar tema",
     "createNewResume": "Crear nuevo currículum",
     "selectResume": "Seleccionar currículum"
   },
   "labels": {
+    "yourSavedResumes": "Tus currículums guardados",
     "allResumes": "Todos los currículums",
     "newResume": "Nuevo currículum"
   },
   "dialogs": {
     "cancel": "Cancelar",
     "accept": "Aceptar",
-    "create": "Crear",
     "dataSaved": "Datos guardados con éxito",
     "createNewResume": {
       "title": "Crear nuevo currículum",
       "description": "Rellena los detalles para crear un nuevo currículum."
+    },
+    "deleteResume": {
+      "title": "Eliminar currículum",
+      "description": "¿Estás seguro de que deseas eliminar este currículum? Esta acción no se puede deshacer."
     },
     "noSectionSelected": {
       "title": "Ninguna sección seleccionada",

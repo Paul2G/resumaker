@@ -55,7 +55,7 @@ export function ResumeCreateModalTrigger({
               setIsDialogOpen(false);
             }}
           >
-            {t('dialogs.create')}
+            {t('actions.create')}
           </Button>
         </DialogFooter>
       </DialogContent>

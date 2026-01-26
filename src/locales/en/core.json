@@ -13,22 +13,28 @@
   },
   "actions": {
     "save": "Save",
+    "create": "Create",
+    "delete": "Delete",
     "toggleTheme": "Toggle Theme",
     "createNewResume": "Create New Resume",
     "selectResume": "Select Resume"
   },
   "labels": {
+    "yourSavedResumes": "Your Saved Resumes",
     "allResumes": "All Resumes",
     "newResume": "New Resume"
   },
   "dialogs": {
     "cancel": "Cancel",
     "accept": "Accept",
-    "create": "Create",
     "dataSaved": "Data saved successfully",
     "createNewResume": {
       "title": "Create New Resume",
       "description": "Fill in the details to create a new resume."
+    },
+    "deleteResume": {
+        "title": "Are you absolutely sure?",
+        "description": "This action cannot be undone. This will permanently delete your resume."
     },
     "noSectionSelected": {
       "title": "No Section Selected",

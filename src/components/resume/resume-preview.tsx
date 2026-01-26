@@ -1,5 +1,7 @@
 import '@/styles/resume-pdf.css';
 
+import type { Resume } from '@/lib/types';
+
 import { ResumePreviewCertifications } from '@/components/resume/resume-preview-certifications';
 import { ResumePreviewContactInfo } from '@/components/resume/resume-preview-contact-info';
 import { ResumePreviewCourses } from '@/components/resume/resume-preview-courses';
@@ -8,17 +10,18 @@ import { ResumePreviewExperience } from '@/components/resume/resume-preview-expe
 import { ResumePreviewProjects } from '@/components/resume/resume-preview-projects';
 import { ResumePreviewSkills } from '@/components/resume/resume-preview-skills';
 import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
-import { useResume } from '@/hooks/use-resume';
 import { SectionKey } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
-export function ResumePreview({ className, ...props }: ResumePreviewProps) {
-  const { sections } = useResume();
-
+export function ResumePreview({
+  resume,
+  className,
+  ...props
+}: ResumePreviewProps) {
   return (
     <div className={cn('resume resume--letter', className)} {...props}>
       <div className="resume__sheet">
-        {sections.map(({ key, data, visible }) => {
+        {resume.sections.map(({ key, data, visible }) => {
           if (!visible) return null;
 
           switch (key) {
@@ -47,4 +50,6 @@ export function ResumePreview({ className, ...props }: ResumePreviewProps) {
   );
 }
 
-export type ResumePreviewProps = React.ComponentProps<'div'> & {};
+export type ResumePreviewProps = React.ComponentProps<'div'> & {
+  resume: Resume;
+};
