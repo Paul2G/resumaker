@@ -7,7 +7,7 @@ import { deleteResume, loadResume, saveResume } from '@/repositories/resumes';
 
 export const ResumesIndexContext = createContext<ResumesIndexProviderValue>({
   resumes: [],
-  setSelectedResume: () => {},
+  getResume: () => null,
   createResume: () => {},
   removeResume: () => {},
   updateResume: () => {},
@@ -19,19 +19,9 @@ export function ResumesIndexProvider({
   children,
 }: ResumesIndexProviderProps) {
   const [resumes, setResumes] = useState(appData.resumes);
-  const [selectedResumeId, setSelectedResumeId] = useState<string | undefined>(
-    appData?.selectedResumeId,
-  );
-  const [currentResume, setCurrentResume] = useState<Resume | undefined>();
 
-  function setSelectedResume(resumeId: string) {
-    const isResumeIndexed = resumes.some((resume) => resume.id === resumeId);
-
-    if (isResumeIndexed) {
-      setSelectedResumeId(resumeId);
-    } else {
-      removeResume(resumeId);
-    }
+  function getResume(resumeId: string) {
+    return loadResume(resumeId);
   }
 
   function createResume(name: string) {
@@ -41,12 +31,12 @@ export function ResumesIndexProvider({
 
     saveResume(newResume);
 
-    setSelectedResumeId(newResumeId);
+    // setSelectedResumeId(newResumeId);
     setResumes((prev) => [...prev, { id: newResumeId, name }]);
   }
 
   function removeResume(resumeId: string) {
-    if (selectedResumeId === resumeId) setSelectedResumeId(undefined);
+    // if (selectedResumeId === resumeId) setSelectedResumeId(undefined);
 
     deleteResume(resumeId);
 
@@ -54,9 +44,10 @@ export function ResumesIndexProvider({
   }
 
   function updateResume(resume: Resume) {
-    const isResumeIndexed = resumes.some(
-      (resume) => resume.id === selectedResumeId,
-    );
+    const isResumeIndexed = true;
+    //     resumes.some(
+    //   (resume) => resume.id === selectedResumeId,
+    // );
 
     saveResume(resume);
 
@@ -80,26 +71,14 @@ export function ResumesIndexProvider({
   useEffect(() => {
     onSaveAppData({
       resumes,
-      selectedResumeId,
     });
-  }, [resumes, selectedResumeId]);
-
-  useEffect(() => {
-    if (selectedResumeId) {
-      const resume = loadResume(selectedResumeId);
-      if (!resume) removeResume(selectedResumeId);
-      else setCurrentResume(resume);
-    } else {
-      setCurrentResume(undefined);
-    }
-  }, [selectedResumeId]);
+  }, [resumes]);
 
   return (
     <ResumesIndexContext.Provider
       value={{
         resumes,
-        selectedResume: currentResume,
-        setSelectedResume,
+        getResume,
         createResume,
         removeResume,
         updateResume,
@@ -108,8 +87,7 @@ export function ResumesIndexProvider({
       {children instanceof Function
         ? children({
             resumes,
-            selectedResume: currentResume,
-            setSelectedResume,
+            getResume,
             createResume,
             removeResume,
             updateResume,
@@ -121,8 +99,7 @@ export function ResumesIndexProvider({
 
 export type ResumesIndexProviderValue = {
   resumes: ResumeIndex[];
-  selectedResume?: Resume;
-  setSelectedResume: (resumeId: string) => void;
+  getResume: (id: string) => Resume | null;
   createResume: (name: string) => void;
   removeResume: (id: string) => void;
   updateResume: (resume: Resume) => void;

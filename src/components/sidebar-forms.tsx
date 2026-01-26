@@ -13,7 +13,7 @@ import { Typography } from '@/components/ui/typography';
 import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 import { SectionKey } from '@/lib/types';
 
-export function SecondarySidebar() {
+export function SidebarForms() {
   const { t } = useTranslation();
   const { selectedSectionKey, selectedItemId } = useSidebarsContent();
 
@@ -46,7 +46,7 @@ export function SecondarySidebar() {
   }
 
   return (
-    <aside className="w-100 shrink-0 border-l p-4 overflow-y-auto">
+    <aside className="order-4 w-100 shrink-0 border-l p-4 overflow-y-auto">
       {selectedItemId && (
         <Typography variant="h4" className="mb-4">
           {t(`${selectedSectionKey}:item.title`)}

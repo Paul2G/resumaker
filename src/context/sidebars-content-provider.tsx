@@ -9,8 +9,6 @@ export enum AuxSidebarOption {
 
 export const SidebarsContentContext =
   createContext<SidebarsContentProviderValue>({
-    selectedAuxSidebarOption: AuxSidebarOption.Sections,
-    setAuxSidebarOption: () => {},
     setSidebarContent: () => {},
     clearSidebarContent: () => {},
   });
@@ -18,8 +16,6 @@ export const SidebarsContentContext =
 export function SidebarsContentProvider({
   children,
 }: SidebarsContentProviderProps) {
-  const [selectedAuxSidebarOption, setAuxSidebarOption] =
-    useState<AuxSidebarOption>(AuxSidebarOption.Sections);
   const [selectedSectionKey, setSelectedSectionKey] = useState<SectionKey>();
   const [selectedItemId, setSelectedItemId] = useState<string>();
 
@@ -36,10 +32,8 @@ export function SidebarsContentProvider({
   return (
     <SidebarsContentContext.Provider
       value={{
-        selectedAuxSidebarOption,
         selectedSectionKey,
         selectedItemId,
-        setAuxSidebarOption,
         setSidebarContent,
         clearSidebarContent,
       }}
@@ -54,10 +48,8 @@ export type SidebarsContentProviderProps = {
 };
 
 export type SidebarsContentProviderValue = {
-  selectedAuxSidebarOption: AuxSidebarOption;
   selectedSectionKey?: SectionKey;
   selectedItemId?: string;
-  setAuxSidebarOption: (option: AuxSidebarOption) => void;
   setSidebarContent: (sectionKey: SectionKey, itemId?: string) => void;
   clearSidebarContent: () => void;
 };
