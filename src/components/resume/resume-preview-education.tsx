@@ -30,7 +30,7 @@ export function ResumePreviewEducation({
                 <ul className="resume__item-details">
                   {isStringValid(item.minor) && (
                     <li>
-                      <span>{item.gpa}</span>
+                      <span>{item.minor}</span>
                     </li>
                   )}
                   {isStringValid(item.organization) && (
@@ -46,6 +46,11 @@ export function ResumePreviewEducation({
                   {isDateValid(item.completionDate) && (
                     <li>
                       <span>{getYear(item.completionDate)}</span>
+                    </li>
+                  )}
+                  {isStringValid(item.gpa) && (
+                    <li>
+                      <span>{item.gpa}</span>
                     </li>
                   )}
                 </ul>
