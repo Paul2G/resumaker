@@ -12,8 +12,8 @@ import { SummaryForm } from '@/components/forms/summary-form';
 import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
-import { IterableSectionKey, SectionKey, StaticSectionKey } from '@/lib/types';
 import { isValueOf } from '@/lib/utils';
+import { IterableSectionKey, SectionKey, StaticSectionKey } from '@/types';
 
 const ItemForms = {
   [IterableSectionKey.Experience]: ExperienceItemForm,
@@ -79,7 +79,7 @@ export function SidebarForms() {
         </Typography>
         <SectionForm
           // @ts-ignore an issue inferring type
-          data={data}
+          defaultValues={data}
           onSave={(values) => setSectionData(selectedSectionKey, values)}
         />
       </>

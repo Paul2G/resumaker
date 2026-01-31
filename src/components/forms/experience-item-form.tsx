@@ -1,4 +1,4 @@
-import type { ExperienceItem } from '@/lib/types';
+import type { ExperienceItem } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
-import { experienceItemSchema } from '@/lib/schemas';
+import { experienceItemSchema } from '@/types';
 
 export function ExperienceItemForm({
   defaultValues,

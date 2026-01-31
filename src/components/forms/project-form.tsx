@@ -1,4 +1,4 @@
-import type { Project } from '@/lib/types';
+import type { Project } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { projectSchema } from '@/lib/schemas';
+import { projectSchema } from '@/types';
 
 export function ProjectForm({ defaultValues, onSave }: ProjectFormProps) {
   const { t } = useTranslation();

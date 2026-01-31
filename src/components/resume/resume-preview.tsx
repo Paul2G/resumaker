@@ -1,6 +1,6 @@
 import '@/styles/resume-pdf.css';
 
-import type { Resume } from '@/lib/types';
+import type { Resume } from '@/types';
 
 import { ResumePreviewCertifications } from '@/components/resume/resume-preview-certifications';
 import { ResumePreviewContactInfo } from '@/components/resume/resume-preview-contact-info';
@@ -10,8 +10,8 @@ import { ResumePreviewExperience } from '@/components/resume/resume-preview-expe
 import { ResumePreviewProjects } from '@/components/resume/resume-preview-projects';
 import { ResumePreviewSkills } from '@/components/resume/resume-preview-skills';
 import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
-import { SectionKey } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { SectionKey } from '@/types';
 
 export function ResumePreview({
   resume,

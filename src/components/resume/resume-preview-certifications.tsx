@@ -1,4 +1,4 @@
-import type { Certification } from '@/lib/types';
+import type { Certification } from '@/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { formatDate, isDateValid } from '@/lib/dates';

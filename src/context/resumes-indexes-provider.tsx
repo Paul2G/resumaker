@@ -1,4 +1,4 @@
-import type { AppData, Resume, ResumeIndex } from '@/lib/types';
+import type { AppData, Resume, ResumeIndex } from '@/types';
 
 import { createContext, useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';

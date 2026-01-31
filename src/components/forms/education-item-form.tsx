@@ -1,4 +1,4 @@
-import type { EducationItem } from '@/lib/types';
+import type { EducationItem } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { educationItemSchema } from '@/lib/schemas';
+import { educationItemSchema } from '@/types';
 
 export function EducationItemForm({
   defaultValues,

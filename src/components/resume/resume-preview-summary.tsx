@@ -1,4 +1,4 @@
-import type { Summary } from '@/lib/types';
+import type { Summary } from '@/types';
 
 import { isStringValid } from '@/lib/utils';
 

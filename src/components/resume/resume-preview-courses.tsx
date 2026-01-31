@@ -1,4 +1,4 @@
-import type { Course } from '@/lib/types';
+import type { Course } from '@/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { getYear } from '@/lib/dates';

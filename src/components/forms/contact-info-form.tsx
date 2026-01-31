@@ -1,4 +1,4 @@
-import type { ContactInfo } from '@/lib/types';
+import type { ContactInfo } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -21,7 +21,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group';
-import { contactInfoSchema } from '@/lib/schemas';
+import { contactInfoSchema } from '@/types';
 
 export function ContactInfoForm({
   defaultValues,
@@ -31,7 +31,7 @@ export function ContactInfoForm({
 
   const form = useForm({
     resolver: zodResolver(contactInfoSchema),
-    defaultValues: defaultValues,
+    defaultValues,
   });
 
   function onSubmit(values: ContactInfo) {

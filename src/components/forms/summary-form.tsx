@@ -1,4 +1,4 @@
-import type { Summary } from '@/lib/types';
+import type { Summary } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { summarySchema } from '@/lib/schemas';
+import { summarySchema } from '@/types';
 
 export function SummaryForm({ defaultValues, onSave }: SummaryFormProps) {
   const { t } = useTranslation();

@@ -1,4 +1,4 @@
-import type { Certification, Course } from '@/lib/types';
+import type { Course } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { courseSchema } from '@/lib/schemas';
+import { courseSchema } from '@/types';
 
 export function CourseForm({ defaultValues, onSave }: CourseFormProps) {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export function CourseForm({ defaultValues, onSave }: CourseFormProps) {
     defaultValues: courseSchema.parse(defaultValues),
   });
 
-  function onSubmit(values: Certification) {
+  function onSubmit(values: Course) {
     onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }

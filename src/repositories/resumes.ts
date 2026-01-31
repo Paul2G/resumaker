@@ -1,4 +1,4 @@
-import type { AppData, Resume } from '@/lib/types';
+import type { AppData, Resume } from '@/types';
 
 import { CURRENT_APP_VERSION } from '@/lib/utils';
 

@@ -1,4 +1,4 @@
-import type { Skills } from '@/lib/types';
+import type { Skills } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { skillsSchema } from '@/lib/schemas';
+import { skillsSchema } from '@/types';
 
 export function SkillsForm({ defaultValues, onSave }: SkillsFormProps) {
   const { t } = useTranslation();

@@ -1,4 +1,4 @@
-import type { Certification } from '@/lib/types';
+import type { Certification } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { certificationSchema } from '@/lib/schemas';
+import { certificationSchema } from '@/types';
 
 export function CertificationForm({
   defaultValues,

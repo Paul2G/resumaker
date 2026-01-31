@@ -1,4 +1,4 @@
-import type { ResumeSection } from '@/lib/types';
+import type { IterableSectionKey, ResumeSection } from '@/types';
 
 import { PlusIcon } from '@phosphor-icons/react';
 import { useNavigate, useParams } from '@tanstack/react-router';
@@ -8,7 +8,7 @@ import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
 import { SectionIconMap, SectionItemIconMap } from '@/lib/icons-maps';
-import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
+import { StaticSectionKey } from '@/types';
 
 export function SectionsList() {
   const { t } = useTranslation();

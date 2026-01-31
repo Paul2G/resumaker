@@ -1,15 +1,15 @@
 import type {
+  IterableSectionKey,
   Resume,
   ResumeSection,
   SectionDataMap,
   SectionKey,
-} from '@/lib/types';
+} from '@/types';
 
 import React, { createContext, useState } from 'react';
 import { nanoid } from 'nanoid';
 
 import { useUpdateEffect } from '@/hooks/use-update-effect';
-import { IterableSectionKey } from '@/lib/types';
 
 export const ResumeContext = createContext<ResumeProviderValue>(undefined!);
 

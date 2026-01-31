@@ -16,7 +16,7 @@ import {
   ScrollIcon,
 } from '@phosphor-icons/react';
 
-import { IterableSectionKey, SectionKey } from '@/lib/types';
+import { IterableSectionKey, SectionKey } from '@/types';
 
 export const SectionIconMap: Record<SectionKey, Icon> = {
   [SectionKey.ContactInfo]: AddressBookIcon,

@@ -9,7 +9,7 @@ import {
   projectSchema,
   skillsSchema,
   summarySchema,
-} from '@/lib/schemas';
+} from '@/types';
 
 export const IterableSectionKey = {
   Experience: 'experience',
@@ -94,7 +94,6 @@ interface SkillsSection {
   key: typeof StaticSectionKey.Skills;
   data: SectionDataMap[typeof StaticSectionKey.Skills];
 }
-
 export type ResumeSection<K = SectionKey> = {
   key: K;
   visible: boolean;
@@ -108,25 +107,3 @@ export type ResumeSection<K = SectionKey> = {
   | CoursesSection
   | SkillsSection
 );
-
-export type Resume = {
-  id: string;
-  name: string;
-  config: {
-    pageSize: 'A4' | 'Letter';
-    margin: number;
-    font: 'Arial' | 'Times New Roman' | 'Calibri' | 'Georgia';
-  };
-  sections: ResumeSection[];
-};
-
-export type ResumeIndex = {
-  id: string;
-  name: string;
-};
-
-export type AppData = {
-  resumes: ResumeIndex[];
-  selectedResumeId?: string;
-  version?: string;
-};

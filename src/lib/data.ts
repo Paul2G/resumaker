@@ -1,6 +1,6 @@
-import type { Resume } from '@/lib/types';
+import type { Resume } from '@/types';
 
-import { SectionKey } from '@/lib/types';
+import { SectionKey } from '@/types';
 
 export const defaultResume: Resume = {
   id: '1',
