@@ -1,7 +1,6 @@
 import { createFileRoute, notFound, Outlet } from '@tanstack/react-router';
 
 import { ResumeProvider } from '@/context/resume-provider';
-import { SidebarsContentProvider } from '@/context/sidebars-content-provider';
 import { MainArea } from '@/components/main-area';
 import { SidebarAuxiliar } from '@/components/sidebar-auxiliar';
 import { useResumesIndex } from '@/hooks/use-resumes-index';
@@ -30,13 +29,11 @@ function RouteComponent() {
 
   return (
     <ResumeProvider currentResume={selectedResume} onSave={updateResume}>
-      <SidebarsContentProvider>
-        <div className="overflow-hidden grow flex items-streetch">
-          <SidebarAuxiliar />
-          <Outlet />
-          <MainArea />
-        </div>
-      </SidebarsContentProvider>
+      <div className="overflow-hidden grow flex items-streetch">
+        <SidebarAuxiliar />
+        <Outlet />
+        <MainArea />
+      </div>
     </ResumeProvider>
   );
 }

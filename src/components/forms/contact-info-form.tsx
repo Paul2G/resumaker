@@ -1,6 +1,5 @@
 import type { ContactInfo } from '@/lib/types';
 
-import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -22,32 +21,27 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group';
-import { useResume } from '@/hooks/use-resume';
 import { contactInfoSchema } from '@/lib/schemas';
-import { StaticSectionKey } from '@/lib/types';
 
-export function ContactInfoForm() {
+export function ContactInfoForm({
+  defaultValues,
+  onSave,
+}: ContactInfoFormProps) {
   const { t } = useTranslation();
-  const { getSectionData, setSectionData } = useResume();
-
-  const defaultValues = useMemo(
-    () => getSectionData(StaticSectionKey.ContactInfo),
-    [],
-  );
 
   const form = useForm({
     resolver: zodResolver(contactInfoSchema),
-    defaultValues,
+    defaultValues: defaultValues,
   });
 
-  function onSave(values: ContactInfo) {
-    setSectionData(StaticSectionKey.ContactInfo, values);
+  function onSubmit(values: ContactInfo) {
+    onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="fullName"
@@ -155,3 +149,8 @@ export function ContactInfoForm() {
     </Form>
   );
 }
+
+export type ContactInfoFormProps = {
+  defaultValues: ContactInfo;
+  onSave: (values: ContactInfo) => void;
+};

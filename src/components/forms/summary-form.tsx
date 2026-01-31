@@ -1,6 +1,5 @@
 import type { Summary } from '@/lib/types';
 
-import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -16,29 +15,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { useResume } from '@/hooks/use-resume';
 import { summarySchema } from '@/lib/schemas';
-import { SectionKey } from '@/lib/types';
 
-export function SummaryForm() {
+export function SummaryForm({ defaultValues, onSave }: SummaryFormProps) {
   const { t } = useTranslation();
-  const { getSectionData, setSectionData } = useResume();
-
-  const defaultValues = useMemo(() => getSectionData(SectionKey.Summary), []);
 
   const form = useForm({
     resolver: zodResolver(summarySchema),
-    defaultValues,
+    defaultValues: defaultValues,
   });
 
-  function onSave(values: Summary) {
-    setSectionData(SectionKey.Summary, values);
+  function onSubmit(values: Summary) {
+    onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="summary"
@@ -60,3 +54,8 @@ export function SummaryForm() {
     </Form>
   );
 }
+
+export type SummaryFormProps = {
+  defaultValues: Summary;
+  onSave: (values: Summary) => void;
+};

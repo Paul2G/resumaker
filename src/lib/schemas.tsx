@@ -23,7 +23,7 @@ export const skillsSchema = z.object({
 });
 
 export const experienceItemSchema = z.object({
-  id: z.uuid(),
+  id: z.string(),
   title: z.string().min(1),
   organization: z.string().min(1),
   location: z.string().optional(),

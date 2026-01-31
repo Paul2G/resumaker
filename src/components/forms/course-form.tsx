@@ -1,6 +1,5 @@
-import type { Certification } from '@/lib/types';
+import type { Certification, Course } from '@/lib/types';
 
-import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -18,32 +17,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useResume } from '@/hooks/use-resume';
 import { courseSchema } from '@/lib/schemas';
-import { IterableSectionKey, SectionKey } from '@/lib/types';
 
-export function CourseForm({ itemId }: CourseFormProps) {
+export function CourseForm({ defaultValues, onSave }: CourseFormProps) {
   const { t } = useTranslation();
-  const { getSectionDataItem, updateSectionDataItem } = useResume();
-
-  const defaultValues = useMemo(
-    () => getSectionDataItem(SectionKey.Courses, itemId)!,
-    [],
-  );
 
   const form = useForm({
     resolver: zodResolver(courseSchema),
     defaultValues: courseSchema.parse(defaultValues),
   });
 
-  function onSave(values: Certification) {
-    updateSectionDataItem(IterableSectionKey.Courses, values);
+  function onSubmit(values: Certification) {
+    onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="title"
@@ -116,5 +107,6 @@ export function CourseForm({ itemId }: CourseFormProps) {
 }
 
 export type CourseFormProps = {
-  itemId: string;
+  defaultValues: Course;
+  onSave: (values: Course) => void;
 };

@@ -24,3 +24,9 @@ export function stringTruncate(s: string, len: number = 20) {
 export function toSentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
+
+export function isValueOf<T extends Record<string, unknown>>(obj: T) {
+  return function (value: unknown): value is T[keyof T] {
+    return Object.values(obj).includes(value as T[keyof T]);
+  };
+}

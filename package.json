@@ -49,6 +49,7 @@
     "i18next": "25.6.3",
     "jspdf": "^4.0.0",
     "lucide-react": "0.552.0",
+    "nanoid": "^5.1.6",
     "next-themes": "^0.4.6",
     "react": "19.2.3",
     "react-day-picker": "9.11.2",

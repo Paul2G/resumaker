@@ -1,6 +1,7 @@
 import type { AppData, Resume, ResumeIndex } from '@/lib/types';
 
 import { createContext, useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
 
 import { defaultResume } from '@/lib/data';
 import { deleteResume, loadResume, saveResume } from '@/repositories/resumes';
@@ -25,13 +26,12 @@ export function ResumesIndexProvider({
   }
 
   function createResume(name: string) {
-    const newResumeId = crypto.randomUUID();
+    const newResumeId = nanoid(16);
 
     const newResume = { ...defaultResume, id: newResumeId, name };
 
     saveResume(newResume);
 
-    // setSelectedResumeId(newResumeId);
     setResumes((prev) => [...prev, { id: newResumeId, name }]);
   }
 

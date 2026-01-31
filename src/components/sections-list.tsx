@@ -1,17 +1,22 @@
 import type { ResumeSection } from '@/lib/types';
 
-import { useEffect } from 'react';
 import { PlusIcon } from '@phosphor-icons/react';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
-import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 import { SectionIconMap, SectionItemIconMap } from '@/lib/icons-maps';
 import { IterableSectionKey, StaticSectionKey } from '@/lib/types';
 
 export function SectionsList() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { sectionKey: selectedSectionKey, itemId: selectedItemId } = useParams({
+    from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+  });
+
   const {
     id: resumeId,
     sections,
@@ -22,13 +27,6 @@ export function SectionsList() {
     removeSectionDataItem,
     setSectionDataItemVisibility,
   } = useResume();
-  const { t } = useTranslation();
-  const {
-    selectedSectionKey,
-    selectedItemId,
-    setSidebarContent,
-    clearSidebarContent,
-  } = useSidebarsContent();
 
   function onCreateNewItem(sectionKey: IterableSectionKey) {
     const newItemId = addSectionDataItem(sectionKey, {
@@ -37,13 +35,19 @@ export function SectionsList() {
       visible: true,
     });
 
-    setSidebarContent(sectionKey, newItemId);
+    navigate({
+      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      params: { resumeId, sectionKey, itemId: newItemId },
+    });
   }
 
   function onDeleteItem(sectionKey: IterableSectionKey, itemId: string) {
-    setSidebarContent(sectionKey);
-
     removeSectionDataItem(sectionKey, itemId);
+
+    navigate({
+      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      params: { resumeId, sectionKey: sectionKey, itemId: undefined },
+    });
   }
 
   function getSectionTitle(section: ResumeSection) {
@@ -67,10 +71,6 @@ export function SectionsList() {
     return SectionItemIconMap[sectionKey];
   }
 
-  useEffect(() => {
-    clearSidebarContent();
-  }, [resumeId]);
-
   return (
     <SortableTreeList
       items={sections}
@@ -84,7 +84,12 @@ export function SectionsList() {
       setItemVisibility={(section) =>
         setSectionVisibility(section.key, !section.visible)
       }
-      selectItem={(section) => setSidebarContent(section.key)}
+      selectItem={(section) =>
+        navigate({
+          to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+          params: { resumeId, sectionKey: section.key, itemId: undefined },
+        })
+      }
     >
       {(section) =>
         section.key !== StaticSectionKey.ContactInfo &&
@@ -107,7 +112,16 @@ export function SectionsList() {
                 )
               }
               removeItem={(item) => onDeleteItem(section.key, item.id)}
-              selectItem={(item) => setSidebarContent(section.key, item.id)}
+              selectItem={(item) =>
+                navigate({
+                  to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+                  params: {
+                    resumeId,
+                    sectionKey: section.key,
+                    itemId: item.id,
+                  },
+                })
+              }
             />
             <Button
               variant="ghost"

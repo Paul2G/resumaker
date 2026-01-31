@@ -1,3 +1,4 @@
+import { useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { CertificationForm } from '@/components/forms/certification-form';
@@ -10,53 +11,83 @@ import { SkillsForm } from '@/components/forms/skills-form';
 import { SummaryForm } from '@/components/forms/summary-form';
 import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { Typography } from '@/components/ui/typography';
-import { useSidebarsContent } from '@/hooks/use-sidebars-content';
-import { SectionKey } from '@/lib/types';
+import { useResume } from '@/hooks/use-resume';
+import { IterableSectionKey, SectionKey, StaticSectionKey } from '@/lib/types';
+import { isValueOf } from '@/lib/utils';
+
+const ItemForms = {
+  [IterableSectionKey.Experience]: ExperienceItemForm,
+  [IterableSectionKey.Education]: EducationItemForm,
+  [IterableSectionKey.Projects]: ProjectForm,
+  [IterableSectionKey.Certifications]: CertificationForm,
+  [IterableSectionKey.Courses]: CourseForm,
+} as const;
+
+const SectionForms = {
+  [StaticSectionKey.ContactInfo]: ContactInfoForm,
+  [StaticSectionKey.Summary]: SummaryForm,
+  [StaticSectionKey.Skills]: SkillsForm,
+};
 
 export function SidebarForms() {
   const { t } = useTranslation();
-  const { selectedSectionKey, selectedItemId } = useSidebarsContent();
+  const {
+    getSectionData,
+    setSectionData,
+    getSectionDataItem,
+    updateSectionDataItem,
+  } = useResume();
+
+  const { sectionKey: selectedSectionKey, itemId: selectedItemId } = useParams({
+    from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+  });
+
+  const isSectionKeyValid = isValueOf(SectionKey)(selectedSectionKey);
+  const isIterableSection = isValueOf(IterableSectionKey)(selectedSectionKey);
 
   function FormSelector() {
-    if (selectedItemId) {
-      switch (selectedSectionKey) {
-        case SectionKey.Experience:
-          return <ExperienceItemForm itemId={selectedItemId} />;
-        case SectionKey.Education:
-          return <EducationItemForm itemId={selectedItemId} />;
-        case SectionKey.Projects:
-          return <ProjectForm itemId={selectedItemId} />;
-        case SectionKey.Certifications:
-          return <CertificationForm itemId={selectedItemId} />;
-        case SectionKey.Courses:
-          return <CourseForm itemId={selectedItemId} />;
-      }
+    if (!isSectionKeyValid) return <SecondarySidebarEmpty />;
+
+    if (isIterableSection) {
+      const item = getSectionDataItem(selectedSectionKey, selectedItemId);
+      if (!item)
+        return <SecondarySidebarEmpty sectionKey={selectedSectionKey} />;
+
+      const ItemForm = ItemForms[selectedSectionKey];
+      return (
+        <>
+          <Typography variant="h4" className="mb-4">
+            {t(`${selectedSectionKey}:item.title`)}
+          </Typography>
+          <ItemForm
+            defaultValues={item}
+            onSave={(values) =>
+              updateSectionDataItem(selectedSectionKey, values)
+            }
+          />
+        </>
+      );
     }
 
-    switch (selectedSectionKey) {
-      case SectionKey.ContactInfo:
-        return <ContactInfoForm />;
-      case SectionKey.Summary:
-        return <SummaryForm />;
-      case SectionKey.Skills:
-        return <SkillsForm />;
-      default:
-        return <SecondarySidebarEmpty sectionKey={selectedSectionKey} />;
-    }
+    const data = getSectionData(selectedSectionKey);
+
+    const SectionForm = SectionForms[selectedSectionKey];
+    return (
+      <>
+        <Typography variant="h4" className="mb-4">
+          {t(`${selectedSectionKey}:title`)}
+        </Typography>
+        <SectionForm
+          // @ts-ignore an issue inferring type
+          data={data}
+          onSave={(values) => setSectionData(selectedSectionKey, values)}
+        />
+      </>
+    );
   }
 
   return (
     <aside className="order-4 w-100 shrink-0 border-l p-4 overflow-y-auto">
-      {selectedItemId && (
-        <Typography variant="h4" className="mb-4">
-          {t(`${selectedSectionKey}:item.title`)}
-        </Typography>
-      )}
-      {selectedSectionKey && !selectedItemId && (
-        <Typography variant="h4" className="mb-4">
-          {t(`${selectedSectionKey}:title`)}
-        </Typography>
-      )}
       <FormSelector />
     </aside>
   );

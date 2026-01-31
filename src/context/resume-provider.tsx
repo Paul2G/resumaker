@@ -6,6 +6,7 @@ import type {
 } from '@/lib/types';
 
 import React, { createContext, useState } from 'react';
+import { nanoid } from 'nanoid';
 
 import { useUpdateEffect } from '@/hooks/use-update-effect';
 import { IterableSectionKey } from '@/lib/types';
@@ -94,7 +95,7 @@ export function ResumeProvider({
     sectionKey: K,
     item: Omit<SectionDataMap[K][number], 'id'>,
   ) {
-    const newItemId = crypto.randomUUID();
+    const newItemId = nanoid(16);
 
     const sections = resume.sections.map((section) => {
       if (section.key === sectionKey && section.data instanceof Array) {
@@ -165,7 +166,7 @@ export function ResumeProvider({
     itemId: string,
   ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === sectionKey && section.data instanceof Array) {
+      if (section.key === sectionKey) {
         return {
           ...section,
           data: section.data.filter((item) => item.id !== itemId),

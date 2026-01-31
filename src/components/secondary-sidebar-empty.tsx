@@ -1,4 +1,5 @@
 import { InfoIcon, PlusIcon } from '@phosphor-icons/react';
+import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -11,18 +12,18 @@ import {
   EmptyTitle,
 } from '@/components/ui/empty';
 import { useResume } from '@/hooks/use-resume';
-import { useSidebarsContent } from '@/hooks/use-sidebars-content';
 import { SectionIconMap } from '@/lib/icons-maps';
 import { IterableSectionKey } from '@/lib/types';
+import { isValueOf } from '@/lib/utils';
 
 export function SecondarySidebarEmpty({
   sectionKey,
 }: SecondarySidebarEmptyProps) {
   const { t } = useTranslation();
   const { addSectionDataItem } = useResume();
-  const { setSidebarContent } = useSidebarsContent();
+  const navigate = useNavigate();
 
-  if (sectionKey) {
+  if (isValueOf(IterableSectionKey)(sectionKey)) {
     const Icon = SectionIconMap[sectionKey];
 
     return (
@@ -36,15 +37,18 @@ export function SecondarySidebarEmpty({
         </EmptyHeader>
         <EmptyContent>
           <Button
-            onClick={() => {
+            onClick={async () => {
               {
-                const newItemId = addSectionDataItem(sectionKey, {
+                const itemId = await addSectionDataItem(sectionKey, {
                   title: t(`${sectionKey}:defaults.title`),
                   organization: t(`${sectionKey}:defaults.organization`),
                   visible: true,
                 });
 
-                setSidebarContent(sectionKey, newItemId);
+                navigate({
+                  from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+                  params: (prev) => ({ ...prev, sectionKey, itemId }),
+                }).then();
               }
             }}
           >
@@ -56,7 +60,6 @@ export function SecondarySidebarEmpty({
     );
   }
 
-  // This should never happen, but maybe in the future so return a fallback UI
   return (
     <Empty>
       <EmptyHeader>
@@ -73,5 +76,5 @@ export function SecondarySidebarEmpty({
 }
 
 export type SecondarySidebarEmptyProps = {
-  sectionKey?: IterableSectionKey;
+  sectionKey?: IterableSectionKey | string;
 };
