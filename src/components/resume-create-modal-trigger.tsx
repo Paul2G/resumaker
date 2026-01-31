@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ export function ResumeCreateModalTrigger({
   children,
 }: ResumeCreateModalTriggerProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { createResume } = useResumesIndex();
 
   const [newResumeName, setNewResumeName] = useState('');
@@ -49,10 +51,12 @@ export function ResumeCreateModalTrigger({
           <Button
             type="submit"
             disabled={newResumeName.trim().length === 0}
-            onClick={() => {
-              createResume(newResumeName.trim());
+            onClick={async () => {
+              const resumeId = await createResume(newResumeName.trim());
               setNewResumeName('');
               setIsDialogOpen(false);
+
+              await navigate({ to: '/$resumeId', params: { resumeId } });
             }}
           >
             {t('actions.create')}

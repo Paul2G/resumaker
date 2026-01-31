@@ -45,10 +45,10 @@ export function SecondarySidebarEmpty({
                   visible: true,
                 });
 
-                navigate({
+                await navigate({
                   from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
                   params: (prev) => ({ ...prev, sectionKey, itemId }),
-                }).then();
+                });
               }
             }}
           >

@@ -28,23 +28,23 @@ export function SectionsList() {
     setSectionDataItemVisibility,
   } = useResume();
 
-  function onCreateNewItem(sectionKey: IterableSectionKey) {
-    const newItemId = addSectionDataItem(sectionKey, {
+  async function onCreateNewItem(sectionKey: IterableSectionKey) {
+    const newItemId = await addSectionDataItem(sectionKey, {
       title: t(`${sectionKey}:defaults.title`),
       organization: t(`${sectionKey}:defaults.organization`),
       visible: true,
     });
 
-    navigate({
+    await navigate({
       to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
       params: { resumeId, sectionKey, itemId: newItemId },
     });
   }
 
-  function onDeleteItem(sectionKey: IterableSectionKey, itemId: string) {
-    removeSectionDataItem(sectionKey, itemId);
+  async function onDeleteItem(sectionKey: IterableSectionKey, itemId: string) {
+    await removeSectionDataItem(sectionKey, itemId);
 
-    navigate({
+    await navigate({
       to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
       params: { resumeId, sectionKey: sectionKey, itemId: undefined },
     });

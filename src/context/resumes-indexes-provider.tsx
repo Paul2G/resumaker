@@ -9,9 +9,9 @@ import { deleteResume, loadResume, saveResume } from '@/repositories/resumes';
 export const ResumesIndexContext = createContext<ResumesIndexProviderValue>({
   resumes: [],
   getResume: () => null,
-  createResume: () => {},
-  removeResume: () => {},
-  updateResume: () => {},
+  createResume: () => Promise.resolve(''),
+  removeResume: () => Promise.resolve(),
+  updateResume: () => Promise.resolve(),
 });
 
 export function ResumesIndexProvider({
@@ -25,7 +25,7 @@ export function ResumesIndexProvider({
     return loadResume(resumeId);
   }
 
-  function createResume(name: string) {
+  async function createResume(name: string) {
     const newResumeId = nanoid(16);
 
     const newResume = { ...defaultResume, id: newResumeId, name };
@@ -33,21 +33,18 @@ export function ResumesIndexProvider({
     saveResume(newResume);
 
     setResumes((prev) => [...prev, { id: newResumeId, name }]);
+
+    return newResumeId;
   }
 
-  function removeResume(resumeId: string) {
-    // if (selectedResumeId === resumeId) setSelectedResumeId(undefined);
-
+  async function removeResume(resumeId: string) {
     deleteResume(resumeId);
 
     setResumes((prev) => prev.filter((resume) => resume.id !== resumeId));
   }
 
-  function updateResume(resume: Resume) {
+  async function updateResume(resume: Resume) {
     const isResumeIndexed = true;
-    //     resumes.some(
-    //   (resume) => resume.id === selectedResumeId,
-    // );
 
     saveResume(resume);
 
@@ -100,9 +97,9 @@ export function ResumesIndexProvider({
 export type ResumesIndexProviderValue = {
   resumes: ResumeIndex[];
   getResume: (id: string) => Resume | null;
-  createResume: (name: string) => void;
-  removeResume: (id: string) => void;
-  updateResume: (resume: Resume) => void;
+  createResume: (name: string) => Promise<string>;
+  removeResume: (id: string) => Promise<void>;
+  updateResume: (resume: Resume) => Promise<void>;
 };
 
 export type ResumesIndexProviderProps = {
