@@ -4,6 +4,6 @@
     "skills": "Skills list"
   },
   "placeholders": {
-    "skills": "e.g. JavaScript, React, Node.js"
+    "skills": "• Languages: English, Spanish\n• Tools: Git, Docker\n• Frameworks: React, Node.js"
   }
 }

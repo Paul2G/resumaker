@@ -4,6 +4,6 @@
     "skills": "Lista de habilidades"
   },
   "placeholders": {
-    "skills": "p.ej. JavaScript, Gestión de proyectos, Comunicación"
+    "skills": "• Idiomas: Inglés, Español\n• Herramientas: Git, Docker\n• Frameworks: React, Node.js"
   }
 }
