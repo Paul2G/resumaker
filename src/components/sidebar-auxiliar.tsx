@@ -22,7 +22,7 @@ export function SidebarAuxiliar() {
             <Button
               size="icon"
               variant={
-                location.pathname.endsWith('/sections') ? 'secondary' : 'ghost'
+                location.pathname.includes('/sections') ? 'secondary' : 'ghost'
               }
             >
               <RowsPlusBottomIcon className="size-4.5" />
@@ -40,7 +40,7 @@ export function SidebarAuxiliar() {
             <Button
               size="icon"
               variant={
-                location.pathname.endsWith('/settings') ? 'secondary' : 'ghost'
+                location.pathname.includes('/settings') ? 'secondary' : 'ghost'
               }
             >
               <GearIcon className="size-4.5" />
