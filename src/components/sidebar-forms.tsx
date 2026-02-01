@@ -10,6 +10,7 @@ import { ProjectForm } from '@/components/forms/project-form';
 import { SkillsForm } from '@/components/forms/skills-form';
 import { SummaryForm } from '@/components/forms/summary-form';
 import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
 import { isValueOf } from '@/lib/utils';
@@ -91,8 +92,10 @@ export function SidebarForms() {
   }
 
   return (
-    <aside className="order-4 w-100 shrink-0 border-l p-4 overflow-y-auto">
-      <FormSelector />
+    <aside className="order-4 w-100 overflow-y-hidden shrink-0 border-r">
+      <ScrollArea className="h-full p-4">
+        <FormSelector />
+      </ScrollArea>
     </aside>
   );
 }

@@ -29,7 +29,7 @@ function RouteComponent() {
 
   return (
     <ResumeProvider currentResume={selectedResume} onSave={updateResume}>
-      <div className="overflow-hidden grow flex items-streetch">
+      <div className="overflow-hidden grow flex items-stretch">
         <SidebarAuxiliar />
         <Outlet />
         <MainArea />
