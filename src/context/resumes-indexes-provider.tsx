@@ -44,7 +44,7 @@ export function ResumesIndexProvider({
   }
 
   async function updateResume(resume: Resume) {
-    const isResumeIndexed = true;
+    const isResumeIndexed = resumes.some((r) => r.id === resume.id);
 
     saveResume(resume);
 
