@@ -1,8 +1,53 @@
 {
+  "sheetFormat": "Formato de hoja",
+  "typography": "Tipografía",
+  "spacing": "Espaciado",
+  "dates": "Fechas",
   "fields": {
-    "name": "Nombre del currículum"
+    "name": "Nombre del currículum",
+    "language": "Idioma",
+    "paperSize": "Tamaño del papel",
+    "margin": "Margen",
+    "fontFamily": "Familia de fuente",
+    "fontSize": "Tamaño de fuente",
+    "titleSizeMultiplier": "Multiplicador de tamaño del título",
+    "sectionTitleSizeMultiplier": "Multiplicador de tamaño del título de sección",
+    "itemTitleMultiplier": "Multiplicador de título de elemento",
+    "sectionsGap": "Espacio entre secciones",
+    "itemsGap": "Espacio entre ítems",
+    "itemsTitleContentGap": "Espacio título-contenido del elemento",
+    "dateFormat": "Formato de fecha"
   },
   "placeholders": {
-      "name": "p.ej. Mi currículum profesional"
+    "name": "ej. Mi currículum profesional",
+    "language": "Selecciona un idioma",
+    "paperSize": "Selecciona un tamaño de papel",
+    "fontFamily": "Selecciona una fuente",
+    "dateFormat": "Selecciona un formato de fecha"
+  },
+  "values": {
+    "paperSize": {
+      "a4": "A4",
+      "usLetter": "Carta estadounidense"
+    },
+    "fontFamily": {
+      "arial": "Arial",
+      "timesNewRoman": "Times New Roman",
+      "calibri": "Calibri",
+      "georgia": "Georgia"
+    },
+    "dateFormat": {
+      "iso": "ISO (ej. 1999-12-31)",
+      "us": "EE.UU. (ej. 12/31/1999)",
+      "eurLatam": "UE y LATAM (ej. 31/12/1999)",
+      "eastAsia": "Asia Oriental (ej. 1999/12/31)",
+      "usLong": "EE.UU. largo (ej. Diciembre 31, 1999)",
+      "intLong": "Internacional largo (ej. 31 Diciembre 1999)",
+      "usAbbr": "EE.UU. abreviado (ej. Dic 31, 1999)",
+      "intAbbr": "Internacional abreviado (ej. 31 Dic 1999)",
+      "monthYear": "Mes y año (ej. Diciembre 1999)",
+      "monthYearAbbr": "Mes abreviado y año (ej. Dic 1999)",
+      "yearOnly": "Solo año (ej. 1999)"
+    }
   }
 }

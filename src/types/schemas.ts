@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
-import { projectLocales } from '@/constants/locales';
+import { defaultProjectLocale, projectLocales } from '@/constants/locales';
 import {
   resumeDateFormats,
   resumeFontFamilies,
@@ -86,20 +86,22 @@ export const courseSchema = z.object({
 
 export const resumeConfigSchema = z.object({
   name: z.string().min(1),
-  language: z.literal(projectLocales.map((locale) => locale.language)),
+  language: z
+    .literal(projectLocales.map((locale) => locale.key))
+    .default(defaultProjectLocale.key),
   // paper Sheet format
-  paperSize: z.literal(resumePaperSizes.map((size) => size.key)),
-  margin: z.number().min(0),
+  paperSize: z.literal(resumePaperSizes).default(resumePaperSizes[0]),
+  margin: z.int().min(0).max(30),
   // Font related
-  fontFamily: z.literal(resumeFontFamilies.map((font) => font.key)),
+  fontFamily: z.literal(resumeFontFamilies).default(resumeFontFamilies[0]),
   fontSize: z.int().min(6).max(18),
-  titleSizeMultiplier: z.number().min(1).max(3),
-  sectionTitleSizeMultiplier: z.number().min(1).max(2),
-  itemTitleMultiplier: z.number().min(1).max(2),
+  titleSizeMultiplier: z.number().min(1).max(4),
+  sectionTitleSizeMultiplier: z.number().min(1).max(3),
+  itemTitleMultiplier: z.number().min(1).max(3),
   // Margins
-  sectionsGap: z.number().min(0).max(16),
+  sectionsGap: z.int().min(0).max(18),
   itemsGap: z.number().min(0).max(12),
   itemsTitleContentGap: z.number().min(0).max(8),
   // Dates and durations
-  dateFormat: z.literal(resumeDateFormats.map((f) => f.key)),
+  dateFormat: z.literal(resumeDateFormats).default(resumeDateFormats[0]),
 });

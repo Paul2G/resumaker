@@ -1,9 +1,9 @@
+import type { IterableSectionKey, SectionKey } from '@/constants/sections';
 import type {
-  IterableSectionKey,
   Resume,
+  ResumeConfig,
   ResumeSection,
   SectionDataMap,
-  SectionKey,
 } from '@/types';
 
 import React, { createContext, useState } from 'react';
@@ -19,6 +19,13 @@ export function ResumeProvider({
   children,
 }: ResumeProviderProps) {
   const [resume, setResume] = useState<Resume>(currentResume);
+
+  async function setConfig(config: ResumeConfig) {
+    setResume((prev) => ({
+      ...prev,
+      config,
+    }));
+  }
 
   /* Sections functions */
 
@@ -190,6 +197,7 @@ export function ResumeProvider({
     <ResumeContext.Provider
       value={{
         ...resume,
+        setConfig,
         setSections,
         getSectionData,
         setSectionData,
@@ -213,6 +221,7 @@ export type ResumeProviderProps = {
 };
 
 export type ResumeProviderValue = Resume & {
+  setConfig: (config: ResumeConfig) => Promise<void>;
   setSections: (sections: ResumeSection[]) => Promise<void>;
   getSectionData: <K extends SectionKey>(sectionKey: K) => SectionDataMap[K];
   setSectionData: <K extends SectionKey>(

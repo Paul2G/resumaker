@@ -1,8 +1,53 @@
 {
+  "sheetFormat": "Sheet Format",
+  "typography": "Typography",
+  "spacing": "Spacing",
+  "dates": "Dates",
   "fields": {
-    "name": "Resume Name"
+    "name": "Resume Name",
+    "language": "Language",
+    "paperSize": "Paper Size",
+    "margin": "Margin",
+    "fontFamily": "Font Family",
+    "fontSize": "Font Size",
+    "titleSizeMultiplier": "Title Size Multiplier",
+    "sectionTitleSizeMultiplier": "Section Title Size Multiplier",
+    "itemTitleMultiplier": "Item Title Multiplier",
+    "sectionsGap": "Sections Gap",
+    "itemsGap": "Items Gap",
+    "itemsTitleContentGap": "Item Title-Content Gap",
+    "dateFormat": "Date Format"
   },
   "placeholders": {
-    "name": "e.g. My Professional Resume"
+    "name": "e.g. My Professional Resume",
+    "language": "Select a language",
+    "paperSize": "Select a paper size",
+    "fontFamily": "Select a font",
+    "dateFormat": "Select a date format"
+  },
+  "values": {
+    "paperSize": {
+      "a4": "A4",
+      "usLetter": "US Letter"
+    },
+    "fontFamily": {
+      "arial": "Arial",
+      "timesNewRoman": "Times New Roman",
+      "calibri": "Calibri",
+      "georgia": "Georgia"
+    },
+    "dateFormat": {
+      "iso": "ISO (e.g. 1999-12-31)",
+      "us": "US (e.g. 12/31/1999)",
+      "eurLatam": "EU and LATAM (e.g. 31/12/1999)",
+      "eastAsia": "East Asia (e.g. 1999/12/31)",
+      "usLong": "US Long (e.g. December 31, 1999)",
+      "intLong": "International Long (e.g. 31 December 1999)",
+      "usAbbr": "US Abbreviated (e.g. Dec 31, 1999)",
+      "intAbbr": "International Abbreviated (e.g. 31 Dec 1999)",
+      "monthYear": "Month and Year (e.g. December 1999)",
+      "monthYearAbbr": "Month Abbreviated and Year (e.g. Dec 1999)",
+      "yearOnly": "Year Only (e.g. 1999)"
+    }
   }
 }

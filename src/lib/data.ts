@@ -1,25 +1,35 @@
 import type { Resume } from '@/types';
 
-import { CURRENT_RESUME_VERSION } from '@/constants/resume';
+import { defaultProjectLocale } from '@/constants/locales';
+import {
+  CURRENT_RESUME_VERSION,
+  resumeDateFormats,
+  resumeFontFamilies,
+  resumePaperSizes,
+} from '@/constants/resume';
 import { SectionKey } from '@/constants/sections';
 
 export const defaultResume: Resume = {
   id: '1',
   version: CURRENT_RESUME_VERSION,
   config: {
-    name: 'New resume',
-    paperSize: 'a4',
-    margin: 20,
-    fontFamily: 'arial',
-    language: 'en-US',
-    fontSize: 0,
-    titleSizeMultiplier: 0,
-    sectionTitleSizeMultiplier: 0,
-    itemTitleMultiplier: 0,
-    sectionsGap: 0,
-    itemsGap: 0,
-    itemsTitleContentGap: 0,
-    dateFormat: 'iso',
+    name: 'My resume',
+    language: defaultProjectLocale.key,
+    // paper Sheet format
+    paperSize: resumePaperSizes[0],
+    margin: 15, //mm
+    // Font related
+    fontFamily: resumeFontFamilies[0],
+    fontSize: 8, //pt
+    titleSizeMultiplier: 2, // x
+    sectionTitleSizeMultiplier: 1.5, // x
+    itemTitleMultiplier: 1.1, // x
+    // Margins
+    sectionsGap: 5, //mm
+    itemsGap: 3, //mm
+    itemsTitleContentGap: 2, //mm
+    // Dates and durations
+    dateFormat: resumeDateFormats[0],
   },
   sections: [
     {
