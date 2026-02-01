@@ -85,7 +85,7 @@ export const courseSchema = z.object({
 });
 
 export const resumeConfigSchema = z.object({
-  title: z.string().min(1),
+  name: z.string().min(1),
   language: z.literal(projectLocales.map((locale) => locale.language)),
   // paper Sheet format
   paperSize: z.literal(resumePaperSizes.map((size) => size.key)),

@@ -7,7 +7,7 @@ export const defaultResume: Resume = {
   id: '1',
   version: CURRENT_RESUME_VERSION,
   config: {
-    title: 'New resume',
+    name: 'New resume',
     paperSize: 'a4',
     margin: 20,
     fontFamily: 'arial',

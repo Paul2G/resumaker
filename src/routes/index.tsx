@@ -62,9 +62,9 @@ function Index() {
                       params={{ resumeId: resume.id }}
                       className="before:absolute before:content-[''] before:inset-0"
                     >
-                      <ItemTitle>{resume.config.title}</ItemTitle>
+                      <ItemTitle>{resume.config.name}</ItemTitle>
                     </Link>
-                    <ItemDescription>{resume.config.title}</ItemDescription>
+                    <ItemDescription>{resume.config.name}</ItemDescription>
                   </ItemContent>
                   <ItemActions className="flex items-streetch z-10">
                     <ResumeDeleteModalTrigger resumeId={resume.id} asChild>

@@ -1,5 +1,9 @@
 import type { AppData, Resume } from '@/types';
 
+import { compareVersions } from 'compare-versions';
+
+import { CURRENT_RESUME_VERSION } from '@/constants/resume';
+
 export function saveAppData(appData: AppData) {
   localStorage.setItem(
     'app_data',
@@ -29,7 +33,18 @@ export function loadResume(resumeId: string): Resume | null {
 
   if (!storedResume) return null;
 
-  return JSON.parse(storedResume);
+  const parsedResume = JSON.parse(storedResume);
+
+  if (
+    compareVersions(parsedResume.version || '1.0.0', CURRENT_RESUME_VERSION) ===
+    -1
+  ) {
+    parsedResume.config.name = parsedResume.name;
+    parsedResume.name = undefined;
+    parsedResume.version = CURRENT_RESUME_VERSION;
+  }
+
+  return parsedResume;
 }
 
 export function deleteResume(resumeId: string) {
