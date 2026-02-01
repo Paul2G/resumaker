@@ -38,7 +38,7 @@ export function ResumesIndexProvider({
   }
 
   async function createResume(name: string) {
-    const newResumeId = nanoid(16);
+    const newResumeId = nanoid(12);
 
     const newResume = {
       ...defaultResume,

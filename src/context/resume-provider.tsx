@@ -102,7 +102,7 @@ export function ResumeProvider({
     sectionKey: K,
     item: Omit<SectionDataMap[K][number], 'id'>,
   ) {
-    const newItemId = nanoid(16);
+    const newItemId = nanoid(12);
 
     const sections = resume.sections.map((section) => {
       if (section.key === sectionKey && section.data instanceof Array) {
