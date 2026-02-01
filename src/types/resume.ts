@@ -1,13 +1,14 @@
 import type { ResumeSection } from '@/types';
 
-export type ResumeConfig = {
-  pageSize: 'A4' | 'Letter';
-  margin: number;
-  font: 'Arial' | 'Times New Roman' | 'Calibri' | 'Georgia';
-};
+import { z } from 'zod';
+
+import { resumeConfigSchema } from '@/types/schemas';
+
+export type ResumeConfig = z.infer<typeof resumeConfigSchema>;
+
 export type Resume = {
   id: string;
-  name: string;
+  version: string;
   config: ResumeConfig;
   sections: ResumeSection[];
 };

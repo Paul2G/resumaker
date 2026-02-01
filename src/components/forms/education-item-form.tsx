@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { educationItemSchema } from '@/types';
+import { educationItemSchema } from '@/types/schemas';
 
 export function EducationItemForm({
   defaultValues,

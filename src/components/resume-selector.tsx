@@ -41,7 +41,7 @@ export function ResumeSelector() {
             {selectedResume ? (
               <>
                 <ReadCvLogoIcon />
-                {stringTruncate(selectedResume.name)}
+                {stringTruncate(selectedResume.config.title)}
               </>
             ) : (
               <>

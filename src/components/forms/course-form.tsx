@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { courseSchema } from '@/types';
+import { courseSchema } from '@/types/schemas';
 
 export function CourseForm({ defaultValues, onSave }: CourseFormProps) {
   const { t } = useTranslation();

@@ -1,14 +1,11 @@
 import type { AppData, Resume } from '@/types';
 
-import { CURRENT_APP_VERSION } from '@/lib/utils';
-
 export function saveAppData(appData: AppData) {
   localStorage.setItem(
     'app_data',
     JSON.stringify({
       resumes: appData.resumes.map(({ id, name }) => ({ id, name })),
       selectedResumeId: appData.selectedResumeId,
-      version: CURRENT_APP_VERSION,
     }),
   );
 }
@@ -20,7 +17,6 @@ export function loadAppData() {
     ? JSON.parse(storedAppData)
     : {
         resumes: [],
-        version: CURRENT_APP_VERSION,
       };
 }
 

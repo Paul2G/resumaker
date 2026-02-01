@@ -21,7 +21,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group';
-import { contactInfoSchema } from '@/types';
+import { contactInfoSchema } from '@/types/schemas';
 
 export function ContactInfoForm({
   defaultValues,

@@ -50,18 +50,21 @@ export function ResumesIndexProvider({
 
     if (isResumeIndexed) {
       const isNameChanged = resumes.some(
-        (r) => r.id === resume.id && r.name !== resume.name,
+        (r) => r.id === resume.id && r.name !== resume.config.title,
       );
 
       if (isNameChanged) {
         setResumes((prev) =>
           prev.map((r) =>
-            r.id === resume.id ? { ...r, name: resume.name } : r,
+            r.id === resume.id ? { ...r, name: resume.config.title } : r,
           ),
         );
       }
     } else {
-      setResumes((prev) => [...prev, { id: resume.id, name: resume.name }]);
+      setResumes((prev) => [
+        ...prev,
+        { id: resume.id, name: resume.config.title },
+      ]);
     }
   }
 

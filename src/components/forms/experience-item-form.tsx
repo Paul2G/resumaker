@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
-import { experienceItemSchema } from '@/types';
+import { experienceItemSchema } from '@/types/schemas';
 
 export function ExperienceItemForm({
   defaultValues,

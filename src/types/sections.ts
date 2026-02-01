@@ -9,7 +9,9 @@ import {
   projectSchema,
   skillsSchema,
   summarySchema,
-} from '@/types';
+} from '@/types/schemas';
+
+/* Treat this sections keys constants as enums to avoid typescript no erasable syntax */
 
 export const IterableSectionKey = {
   Experience: 'experience',
@@ -34,6 +36,8 @@ export const SectionKey = {
   ...IterableSectionKey,
 } as const;
 export type SectionKey = (typeof SectionKey)[keyof typeof SectionKey];
+
+/* End of constants  */
 
 export type ContactInfo = z.infer<typeof contactInfoSchema>;
 export type Summary = z.infer<typeof summarySchema>;

@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { summarySchema } from '@/types';
+import { summarySchema } from '@/types/schemas';
 
 export function SummaryForm({ defaultValues, onSave }: SummaryFormProps) {
   const { t } = useTranslation();

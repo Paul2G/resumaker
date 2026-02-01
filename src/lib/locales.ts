@@ -1,28 +1,10 @@
-export type ProjectLocale = {
-  /** Unique key for the locale */
-  key: string;
-  /** Language code for the locale */
-  language: string;
-  /** Label for the language */
-  languageLabel: string;
-};
+import type { ProjectLocale } from '@/types';
 
-const LANG_LOCAL_STORAGE_KEY = 'vite-ui-lang' as const;
-
-export const projectLocales: Array<ProjectLocale> = [
-  {
-    key: 'es-MX',
-    language: 'es',
-    languageLabel: 'Español',
-  },
-  {
-    key: 'en-US',
-    language: 'en',
-    languageLabel: 'English',
-  },
-];
-
-export const defaultProjectLocale = projectLocales[1];
+import {
+  defaultProjectLocale,
+  LANG_LOCAL_STORAGE_KEY,
+  projectLocales,
+} from '@/constants/locales';
 
 export function getUserLocalePreference() {
   const localStorageLocaleKey = localStorage.getItem(LANG_LOCAL_STORAGE_KEY);

@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { certificationSchema } from '@/types';
+import { certificationSchema } from '@/types/schemas';
 
 export function CertificationForm({
   defaultValues,

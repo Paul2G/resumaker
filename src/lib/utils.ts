@@ -3,8 +3,6 @@ import type { ClassValue } from 'clsx';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export const CURRENT_APP_VERSION = '1.0.0';
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

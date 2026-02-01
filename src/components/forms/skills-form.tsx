@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { skillsSchema } from '@/types';
+import { skillsSchema } from '@/types/schemas';
 
 export function SkillsForm({ defaultValues, onSave }: SkillsFormProps) {
   const { t } = useTranslation();

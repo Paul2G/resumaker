@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { SortableTreeList } from '@/components/sortable-tree-list';
 import { Button } from '@/components/ui/button';
 import { useResume } from '@/hooks/use-resume';
-import { SectionIconMap, SectionItemIconMap } from '@/lib/icons-maps';
+import { SectionIconMap, SectionItemIconMap } from '@/constants/icons-maps';
 import { StaticSectionKey } from '@/types';
 
 export function SectionsList() {

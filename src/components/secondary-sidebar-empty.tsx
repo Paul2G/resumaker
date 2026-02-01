@@ -12,8 +12,8 @@ import {
   EmptyTitle,
 } from '@/components/ui/empty';
 import { useResume } from '@/hooks/use-resume';
-import { SectionIconMap } from '@/lib/icons-maps';
 import { isValueOf } from '@/lib/utils';
+import { SectionIconMap } from '@/constants/icons-maps';
 import { IterableSectionKey } from '@/types';
 
 export function SecondarySidebarEmpty({

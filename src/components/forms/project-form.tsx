@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { projectSchema } from '@/types';
+import { projectSchema } from '@/types/schemas';
 
 export function ProjectForm({ defaultValues, onSave }: ProjectFormProps) {
   const { t } = useTranslation();

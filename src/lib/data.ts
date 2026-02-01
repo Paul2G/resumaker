@@ -1,14 +1,25 @@
 import type { Resume } from '@/types';
 
+import { CURRENT_RESUME_VERSION } from '@/constants/resume';
 import { SectionKey } from '@/types';
 
 export const defaultResume: Resume = {
   id: '1',
-  name: 'New Resume',
+  version: CURRENT_RESUME_VERSION,
   config: {
-    pageSize: 'A4',
+    title: 'New resume',
+    paperSize: 'a4',
     margin: 20,
-    font: 'Arial',
+    fontFamily: 'arial',
+    language: '',
+    fontSize: 0,
+    titleSizeMultiplier: 0,
+    sectionTitleSizeMultiplier: 0,
+    itemTitleMultiplier: 0,
+    sectionsGap: 0,
+    itemsGap: 0,
+    itemsTitleContentGap: 0,
+    dateFormat: 'iso',
   },
   sections: [
     {

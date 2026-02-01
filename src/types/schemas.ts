@@ -1,6 +1,12 @@
 import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
+import { projectLocales } from '@/constants/locales';
+import {
+  resumeDateFormats,
+  resumeFontFamilies,
+  resumePaperSizes,
+} from '@/constants/resume';
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
@@ -76,4 +82,24 @@ export const courseSchema = z.object({
   completionDate: z.coerce.date().optional(),
   description: z.array(z.string()).optional(),
   visible: z.boolean(),
+});
+
+export const resumeConfigSchema = z.object({
+  title: z.string().min(1),
+  language: z.literal(projectLocales.map((locale) => locale.language)),
+  // paper Sheet format
+  paperSize: z.literal(resumePaperSizes.map((size) => size.key)),
+  margin: z.number().min(0),
+  // Font related
+  fontFamily: z.literal(resumeFontFamilies.map((font) => font.key)),
+  fontSize: z.int().min(6).max(18),
+  titleSizeMultiplier: z.number().min(1).max(3),
+  sectionTitleSizeMultiplier: z.number().min(1).max(2),
+  itemTitleMultiplier: z.number().min(1).max(2),
+  // Margins
+  sectionsGap: z.number().min(0).max(16),
+  itemsGap: z.number().min(0).max(12),
+  itemsTitleContentGap: z.number().min(0).max(8),
+  // Dates and durations
+  dateFormat: z.literal(resumeDateFormats.map((f) => f.key)),
 });

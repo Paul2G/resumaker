@@ -1,4 +1,4 @@
-import type { ProjectLocale } from '@/lib/locales';
+import type { ProjectLocale } from '@/types';
 
 import { useMemo, useState } from 'react';
 import { TranslateIcon } from '@phosphor-icons/react';
@@ -12,11 +12,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  projectLocales,
-  setLocaleInDocument,
-  setUserLocalePreference,
-} from '@/lib/locales';
+import { setLocaleInDocument, setUserLocalePreference } from '@/lib/locales';
+import { projectLocales } from '@/constants/locales';
 
 export function LocaleSelector() {
   const { i18n } = useTranslation();
