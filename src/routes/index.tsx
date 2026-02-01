@@ -32,7 +32,7 @@ function Index() {
           {t('labels.yourSavedResumes')}
         </Typography>
         <ItemGroup className="grid grid-cols-3 gap-4">
-          <ResumeCreateModalTrigger>
+          <ResumeCreateModalTrigger asChild>
             <Item variant="outline" asChild>
               <a className="cursor-pointer">
                 <ItemContent className="flex items-center justify-center gap-2">

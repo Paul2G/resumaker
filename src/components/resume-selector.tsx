@@ -4,7 +4,7 @@ import {
   PlusIcon,
   ReadCvLogoIcon,
 } from '@phosphor-icons/react';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { ResumeCreateModalTrigger } from '@/components/resume-create-modal-trigger';
@@ -13,7 +13,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -26,12 +25,12 @@ import { stringTruncate } from '@/lib/utils';
 
 export function ResumeSelector() {
   const { t } = useTranslation();
-  const resumeApi = getRouteApi('/$resumeId');
   const navigate = useNavigate();
+  const { resumeId } = useParams({ from: '/$resumeId' });
 
-  const { resumes } = useResumesIndex();
+  const { resumes, getResume } = useResumesIndex();
 
-  const selectedResume = resumeApi.useLoaderData()?.resume;
+  const selectedResume = getResume(resumeId);
 
   return (
     <DropdownMenu>
@@ -56,10 +55,10 @@ export function ResumeSelector() {
       <DropdownMenuContent align="start">
         <DropdownMenuGroup>
           <ResumeCreateModalTrigger>
-            <DropdownMenuItem className="cursor-pointer">
+            <Button type="button" variant="ghost">
               <PlusIcon />
               {t('actions.createNewResume')}
-            </DropdownMenuItem>
+            </Button>
           </ResumeCreateModalTrigger>
         </DropdownMenuGroup>
         {resumes.length > 0 && (

@@ -40,7 +40,11 @@ export function ResumesIndexProvider({
   async function createResume(name: string) {
     const newResumeId = nanoid(16);
 
-    const newResume = { ...defaultResume, id: newResumeId, name };
+    const newResume = {
+      ...defaultResume,
+      id: newResumeId,
+      config: { ...defaultResume.config, name },
+    };
 
     saveResume(newResume);
 
