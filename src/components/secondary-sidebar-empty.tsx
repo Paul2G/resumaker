@@ -13,8 +13,7 @@ import {
 } from '@/components/ui/empty';
 import { useResume } from '@/hooks/use-resume';
 import { isValueOf } from '@/lib/utils';
-import { SectionIconMap } from '@/constants/icons-maps';
-import { IterableSectionKey } from '@/types';
+import { IterableSectionKey, SectionIconMap } from '@/constants/sections';
 
 export function SecondarySidebarEmpty({
   sectionKey,

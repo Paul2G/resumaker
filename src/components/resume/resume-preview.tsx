@@ -11,7 +11,7 @@ import { ResumePreviewProjects } from '@/components/resume/resume-preview-projec
 import { ResumePreviewSkills } from '@/components/resume/resume-preview-skills';
 import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
 import { cn } from '@/lib/utils';
-import { SectionKey } from '@/types';
+import { SectionKey } from '@/constants/sections';
 
 export function ResumePreview({
   resume,

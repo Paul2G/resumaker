@@ -1,7 +1,7 @@
 import type { Resume } from '@/types';
 
 import { CURRENT_RESUME_VERSION } from '@/constants/resume';
-import { SectionKey } from '@/types';
+import { SectionKey } from '@/constants/sections';
 
 export const defaultResume: Resume = {
   id: '1',
@@ -11,7 +11,7 @@ export const defaultResume: Resume = {
     paperSize: 'a4',
     margin: 20,
     fontFamily: 'arial',
-    language: '',
+    language: 'en-US',
     fontSize: 0,
     titleSizeMultiplier: 0,
     sectionTitleSizeMultiplier: 0,

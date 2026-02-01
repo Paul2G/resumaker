@@ -13,7 +13,11 @@ import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
 import { isValueOf } from '@/lib/utils';
-import { IterableSectionKey, SectionKey, StaticSectionKey } from '@/types';
+import {
+  IterableSectionKey,
+  SectionKey,
+  StaticSectionKey,
+} from '@/constants/sections';
 
 const ItemForms = {
   [IterableSectionKey.Experience]: ExperienceItemForm,
