@@ -47,6 +47,8 @@ function Index() {
           {resumes.map((r) => {
             const resume = getResume(r.id)!;
 
+            if (!resume) return null;
+
             return (
               <Item key={resume.id} variant="outline" asChild>
                 <a className="relative group cursor-pointer">

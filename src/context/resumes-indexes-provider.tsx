@@ -21,8 +21,20 @@ export function ResumesIndexProvider({
 }: ResumesIndexProviderProps) {
   const [resumes, setResumes] = useState(appData.resumes);
 
+  function isResumeIndexed(resumeId: string) {
+    return resumes.some((r) => r.id === resumeId);
+  }
+
   function getResume(resumeId: string) {
-    return loadResume(resumeId);
+    const resume = loadResume(resumeId);
+
+    if (!resume) {
+      if (isResumeIndexed(resumeId)) {
+        setResumes((prev) => prev.filter((r) => r.id !== resumeId));
+      }
+    }
+
+    return resume;
   }
 
   async function createResume(name: string) {
@@ -44,11 +56,9 @@ export function ResumesIndexProvider({
   }
 
   async function updateResume(resume: Resume) {
-    const isResumeIndexed = resumes.some((r) => r.id === resume.id);
-
     saveResume(resume);
 
-    if (isResumeIndexed) {
+    if (isResumeIndexed(resume.id)) {
       const isNameChanged = resumes.some(
         (r) => r.id === resume.id && r.name !== resume.config.name,
       );
