@@ -4,7 +4,7 @@ import {
   PlusIcon,
   ReadCvLogoIcon,
 } from '@phosphor-icons/react';
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { ResumeCreateModalTrigger } from '@/components/resume-create-modal-trigger';
@@ -65,7 +65,11 @@ export function ResumeSelector() {
           <DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuLabel>
-              <Typography variant="muted">{t('labels.allResumes')}</Typography>
+              <Link to="/">
+                <Typography variant="muted" className="hover:underline">
+                  {t('labels.allResumes')}
+                </Typography>
+              </Link>
             </DropdownMenuLabel>
             <DropdownMenuRadioGroup
               value={selectedResume?.id}
