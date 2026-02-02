@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { formatDate } from '@/lib/dates';
+import { dateFormatValue } from '@/constants/dates';
 
 /* DatePicker component allowing users to select a date either by typing or using a calendar popover.
  * **Note:** This component does not trigger form onChange events automatically if calendar popover is used, but it can via input field.
@@ -21,7 +22,7 @@ export function DatePicker({
   value,
   name,
   placeholder,
-  dateFormat = 'MM/DD/YYYY',
+  dateFormat = dateFormatValue['intLong'],
   disabled,
   onChange,
   className,

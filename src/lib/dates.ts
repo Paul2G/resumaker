@@ -3,13 +3,15 @@ import type { Language } from '@/constants/locales';
 
 import dayjs from 'dayjs';
 
+import { dateFormatValue } from '@/constants/dates';
+
 import 'dayjs/locale/es';
 
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
-const DEFAULT_DATE_FORMAT: DateFormat = 'DD/MM/YYYY' as const;
+const DEFAULT_DATE_FORMAT = dateFormatValue['iso'];
 const DEFAULT_DATE_LANGUAGE: Language = 'en' as const;
 
 export function formatDate(

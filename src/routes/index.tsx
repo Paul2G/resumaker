@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import { ResumeProvider } from '@/context/resume-provider';
 import { ResumeCreateModalTrigger } from '@/components/resume-create-modal-trigger';
 import { ResumeDeleteModalTrigger } from '@/components/resume-delete-modal-trigger';
 import { ResumePreview } from '@/components/resume/resume-preview';
@@ -56,10 +57,12 @@ function Index() {
                 className="relative group cursor-pointer"
               >
                 <ItemHeader className="relative overflow-hidden w-full rounded-sm">
-                  <ResumePreview
-                    resume={resume}
-                    className="w-full h-64 pointer-events-none select-none scale-[37%] origin-top-left group-hover:brightness-80 transition-all"
-                  />
+                  <ResumeProvider currentResume={resume} onSave={() => {}}>
+                    <ResumePreview
+                      resume={resume}
+                      className="w-full h-64 pointer-events-none select-none scale-[37%] origin-top-left group-hover:brightness-80 transition-all"
+                    />
+                  </ResumeProvider>
                 </ItemHeader>
                 <ItemContent>
                   <Link
