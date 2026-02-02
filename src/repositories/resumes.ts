@@ -2,6 +2,7 @@ import type { AppData, Resume } from '@/types';
 
 import { compareVersions } from 'compare-versions';
 
+import { defaultResume } from '@/lib/data';
 import { CURRENT_RESUME_VERSION } from '@/constants/resume';
 
 export function saveAppData(appData: AppData) {
@@ -39,6 +40,7 @@ export function loadResume(resumeId: string): Resume | null {
     compareVersions(parsedResume.version || '1.0.0', CURRENT_RESUME_VERSION) ===
     -1
   ) {
+    parsedResume.config = defaultResume.config;
     parsedResume.config.name = parsedResume.name;
     parsedResume.name = undefined;
     parsedResume.version = CURRENT_RESUME_VERSION;
