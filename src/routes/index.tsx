@@ -34,7 +34,7 @@ function Index() {
         <ItemGroup className="grid grid-cols-3 gap-4">
           <ResumeCreateModalTrigger asChild>
             <Item variant="outline" asChild>
-              <a className="cursor-pointer">
+              <a className="cursor-pointer min-h-72">
                 <ItemContent className="flex items-center justify-center gap-2">
                   <i className="ph-bold ph-plus text-5xl text-muted-foreground" />
                   <ItemTitle className="text-lg">
@@ -50,32 +50,34 @@ function Index() {
             if (!resume) return null;
 
             return (
-              <Item key={resume.id} variant="outline" asChild>
-                <a className="relative group cursor-pointer">
-                  <ItemHeader className="relative w-full aspect-square overflow-hidden rounded-sm">
-                    <ResumePreview
-                      resume={resume}
-                      className="w-full pointer-events-none select-none translate-y-[36%] scale-[37%] origin-top-left group-hover:brightness-90 transition-all"
-                    />
-                  </ItemHeader>
-                  <ItemContent>
-                    <Link
-                      to="/$resumeId"
-                      params={{ resumeId: resume.id }}
-                      className="before:absolute before:content-[''] before:inset-0"
-                    >
-                      <ItemTitle>{resume.config.name}</ItemTitle>
-                    </Link>
-                    <ItemDescription>{resume.config.name}</ItemDescription>
-                  </ItemContent>
-                  <ItemActions className="flex items-streetch z-10">
-                    <ResumeDeleteModalTrigger resumeId={resume.id} asChild>
-                      <Button variant="destructive" size="icon">
-                        <i className="ph-light ph-trash text-lg" />
-                      </Button>
-                    </ResumeDeleteModalTrigger>
-                  </ItemActions>
-                </a>
+              <Item
+                key={resume.id}
+                variant="outline"
+                className="relative group cursor-pointer"
+              >
+                <ItemHeader className="relative overflow-hidden w-full rounded-sm">
+                  <ResumePreview
+                    resume={resume}
+                    className="w-full h-64 pointer-events-none select-none scale-[37%] origin-top-left group-hover:brightness-80 transition-all"
+                  />
+                </ItemHeader>
+                <ItemContent>
+                  <Link
+                    to="/$resumeId"
+                    params={{ resumeId: resume.id }}
+                    className="before:absolute before:content-[''] before:inset-0"
+                  >
+                    <ItemTitle>{resume.config.name}</ItemTitle>
+                  </Link>
+                  <ItemDescription>{resume.config.name}</ItemDescription>
+                </ItemContent>
+                <ItemActions className="flex items-streetch z-10">
+                  <ResumeDeleteModalTrigger resumeId={resume.id} asChild>
+                    <Button variant="destructive" size="icon">
+                      <i className="ph-light ph-trash text-lg" />
+                    </Button>
+                  </ResumeDeleteModalTrigger>
+                </ItemActions>
               </Item>
             );
           })}
