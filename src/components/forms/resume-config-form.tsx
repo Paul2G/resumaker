@@ -37,6 +37,7 @@ import {
 } from '@/components/ui/item';
 import { Typography } from '@/components/ui/typography';
 import { formatDate } from '@/lib/dates';
+import { toSentenceCase } from '@/lib/utils';
 import { dateFormatsKeys, dateFormatValue } from '@/constants/dates';
 import { localeData, locales } from '@/constants/locales';
 import {
@@ -379,11 +380,13 @@ export function ResumeConfigForm({
                               <ItemTitle className="whitespace-nowrap">
                                 {t(`resume:values.dateFormat.${item}`)}
                               </ItemTitle>
-                              <ItemDescription className="capitalize">
-                                {formatDate(
-                                  new Date(),
-                                  dateFormatValue[item as DateFormatKey],
-                                  i18n.language as Language,
+                              <ItemDescription>
+                                {toSentenceCase(
+                                  formatDate(
+                                    new Date(),
+                                    dateFormatValue[item as DateFormatKey],
+                                    i18n.language as Language,
+                                  ),
                                 )}
                               </ItemDescription>
                             </ItemContent>

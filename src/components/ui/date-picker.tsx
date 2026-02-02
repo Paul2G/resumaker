@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { formatDate } from '@/lib/dates';
+import { toSentenceCase } from '@/lib/utils';
 import { dateFormatValue } from '@/constants/dates';
 
 /* DatePicker component allowing users to select a date either by typing or using a calendar popover.
@@ -48,9 +49,11 @@ export function DatePicker({
           className="data-[empty=true]:text-muted-foreground justify-between text-left font-normal w-full"
           {...props}
         >
-          <span className="capitalize">
+          <span>
             {date
-              ? formatDate(date, dateFormat, i18n.language as Language)
+              ? toSentenceCase(
+                  formatDate(date, dateFormat, i18n.language as Language),
+                )
               : placeholder}
           </span>
           <i className="ph ph-caret-down" />

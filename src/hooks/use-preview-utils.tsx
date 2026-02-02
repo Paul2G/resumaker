@@ -11,10 +11,12 @@ export function usePreviewUtils() {
   const { t } = useTranslation('preview', { lng: config.language });
 
   function formatDateWrapper(date?: Date) {
-    return formatDate(
-      date,
-      dateFormatValue[config.dateFormat],
-      localeData[config.language]?.langKey,
+    return toSentenceCase(
+      formatDate(
+        date,
+        dateFormatValue[config.dateFormat],
+        localeData[config.language]?.langKey,
+      ),
     );
   }
 
