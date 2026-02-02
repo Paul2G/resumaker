@@ -1,24 +1,28 @@
 export const CURRENT_RESUME_VERSION = '1.1.0';
 
-export const resumePaperSizes = ['a4', 'usLetter'] as const;
-export const resumeFontFamilies = [
-  'arial',
-  'timesNewRoman',
-  'calibri',
-  'georgia',
-] as const;
-
-export const resumePaperSizesValuesMap: Record<ResumePaperSize, string> = {
+export const resumePaperSizeValue = {
   a4: 'a4',
   usLetter: 'letter',
-};
+} as const;
 
-export const resumeFontFamiliesValuesMap: Record<ResumeFontFamily, string> = {
+export const resumeFontFamilyValue = {
   arial: 'Arial, sans-serif',
   timesNewRoman: '"Times New Roman", serif',
   calibri: 'Calibri, sans-serif',
   georgia: 'Georgia, serif',
-};
+} as const;
 
-export type ResumePaperSize = (typeof resumePaperSizes)[number];
-export type ResumeFontFamily = (typeof resumeFontFamilies)[number];
+export const resumePaperSizesKeys = Object.keys(
+  resumePaperSizeValue,
+) as ResumePaperSizeKey[];
+export const resumeFontFamiliesKeys = Object.keys(
+  resumeFontFamilyValue,
+) as ResumeFontFamilyKey[];
+
+export type ResumePaperSizeKey = keyof typeof resumePaperSizeValue;
+export type ResumeFontFamilyKey = keyof typeof resumeFontFamilyValue;
+
+export type ResumePaperSize =
+  (typeof resumePaperSizeValue)[keyof typeof resumePaperSizeValue];
+export type ResumeFontFamily =
+  (typeof resumeFontFamilyValue)[keyof typeof resumeFontFamilyValue];

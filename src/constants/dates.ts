@@ -1,18 +1,4 @@
-export const dateFormats = [
-  'iso',
-  'us',
-  'eurLatam',
-  'eastAsia',
-  'usLong',
-  'intLong',
-  'usAbbr',
-  'intAbbr',
-  'monthYear',
-  'monthYearAbbr',
-  'yearOnly',
-] as const;
-
-export const dateFormatsValuesMap = {
+export const dateFormatValue = {
   iso: 'YYYY-MM-DD',
   us: 'MM/DD/YYYY',
   eurLatam: 'DD/MM/YYYY',
@@ -24,8 +10,9 @@ export const dateFormatsValuesMap = {
   monthYear: 'MMMM YYYY',
   monthYearAbbr: 'MMM YYYY',
   yearOnly: 'YYYY',
-} as const satisfies Record<DateFormat, string>;
+} as const;
 
-export type DateFormat = (typeof dateFormats)[number];
-export type DateFormatValue =
-  (typeof dateFormatsValuesMap)[keyof typeof dateFormatsValuesMap];
+export const dateFormatsKeys = Object.keys(dateFormatValue) as DateFormatKey[];
+
+export type DateFormatKey = keyof typeof dateFormatValue;
+export type DateFormat = (typeof dateFormatValue)[keyof typeof dateFormatValue];

@@ -1,4 +1,4 @@
-import type { DateFormatValue } from '@/constants/dates';
+import type { DateFormat } from '@/constants/dates';
 import type { Language } from '@/constants/locales';
 
 import React, { useEffect, useState } from 'react';
@@ -90,7 +90,7 @@ export type DatePickerProps = Omit<
   'value' | 'onChange'
 > & {
   placeholder?: string;
-  dateFormat?: DateFormatValue;
+  dateFormat?: DateFormat;
   value?: Date;
   onChange: (...event: any[]) => void;
 };

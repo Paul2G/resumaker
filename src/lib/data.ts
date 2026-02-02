@@ -1,11 +1,11 @@
 import type { Resume } from '@/types';
 
-import { dateFormats } from '@/constants/dates';
+import { dateFormatsKeys } from '@/constants/dates';
 import { defaultProjectLocale } from '@/constants/locales';
 import {
   CURRENT_RESUME_VERSION,
-  resumeFontFamilies,
-  resumePaperSizes,
+  resumeFontFamiliesKeys,
+  resumePaperSizesKeys,
 } from '@/constants/resume';
 import { SectionKey } from '@/constants/sections';
 
@@ -16,10 +16,10 @@ export const defaultResume: Resume = {
     name: 'My resume',
     language: defaultProjectLocale,
     // paper Sheet format
-    paperSize: resumePaperSizes[0],
+    paperSize: resumePaperSizesKeys[0],
     margin: 15, //mm
     // Font related
-    fontFamily: resumeFontFamilies[0],
+    fontFamily: resumeFontFamiliesKeys[0],
     fontSize: 8, //pt
     titleSizeMultiplier: 2, // x
     sectionTitleSizeMultiplier: 1.5, // x
@@ -29,7 +29,7 @@ export const defaultResume: Resume = {
     itemsGap: 3, //mm
     itemsTitleContentGap: 2, //mm
     // Dates and durations
-    dateFormat: dateFormats[0],
+    dateFormat: dateFormatsKeys[0],
   },
   sections: [
     {

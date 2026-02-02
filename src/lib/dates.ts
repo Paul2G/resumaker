@@ -1,4 +1,4 @@
-import type { DateFormatValue } from '@/constants/dates';
+import type { DateFormat } from '@/constants/dates';
 import type { Language } from '@/constants/locales';
 
 import dayjs from 'dayjs';
@@ -9,12 +9,12 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
-const DEFAULT_DATE_FORMAT: DateFormatValue = 'DD/MM/YYYY' as const;
+const DEFAULT_DATE_FORMAT: DateFormat = 'DD/MM/YYYY' as const;
 const DEFAULT_DATE_LANGUAGE: Language = 'en' as const;
 
 export function formatDate(
   d?: Date | string,
-  dateFormat: DateFormatValue = DEFAULT_DATE_FORMAT,
+  dateFormat: DateFormat = DEFAULT_DATE_FORMAT,
   language: Language = DEFAULT_DATE_LANGUAGE,
 ): string {
   if (typeof d === 'string')

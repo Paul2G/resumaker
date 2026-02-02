@@ -1,9 +1,12 @@
 import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
-import { dateFormats } from '@/constants/dates';
+import { dateFormatsKeys } from '@/constants/dates';
 import { defaultProjectLocale, locales } from '@/constants/locales';
-import { resumeFontFamilies, resumePaperSizes } from '@/constants/resume';
+import {
+  resumeFontFamiliesKeys,
+  resumePaperSizesKeys,
+} from '@/constants/resume';
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
@@ -85,10 +88,12 @@ export const resumeConfigSchema = z.object({
   name: z.string().min(1),
   language: z.literal(locales).default(defaultProjectLocale),
   // paper Sheet format
-  paperSize: z.literal(resumePaperSizes).default(resumePaperSizes[0]),
+  paperSize: z.literal(resumePaperSizesKeys).default(resumePaperSizesKeys[0]),
   margin: z.int().min(0).max(30),
   // Font related
-  fontFamily: z.literal(resumeFontFamilies).default(resumeFontFamilies[0]),
+  fontFamily: z
+    .literal(resumeFontFamiliesKeys)
+    .default(resumeFontFamiliesKeys[0]),
   fontSize: z.int().min(6).max(18),
   titleSizeMultiplier: z.number().min(1).max(4),
   sectionTitleSizeMultiplier: z.number().min(1).max(3),
@@ -98,5 +103,5 @@ export const resumeConfigSchema = z.object({
   itemsGap: z.number().min(0).max(12),
   itemsTitleContentGap: z.number().min(0).max(8),
   // Dates and durations
-  dateFormat: z.literal(dateFormats).default(dateFormats[0]),
+  dateFormat: z.literal(dateFormatsKeys).default(dateFormatsKeys[0]),
 });
