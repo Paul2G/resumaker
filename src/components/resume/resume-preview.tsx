@@ -10,7 +10,9 @@ import { ResumePreviewExperience } from '@/components/resume/resume-preview-expe
 import { ResumePreviewProjects } from '@/components/resume/resume-preview-projects';
 import { ResumePreviewSkills } from '@/components/resume/resume-preview-skills';
 import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
+import { useResume } from '@/hooks/use-resume';
 import { cn } from '@/lib/utils';
+import { resumeFontFamilyValue } from '@/constants/resume';
 import { SectionKey } from '@/constants/sections';
 
 export function ResumePreview({
@@ -18,8 +20,28 @@ export function ResumePreview({
   className,
   ...props
 }: ResumePreviewProps) {
+  const { config } = useResume();
+
   return (
-    <div className={cn('resume resume--letter', className)} {...props}>
+    <div
+      className={cn(`resume resume--${config.paperSize}`, className)}
+      style={
+        {
+          '--resume-margin': `${config.margin}mm`,
+          // Typography
+          '--resume-font-family': resumeFontFamilyValue[config.fontFamily],
+          '--resume-font-size': `${config.fontSize}pt`,
+          '--resume-title-size': `${config.titleSizeMultiplier}em`,
+          '--resume-subtitle-size': `${config.sectionTitleSizeMultiplier}em`,
+          '--resume-item-title-size': `${config.itemTitleMultiplier}em`,
+          // Spacing
+          '--resume-sections-gap': `${config.sectionsGap}mm`,
+          '--resume-items-gap': `${config.itemsGap}mm`,
+          '--resume-item-title-content-gap': `${config.itemsTitleContentGap}mm`,
+        } as React.CSSProperties // Te juro
+      }
+      {...props}
+    >
       <div className="resume__sheet">
         {resume.sections.map(({ key, data, visible }) => {
           if (!visible) return null;

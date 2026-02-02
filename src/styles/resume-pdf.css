@@ -1,14 +1,24 @@
 .resume {
-  --sheet-rgb-font-color: 68, 68, 68;
-  --sheet-rgb-background-color: 255, 255, 255;
+  --resume-rgb-font-color: 68, 68, 68;
+  --resume-rgb-background-color: 255, 255, 255;
 
-  --sheet-margin: 15mm;
-  --sheet-font-size: 8pt;
-  --sheet-font-color: rgb(var(--sheet-rgb-font-color));
-  --sheet-background-color: rgb(var(--sheet-rgb-background-color));
+  --resume-font-color: rgb(var(--resume-rgb-font-color));
+  --resume-background-color: rgb(var(--resume-rgb-background-color));
 
-  font-size: var(--sheet-font-size);
-  font-family: 'Verdana', serif;
+  /* Read variables from React styles property */
+  --margin: var(--resume-margin, 15mm);
+  --font-size: var(--resume-font-size, 8pt);
+  --font-family: var(--resume-font-family, 'Arial, sans-serif');
+  --title-size: var(--resume-title-size, 2em);
+  --subtitle-size: var(--resume-subtitle-size, 1.5em);
+  --item-title-size: var(--resume-item-title-size, 1.1em);
+  --sections-gap: var(--resume-sections-gap, 5mm);
+  --items-gap: var(--resume-items-gap, 3mm);
+  --item-title-content-gap: var(--resume-item-title-content-gap, 2mm);
+
+  /* Actual values */
+  font-size: var(--font-size);
+  font-family: var(--font-family);
 
   i {
     font-size: 1em;
@@ -32,14 +42,14 @@
 .resume__sheet {
   width: var(--sheet-width);
   min-height: var(--sheet-height);
-  padding: var(--sheet-margin);
+  padding: var(--margin);
 
-  background-color: var(--sheet-background-color);
-  color: var(--sheet-font-color);
+  background-color: var(--resume-background-color);
+  color: var(--resume-font-color);
 }
 
 .resume__title {
-  font-size: 2em;
+  font-size: var(--title-size);
   font-weight: bold;
   text-align: center;
 }
@@ -50,7 +60,7 @@
 }
 
 .resume__section:not(:first-child) {
-  margin-top: 0.8em;
+  margin-top: var(--sections-gap);
 }
 
 .resume__contact-items {
@@ -65,13 +75,13 @@
 }
 
 .resume__subtitle {
-  font-size: 1.5em;
+  font-size: var(--subtitle-size);
   font-weight: bold;
 
 }
 
 .resume__subtitle--underlined {
-  border-bottom: 1.3pt solid var(--sheet-font-color);
+  border-bottom: 1.3pt solid var(--resume-font-color);
   padding-bottom: 0.2em;
   margin-bottom: 0.3em;
 }
@@ -81,7 +91,7 @@
 .resume__items {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--items-gap);
 }
 
 .resume__item-header {
@@ -89,15 +99,17 @@
   justify-content: space-between;
 
   font-weight: bold;
+
+  margin-bottom: var(--item-title-content-gap);
 }
 
 .resume__item-title {
-  font-size: 1.1em;
+  font-size: var(--item-title-size);
 
   small {
     margin-left: 0.5em;
     font-size: 0.9em;
-    color: rgba(var(--sheet-rgb-font-color), 0.8);
+    color: rgba(var(--resume-rgb-font-color), 0.8);
   }
 }
 
