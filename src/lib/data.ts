@@ -25,7 +25,7 @@ export const defaultResume: Resume = {
     sectionTitleSizeMultiplier: 1.5, // x
     itemTitleMultiplier: 1.1, // x
     // Margins
-    sectionsGap: 5, //mm
+    sectionsGap: 4, //mm
     itemsGap: 3, //mm
     itemsTitleContentGap: 2, //mm
     // Dates and durations

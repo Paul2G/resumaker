@@ -311,6 +311,27 @@ export function ResumeConfigForm({
         />
         <FormField
           control={form.control}
+          name="itemsGap"
+          render={({ field: { value, onChange, ...restOfProps } }) => (
+            <FormItem>
+              <FormLabel>{t('resume:fields.itemsGap')}</FormLabel>
+              <FormControl>
+                <InputGroup>
+                  <InputGroupInput
+                    type="number"
+                    value={value?.toString()}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    {...restOfProps}
+                  />
+                  <InputGroupAddon align="inline-end">mm</InputGroupAddon>
+                </InputGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="itemsTitleContentGap"
           render={({ field: { value, onChange, ...restOfProps } }) => (
             <FormItem>

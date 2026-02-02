@@ -7,14 +7,14 @@
 
   /* Read variables from React styles property */
   --margin: var(--resume-margin, 15mm);
-  --font-size: var(--resume-font-size, 8pt);
   --font-family: var(--resume-font-family, 'Arial, sans-serif');
+  --font-size: var(--resume-font-size, 8pt);
   --title-size: var(--resume-title-size, 2em);
   --subtitle-size: var(--resume-subtitle-size, 1.5em);
   --item-title-size: var(--resume-item-title-size, 1.1em);
-  --sections-gap: var(--resume-sections-gap, 5mm);
+  --sections-gap: var(--resume-sections-gap, 4mm);
   --items-gap: var(--resume-items-gap, 3mm);
-  --item-title-content-gap: var(--resume-item-title-content-gap, 2mm);
+  --item-title-content-gap: var(--resume-item-title-content-gap, 1mm);
 
   /* Actual values */
   font-size: var(--font-size);
