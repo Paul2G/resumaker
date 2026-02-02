@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/item';
 import { Typography } from '@/components/ui/typography';
 import { useResumesIndex } from '@/hooks/use-resumes-index';
+import { localeData } from '@/constants/locales';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -72,7 +73,13 @@ function Index() {
                   >
                     <ItemTitle>{resume.config.name}</ItemTitle>
                   </Link>
-                  <ItemDescription>{resume.config.name}</ItemDescription>
+                  <ItemDescription>
+                    {localeData[resume.config.language].langLabel}
+                    {` | `}
+                    {t(`resume:values.paperSize.${resume.config.paperSize}`)}
+                    {` | `}
+                    {t(`resume:values.fontFamily.${resume.config.fontFamily}`)}
+                  </ItemDescription>
                 </ItemContent>
                 <ItemActions className="flex items-streetch z-10">
                   <ResumeDeleteModalTrigger resumeId={resume.id} asChild>
