@@ -14,7 +14,7 @@ export const defaultResume: Resume = {
   version: CURRENT_RESUME_VERSION,
   config: {
     name: 'My resume',
-    language: defaultProjectLocale.key,
+    language: defaultProjectLocale,
     // paper Sheet format
     paperSize: resumePaperSizes[0],
     margin: 15, //mm

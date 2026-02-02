@@ -16,7 +16,7 @@ function RootLayout() {
   const loadedAppData = loadAppData();
 
   useEffect(() => {
-    i18n.changeLanguage(loadedLocale.language).then();
+    i18n.changeLanguage(loadedLocale).then();
     setLocaleInDocument(loadedLocale);
   }, []);
 

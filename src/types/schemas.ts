@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
 import { dateFormats } from '@/constants/dates';
-import { defaultProjectLocale, projectLocales } from '@/constants/locales';
+import { defaultProjectLocale, locales } from '@/constants/locales';
 import { resumeFontFamilies, resumePaperSizes } from '@/constants/resume';
 
 export const contactInfoSchema = z.object({
@@ -83,9 +83,7 @@ export const courseSchema = z.object({
 
 export const resumeConfigSchema = z.object({
   name: z.string().min(1),
-  language: z
-    .literal(projectLocales.map((locale) => locale.key))
-    .default(defaultProjectLocale.key),
+  language: z.literal(locales).default(defaultProjectLocale),
   // paper Sheet format
   paperSize: z.literal(resumePaperSizes).default(resumePaperSizes[0]),
   margin: z.int().min(0).max(30),

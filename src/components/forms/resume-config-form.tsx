@@ -1,3 +1,4 @@
+import type { Locale } from '@/constants/locales';
 import type { ResumeConfig } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,7 +30,7 @@ import {
 } from '@/components/ui/input-group';
 import { Typography } from '@/components/ui/typography';
 import { dateFormats } from '@/constants/dates';
-import { projectLocales } from '@/constants/locales';
+import { localeData, locales } from '@/constants/locales';
 import { resumeFontFamilies, resumePaperSizes } from '@/constants/resume';
 import { resumeConfigSchema } from '@/types/schemas';
 
@@ -77,10 +78,10 @@ export function ResumeConfigForm({
               <FormLabel>{t('resume:fields.language')}</FormLabel>
               <FormControl>
                 <Combobox
-                  items={projectLocales}
-                  itemToStringLabel={(item) => item.languageLabel}
-                  value={projectLocales.find((l) => l.key === field.value)!}
-                  onValueChange={(item) => field.onChange(item!.key)}
+                  items={locales}
+                  itemToStringLabel={(item) => localeData[item].langLabel}
+                  value={field.value as Locale}
+                  onValueChange={(item) => field.onChange(item!)}
                 >
                   <ComboboxInput
                     placeholder={t('resume:placeholders.language')}
@@ -88,8 +89,8 @@ export function ResumeConfigForm({
                   <ComboboxContent>
                     <ComboboxList>
                       {(item) => (
-                        <ComboboxItem key={item.language} value={item}>
-                          {item.languageLabel}
+                        <ComboboxItem key={item} value={item}>
+                          {localeData[item as Locale].langLabel}
                         </ComboboxItem>
                       )}
                     </ComboboxList>

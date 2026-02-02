@@ -1,33 +1,31 @@
-import type { ProjectLocale } from '@/types';
+import type { Locale } from '@/constants/locales';
 
 import {
   defaultProjectLocale,
-  LANG_LOCAL_STORAGE_KEY,
-  projectLocales,
+  LOCALE_LOCAL_STORAGE_KEY,
+  localeData,
+  locales,
 } from '@/constants/locales';
 
-export function getUserLocalePreference() {
-  const localStorageLocaleKey = localStorage.getItem(LANG_LOCAL_STORAGE_KEY);
-  const userLocale = projectLocales.find(
-    ({ key }) => key === localStorageLocaleKey,
-  );
+export function getUserLocalePreference(): Locale {
+  const localStorageLocale = localStorage.getItem(LOCALE_LOCAL_STORAGE_KEY);
 
-  if (userLocale) {
-    return userLocale;
+  if (locales.some((l) => l === localStorageLocale)) {
+    return localStorageLocale as Locale;
   }
 
   const browserLocaleKey = navigator?.language;
-  const browserLocale = projectLocales.find(({ key }) =>
-    browserLocaleKey.startsWith(key),
+  const browserLocale = locales.find((l) =>
+    browserLocaleKey.startsWith(localeData[l].langKey),
   );
 
   return browserLocale ?? defaultProjectLocale;
 }
 
-export function setUserLocalePreference({ key }: ProjectLocale) {
-  localStorage.setItem(LANG_LOCAL_STORAGE_KEY, key);
+export function setUserLocalePreference(locale: Locale) {
+  localStorage.setItem(LOCALE_LOCAL_STORAGE_KEY, locale);
 }
 
-export function setLocaleInDocument({ language }: ProjectLocale) {
-  document.documentElement.setAttribute('lang', language);
+export function setLocaleInDocument(locale: Locale) {
+  document.documentElement.setAttribute('lang', localeData[locale].langKey);
 }

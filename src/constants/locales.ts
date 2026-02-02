@@ -1,20 +1,26 @@
-import type { ProjectLocale } from '@/types';
+export const LOCALE_LOCAL_STORAGE_KEY = 'vite-ui-lang' as const;
 
-export const LANG_LOCAL_STORAGE_KEY = 'vite-ui-lang' as const;
-
-export const projectLocales = [
-  {
-    key: 'es-MX',
-    language: 'es',
-    languageLabel: 'Español',
+export const localeData = {
+  'en-US': {
+    langKey: 'en',
+    countryKey: 'US',
+    langLabel: 'English',
+    countryLabel: 'United States',
   },
-  {
-    key: 'en-US',
-    language: 'en',
-    languageLabel: 'English',
+  'es-MX': {
+    langKey: 'es',
+    countryKey: 'MX',
+    langLabel: 'Español',
+    countryLabel: 'México',
   },
-] as const satisfies ProjectLocale[];
+} as const;
 
-export const defaultProjectLocale = projectLocales[1];
+export type Locale = keyof typeof localeData;
+export type Language = (typeof localeData)[Locale]['langKey'];
 
-export type Language = (typeof projectLocales)[number]['language'];
+export const locales = Object.keys(localeData) as Locale[];
+export const languages = Object.values(localeData).map(
+  (l) => l.langKey,
+) as Language[];
+
+export const defaultProjectLocale: Locale = locales[0];
