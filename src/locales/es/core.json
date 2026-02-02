@@ -17,7 +17,9 @@
     "delete": "Eliminar",
     "toggleTheme": "Cambiar tema",
     "createNewResume": "Crear nuevo currículum",
-    "selectResume": "Seleccionar currículum"
+    "selectResume": "Seleccionar currículum",
+    "pickADate": "Selecciona una fecha",
+    "clear": "Limpiar"
   },
   "labels": {
     "yourSavedResumes": "Tus currículums guardados",

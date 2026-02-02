@@ -1,9 +1,9 @@
 import type { Resume } from '@/types';
 
+import { dateFormats } from '@/constants/dates';
 import { defaultProjectLocale } from '@/constants/locales';
 import {
   CURRENT_RESUME_VERSION,
-  resumeDateFormats,
   resumeFontFamilies,
   resumePaperSizes,
 } from '@/constants/resume';
@@ -29,7 +29,7 @@ export const defaultResume: Resume = {
     itemsGap: 3, //mm
     itemsTitleContentGap: 2, //mm
     // Dates and durations
-    dateFormat: resumeDateFormats[0],
+    dateFormat: dateFormats[0],
   },
   sections: [
     {

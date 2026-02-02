@@ -28,12 +28,9 @@ import {
   InputGroupInput,
 } from '@/components/ui/input-group';
 import { Typography } from '@/components/ui/typography';
+import { dateFormats } from '@/constants/dates';
 import { projectLocales } from '@/constants/locales';
-import {
-  resumeDateFormats,
-  resumeFontFamilies,
-  resumePaperSizes,
-} from '@/constants/resume';
+import { resumeFontFamilies, resumePaperSizes } from '@/constants/resume';
 import { resumeConfigSchema } from '@/types/schemas';
 
 export function ResumeConfigForm({
@@ -330,7 +327,7 @@ export function ResumeConfigForm({
               <FormLabel>{t('resume:fields.dateFormat')}</FormLabel>
               <FormControl>
                 <Combobox
-                  items={resumeDateFormats}
+                  items={dateFormats}
                   itemToStringLabel={(item) =>
                     t(`resume:values.dateFormat.${item}`)
                   }

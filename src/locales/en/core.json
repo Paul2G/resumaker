@@ -17,7 +17,9 @@
     "delete": "Delete",
     "toggleTheme": "Toggle Theme",
     "createNewResume": "Create New Resume",
-    "selectResume": "Select Resume"
+    "selectResume": "Select Resume",
+    "pickADate": "Pick a date",
+    "clear": "Clear"
   },
   "labels": {
     "yourSavedResumes": "Your Saved Resumes",

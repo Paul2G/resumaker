@@ -1,30 +1,34 @@
+import type { DateFormatValue } from '@/constants/dates';
+import type { Language } from '@/constants/locales';
+
 import React, { useEffect, useState } from 'react';
-import { CalendarIcon } from '@phosphor-icons/react';
+import { es } from 'react-day-picker/locale';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Input } from '@/components/ui/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { formatDate, isStringCustomDate, parseDate } from '@/lib/dates';
-import { cn } from '@/lib/utils';
+import { formatDate } from '@/lib/dates';
 
 /* DatePicker component allowing users to select a date either by typing or using a calendar popover.
- * **Note:** This component does not trigger form onChange events automatically if calendar popover is used but it can via input field.
+ * **Note:** This component does not trigger form onChange events automatically if calendar popover is used, but it can via input field.
  * */
 export function DatePicker({
   value,
   name,
+  placeholder,
+  dateFormat = 'MM/DD/YYYY',
   disabled,
   onChange,
   className,
   ...props
 }: DatePickerProps) {
+  const { t, i18n } = useTranslation();
   const [date, setDate] = useState<Date | undefined>(value);
-  const [inputValue, setInputValue] = useState<string>(formatDate(value));
 
   const [open, setOpen] = useState(false);
   const [month, setMonth] = useState<Date | undefined>(date);
@@ -34,63 +38,59 @@ export function DatePicker({
   }, [date]);
 
   return (
-    <div className={cn('relative w-full', className)}>
-      <Input
-        value={inputValue}
-        className="bg-background pr-10"
-        disabled={disabled}
-        onChange={(e) => {
-          const inputDate = e.target.value;
-          setInputValue(inputDate);
-          if (isStringCustomDate(inputDate)) {
-            const newDate = parseDate(inputDate);
-            setDate(newDate);
-          } else if (inputDate === '') {
-            setDate(undefined);
-          }
-        }}
-        {...props}
-      />
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            id="date-picker"
-            variant="ghost"
-            disabled={disabled}
-            className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
-          >
-            <CalendarIcon weight="fill" className="size-4" />
-            <span className="sr-only">Select date</span>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          className="w-auto overflow-hidden p-0"
-          align="end"
-          alignOffset={-8}
-          sideOffset={10}
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          data-empty={!date}
+          disabled={disabled}
+          className="data-[empty=true]:text-muted-foreground justify-between text-left font-normal w-full"
+          {...props}
         >
-          <Calendar
-            mode="single"
-            selected={date}
-            captionLayout="dropdown"
-            month={month}
-            onMonthChange={setMonth}
-            disabled={disabled}
-            onSelect={(newDate) => {
-              setDate(newDate);
-              setInputValue(formatDate(newDate));
-              setOpen(false);
-            }}
-          />
-        </PopoverContent>
-      </Popover>
-    </div>
+          <span className="capitalize">
+            {date
+              ? formatDate(date, dateFormat, i18n.language as Language)
+              : placeholder}
+          </span>
+          <i className="ph ph-caret-down" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          locale={i18n.language === 'es' ? es : undefined}
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          defaultMonth={date}
+          month={month}
+          onMonthChange={setMonth}
+          disabled={disabled}
+          footer={
+            <div className="w-full flex justify-end">
+              <Button
+                size="sm"
+                variant="destructive"
+                className="mt-2"
+                onClick={() => {
+                  setDate(undefined);
+                  setOpen(false);
+                }}
+              >
+                {t('actions.clear')}
+              </Button>
+            </div>
+          }
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 export type DatePickerProps = Omit<
-  React.ComponentProps<'input'>,
+  React.ComponentProps<'button'>,
   'value' | 'onChange'
 > & {
+  placeholder?: string;
+  dateFormat?: DateFormatValue;
   value?: Date;
   onChange: (...event: any[]) => void;
 };

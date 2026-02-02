@@ -1,12 +1,9 @@
 import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
+import { dateFormats } from '@/constants/dates';
 import { defaultProjectLocale, projectLocales } from '@/constants/locales';
-import {
-  resumeDateFormats,
-  resumeFontFamilies,
-  resumePaperSizes,
-} from '@/constants/resume';
+import { resumeFontFamilies, resumePaperSizes } from '@/constants/resume';
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
@@ -103,5 +100,5 @@ export const resumeConfigSchema = z.object({
   itemsGap: z.number().min(0).max(12),
   itemsTitleContentGap: z.number().min(0).max(8),
   // Dates and durations
-  dateFormat: z.literal(resumeDateFormats).default(resumeDateFormats[0]),
+  dateFormat: z.literal(dateFormats).default(dateFormats[0]),
 });
