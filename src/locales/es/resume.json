@@ -37,17 +37,17 @@
       "georgia": "Georgia"
     },
     "dateFormat": {
-      "iso": "ISO (ej. 1999-12-31)",
-      "us": "EE.UU. (ej. 12/31/1999)",
-      "eurLatam": "UE y LATAM (ej. 31/12/1999)",
-      "eastAsia": "Asia Oriental (ej. 1999/12/31)",
-      "usLong": "EE.UU. largo (ej. Diciembre 31, 1999)",
-      "intLong": "Internacional largo (ej. 31 Diciembre 1999)",
-      "usAbbr": "EE.UU. abreviado (ej. Dic 31, 1999)",
-      "intAbbr": "Internacional abreviado (ej. 31 Dic 1999)",
-      "monthYear": "Mes y año (ej. Diciembre 1999)",
-      "monthYearAbbr": "Mes abreviado y año (ej. Dic 1999)",
-      "yearOnly": "Solo año (ej. 1999)"
+      "iso": "ISO",
+      "us": "EE.UU.",
+      "eurLatam": "UE y LATAM",
+      "eastAsia": "Asia Oriental",
+      "usLong": "EE.UU. largo",
+      "intLong": "Internacional largo",
+      "usAbbr": "EE.UU. abreviado",
+      "intAbbr": "Internacional abreviado",
+      "monthYear": "Mes y año",
+      "monthYearAbbr": "Mes abreviado y año",
+      "yearOnly": "Solo año"
     }
   }
 }

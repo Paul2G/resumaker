@@ -1,4 +1,5 @@
-import type { Locale } from '@/constants/locales';
+import type { DateFormatKey } from '@/constants/dates';
+import type { Language, Locale } from '@/constants/locales';
 import type { ResumeConfig } from '@/types';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,8 +29,15 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from '@/components/ui/input-group';
+import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemTitle,
+} from '@/components/ui/item';
 import { Typography } from '@/components/ui/typography';
-import { dateFormatsKeys } from '@/constants/dates';
+import { formatDate } from '@/lib/dates';
+import { dateFormatsKeys, dateFormatValue } from '@/constants/dates';
 import { localeData, locales } from '@/constants/locales';
 import {
   resumeFontFamiliesKeys,
@@ -41,7 +49,7 @@ export function ResumeConfigForm({
   currentConfig,
   onSave,
 }: ResumeConfigFormProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const form = useForm({
     resolver: zodResolver(resumeConfigSchema),
@@ -345,7 +353,20 @@ export function ResumeConfigForm({
                     <ComboboxList>
                       {(item) => (
                         <ComboboxItem key={item} value={item}>
-                          {t(`resume:values.dateFormat.${item}`)}
+                          <Item size="xs" className="p-0">
+                            <ItemContent>
+                              <ItemTitle className="whitespace-nowrap">
+                                {t(`resume:values.dateFormat.${item}`)}
+                              </ItemTitle>
+                              <ItemDescription className="capitalize">
+                                {formatDate(
+                                  new Date(),
+                                  dateFormatValue[item as DateFormatKey],
+                                  i18n.language as Language,
+                                )}
+                              </ItemDescription>
+                            </ItemContent>
+                          </Item>
                         </ComboboxItem>
                       )}
                     </ComboboxList>
