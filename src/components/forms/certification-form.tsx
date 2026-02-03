@@ -1,6 +1,5 @@
-import type { Certification } from '@/lib/types';
+import type { Certification } from '@/types';
 
-import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -18,32 +17,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useResume } from '@/hooks/use-resume';
-import { certificationSchema } from '@/lib/schemas';
-import { IterableSectionKey, SectionKey } from '@/lib/types';
+import { certificationSchema } from '@/types/schemas';
 
-export function CertificationForm({ itemId }: CertificationFormProps) {
+export function CertificationForm({
+  defaultValues,
+  onSave,
+}: CertificationFormProps) {
   const { t } = useTranslation();
-  const { getSectionDataItem, updateSectionDataItem } = useResume();
-
-  const defaultValues = useMemo(
-    () => getSectionDataItem(SectionKey.Certifications, itemId)!,
-    [],
-  );
 
   const form = useForm({
     resolver: zodResolver(certificationSchema),
     defaultValues: certificationSchema.parse(defaultValues),
   });
 
-  function onSave(values: Certification) {
-    updateSectionDataItem(IterableSectionKey.Certifications, values);
+  function onSubmit(values: Certification) {
+    onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="title"
@@ -165,5 +159,6 @@ export function CertificationForm({ itemId }: CertificationFormProps) {
 }
 
 export type CertificationFormProps = {
-  itemId: string;
+  defaultValues: Certification;
+  onSave: (values: Certification) => void;
 };

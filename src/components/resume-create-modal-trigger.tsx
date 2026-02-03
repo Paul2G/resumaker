@@ -1,0 +1,101 @@
+import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useResumesIndex } from '@/hooks/use-resumes-index';
+
+export function ResumeCreateModalTrigger({
+  children,
+  asChild,
+}: ResumeCreateModalTriggerProps) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { createResume } = useResumesIndex();
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const schema = z.object({ name: z.string().min(1) });
+
+  const form = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { name: '' },
+  });
+
+  async function onSubmit(values: z.infer<typeof schema>) {
+    const resumeId = await createResume(values.name);
+
+    setIsDialogOpen(false);
+
+    await navigate({ to: '/$resumeId', params: { resumeId } });
+  }
+  return (
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t('core:dialogs.createNewResume.title')}</DialogTitle>
+          <DialogDescription>
+            {t('core:dialogs.createNewResume.description')}
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('resume:fields.name')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={t('resume:placeholders.name')}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsDialogOpen(false)}
+              >
+                {t('dialogs.cancel')}
+              </Button>
+              <Button type="submit">{t('actions.create')}</Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export type ResumeCreateModalTriggerProps = {
+  children: React.ReactNode;
+  asChild?: boolean;
+};

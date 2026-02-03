@@ -16,7 +16,31 @@ import {
   ScrollIcon,
 } from '@phosphor-icons/react';
 
-import { IterableSectionKey, SectionKey } from '@/lib/types';
+/* Treat this sections keys constants as enums to avoid typescript no erasable syntax */
+
+export const IterableSectionKey = {
+  Experience: 'experience',
+  Education: 'education',
+  Projects: 'projects',
+  Certifications: 'certifications',
+  Courses: 'courses',
+} as const;
+export type IterableSectionKey =
+  (typeof IterableSectionKey)[keyof typeof IterableSectionKey];
+
+export const StaticSectionKey = {
+  ContactInfo: 'contact',
+  Summary: 'summary',
+  Skills: 'skills',
+} as const;
+export type StaticSectionKey =
+  (typeof StaticSectionKey)[keyof typeof StaticSectionKey];
+
+export const SectionKey = {
+  ...StaticSectionKey,
+  ...IterableSectionKey,
+} as const;
+export type SectionKey = (typeof SectionKey)[keyof typeof SectionKey];
 
 export const SectionIconMap: Record<SectionKey, Icon> = {
   [SectionKey.ContactInfo]: AddressBookIcon,

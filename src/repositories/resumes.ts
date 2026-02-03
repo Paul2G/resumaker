@@ -1,6 +1,9 @@
-import type { AppData, Resume } from '@/lib/types';
+import type { AppData, Resume } from '@/types';
 
-import { CURRENT_APP_VERSION } from '@/lib/utils';
+import { compareVersions } from 'compare-versions';
+
+import { defaultResume } from '@/lib/data';
+import { CURRENT_RESUME_VERSION } from '@/constants/resume';
 
 export function saveAppData(appData: AppData) {
   localStorage.setItem(
@@ -8,7 +11,6 @@ export function saveAppData(appData: AppData) {
     JSON.stringify({
       resumes: appData.resumes.map(({ id, name }) => ({ id, name })),
       selectedResumeId: appData.selectedResumeId,
-      version: CURRENT_APP_VERSION,
     }),
   );
 }
@@ -20,7 +22,6 @@ export function loadAppData() {
     ? JSON.parse(storedAppData)
     : {
         resumes: [],
-        version: CURRENT_APP_VERSION,
       };
 }
 
@@ -33,7 +34,19 @@ export function loadResume(resumeId: string): Resume | null {
 
   if (!storedResume) return null;
 
-  return JSON.parse(storedResume);
+  const parsedResume = JSON.parse(storedResume);
+
+  if (
+    compareVersions(parsedResume.version || '1.0.0', CURRENT_RESUME_VERSION) ===
+    -1
+  ) {
+    parsedResume.config = defaultResume.config;
+    parsedResume.config.name = parsedResume.name;
+    parsedResume.name = undefined;
+    parsedResume.version = CURRENT_RESUME_VERSION;
+  }
+
+  return parsedResume;
 }
 
 export function deleteResume(resumeId: string) {

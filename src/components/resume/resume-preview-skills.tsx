@@ -1,4 +1,4 @@
-import type { Skills } from '@/lib/types';
+import type { Skills } from '@/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
 

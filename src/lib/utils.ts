@@ -3,8 +3,6 @@ import type { ClassValue } from 'clsx';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export const CURRENT_APP_VERSION = '1.0.0';
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -23,4 +21,10 @@ export function stringTruncate(s: string, len: number = 20) {
 
 export function toSentenceCase(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export function isValueOf<T extends Record<string, unknown>>(obj: T) {
+  return function (value: unknown): value is T[keyof T] {
+    return Object.values(obj).includes(value as T[keyof T]);
+  };
 }

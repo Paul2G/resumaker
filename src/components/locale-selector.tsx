@@ -1,7 +1,6 @@
-import type { ProjectLocale } from '@/lib/locales';
+import type { Locale } from '@/constants/locales';
 
 import { useMemo, useState } from 'react';
-import { TranslateIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -12,23 +11,20 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  projectLocales,
-  setLocaleInDocument,
-  setUserLocalePreference,
-} from '@/lib/locales';
+import { setLocaleInDocument, setUserLocalePreference } from '@/lib/locales';
+import { localeData, locales } from '@/constants/locales';
 
 export function LocaleSelector() {
   const { i18n } = useTranslation();
   const [isOpen, setOpen] = useState(false);
 
   const selectedLocale = useMemo(
-    () => projectLocales.find((locale) => locale.language === i18n.language)!,
+    () => locales.find((l) => localeData[l].langKey === i18n.language)!,
     [i18n.language],
   );
 
-  async function selectLocale(locale: ProjectLocale) {
-    await i18n.changeLanguage(locale.key);
+  async function selectLocale(locale: Locale) {
+    await i18n.changeLanguage(locale);
     setUserLocalePreference(locale);
     setLocaleInDocument(locale);
   }
@@ -36,20 +32,21 @@ export function LocaleSelector() {
   return (
     <DropdownMenu open={isOpen} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <TranslateIcon />
+        <Button variant="outline">
+          {localeData[selectedLocale].langLabel}
+          <i className="ph ph-caret-down" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuRadioGroup
-          value={selectedLocale.key}
+          value={selectedLocale}
           onValueChange={(value) =>
-            selectLocale(projectLocales.find((locale) => locale.key === value)!)
+            selectLocale(locales.find((locale) => locale === value)!)
           }
         >
-          {projectLocales.map((locale) => (
-            <DropdownMenuRadioItem value={locale.key} key={locale.key}>
-              {locale.languageLabel}
+          {locales.map((l) => (
+            <DropdownMenuRadioItem value={l} key={l}>
+              {localeData[l].langLabel}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>

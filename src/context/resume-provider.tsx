@@ -1,14 +1,15 @@
+import type { IterableSectionKey, SectionKey } from '@/constants/sections';
 import type {
   Resume,
+  ResumeConfig,
   ResumeSection,
   SectionDataMap,
-  SectionKey,
-} from '@/lib/types';
+} from '@/types';
 
 import React, { createContext, useState } from 'react';
+import { nanoid } from 'nanoid';
 
 import { useUpdateEffect } from '@/hooks/use-update-effect';
-import { IterableSectionKey } from '@/lib/types';
 
 export const ResumeContext = createContext<ResumeProviderValue>(undefined!);
 
@@ -19,9 +20,16 @@ export function ResumeProvider({
 }: ResumeProviderProps) {
   const [resume, setResume] = useState<Resume>(currentResume);
 
+  async function setConfig(config: ResumeConfig) {
+    setResume((prev) => ({
+      ...prev,
+      config,
+    }));
+  }
+
   /* Sections functions */
 
-  function setSections(sections: ResumeSection[]) {
+  async function setSections(sections: ResumeSection[]) {
     setResume((prev) => ({
       ...prev,
       sections,
@@ -36,7 +44,7 @@ export function ResumeProvider({
     return section.data as SectionDataMap[K];
   }
 
-  function setSectionData<K extends SectionKey>(
+  async function setSectionData<K extends SectionKey>(
     sectionKey: K,
     data: SectionDataMap[K],
   ) {
@@ -51,10 +59,10 @@ export function ResumeProvider({
     });
 
     // @ts-ignore Typescript to infer types
-    setSections(sections);
+    await setSections(sections);
   }
 
-  function setSectionVisibility<K extends SectionKey>(
+  async function setSectionVisibility<K extends SectionKey>(
     sectionKey: K,
     visible: boolean = false,
   ) {
@@ -68,7 +76,7 @@ export function ResumeProvider({
       return section;
     });
 
-    setSections(sections);
+    await setSections(sections);
   }
 
   /* Items functions */
@@ -90,11 +98,11 @@ export function ResumeProvider({
     return item as SectionDataMap[K][number];
   }
 
-  function addSectionDataItem<K extends IterableSectionKey>(
+  async function addSectionDataItem<K extends IterableSectionKey>(
     sectionKey: K,
     item: Omit<SectionDataMap[K][number], 'id'>,
   ) {
-    const newItemId = crypto.randomUUID();
+    const newItemId = nanoid(12);
 
     const sections = resume.sections.map((section) => {
       if (section.key === sectionKey && section.data instanceof Array) {
@@ -106,12 +114,12 @@ export function ResumeProvider({
       return section;
     });
 
-    setSections(sections);
+    await setSections(sections);
 
     return newItemId;
   }
 
-  function setSectionDataItemVisibility(
+  async function setSectionDataItemVisibility(
     sectionKey: IterableSectionKey,
     itemId: string,
     visible: boolean,
@@ -133,10 +141,10 @@ export function ResumeProvider({
       return section;
     });
 
-    setSections(sections);
+    await setSections(sections);
   }
 
-  function updateSectionDataItem<K extends IterableSectionKey>(
+  async function updateSectionDataItem<K extends IterableSectionKey>(
     sectionKey: K,
     values: SectionDataMap[K][number],
   ) {
@@ -157,15 +165,15 @@ export function ResumeProvider({
       return section;
     });
 
-    setSections(sections);
+    await setSections(sections);
   }
 
-  function removeSectionDataItem(
+  async function removeSectionDataItem(
     sectionKey: IterableSectionKey,
     itemId: string,
   ) {
     const sections = resume.sections.map((section) => {
-      if (section.key === sectionKey && section.data instanceof Array) {
+      if (section.key === sectionKey) {
         return {
           ...section,
           data: section.data.filter((item) => item.id !== itemId),
@@ -174,7 +182,7 @@ export function ResumeProvider({
       return section;
     });
 
-    setSections(sections);
+    await setSections(sections);
   }
 
   useUpdateEffect(() => {
@@ -189,6 +197,7 @@ export function ResumeProvider({
     <ResumeContext.Provider
       value={{
         ...resume,
+        setConfig,
         setSections,
         getSectionData,
         setSectionData,
@@ -212,13 +221,17 @@ export type ResumeProviderProps = {
 };
 
 export type ResumeProviderValue = Resume & {
-  setSections: (sections: ResumeSection[]) => void;
+  setConfig: (config: ResumeConfig) => Promise<void>;
+  setSections: (sections: ResumeSection[]) => Promise<void>;
   getSectionData: <K extends SectionKey>(sectionKey: K) => SectionDataMap[K];
   setSectionData: <K extends SectionKey>(
     sectionKey: K,
     data: SectionDataMap[K],
-  ) => void;
-  setSectionVisibility: (sectionKey: SectionKey, visibility: boolean) => void;
+  ) => Promise<void>;
+  setSectionVisibility: (
+    sectionKey: SectionKey,
+    visibility: boolean,
+  ) => Promise<void>;
   getSectionDataItem: <K extends IterableSectionKey>(
     sectionKey: K,
     itemId?: string,
@@ -226,18 +239,18 @@ export type ResumeProviderValue = Resume & {
   addSectionDataItem: <K extends IterableSectionKey>(
     sectionKey: K,
     item: Omit<SectionDataMap[K][number], 'id'>,
-  ) => string;
+  ) => Promise<string>;
   updateSectionDataItem: <K extends IterableSectionKey>(
     sectionKey: K,
     values: SectionDataMap[K][number],
-  ) => void;
+  ) => Promise<void>;
   setSectionDataItemVisibility: (
     sectionKey: IterableSectionKey,
     itemId: string,
     visible: boolean,
-  ) => void;
+  ) => Promise<void>;
   removeSectionDataItem: (
     sectionKey: IterableSectionKey,
     itemId: string,
-  ) => void;
+  ) => Promise<void>;
 };

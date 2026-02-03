@@ -1,8 +1,53 @@
 {
+  "sheetFormat": "Sheet Format",
+  "typography": "Typography",
+  "spacing": "Spacing",
+  "dates": "Dates",
   "fields": {
-    "name": "Resume Name"
+    "name": "Resume Name",
+    "language": "Language",
+    "paperSize": "Paper Size",
+    "margin": "Margin",
+    "fontFamily": "Font Family",
+    "fontSize": "Font Size",
+    "titleSizeMultiplier": "Title Size Multiplier",
+    "sectionTitleSizeMultiplier": "Section Title Size Multiplier",
+    "itemTitleMultiplier": "Item Title Multiplier",
+    "sectionsGap": "Sections Gap",
+    "itemsGap": "Items Gap",
+    "itemsTitleContentGap": "Item Title-Content Gap",
+    "dateFormat": "Date Format"
   },
   "placeholders": {
-    "name": "e.g. My Professional Resume"
+    "name": "e.g. My Professional Resume",
+    "language": "Select a language",
+    "paperSize": "Select a paper size",
+    "fontFamily": "Select a font",
+    "dateFormat": "Select a date format"
+  },
+  "values": {
+    "paperSize": {
+      "a4": "A4",
+      "usLetter": "US Letter"
+    },
+    "fontFamily": {
+      "arial": "Arial",
+      "timesNewRoman": "Times New Roman",
+      "calibri": "Calibri",
+      "georgia": "Georgia"
+    },
+    "dateFormat": {
+      "iso": "ISO ",
+      "us": "US",
+      "eurLatam": "EU and LATAM",
+      "eastAsia": "East Asia",
+      "usLong": "US Long",
+      "intLong": "International Long",
+      "usAbbr": "US Abbreviated",
+      "intAbbr": "International Abbreviated",
+      "monthYear": "Month and Year",
+      "monthYearAbbr": "Month Abbreviated and Year",
+      "yearOnly": "Year Only"
+    }
   }
 }

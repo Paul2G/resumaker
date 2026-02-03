@@ -1,14 +1,14 @@
-import type { Certification } from '@/lib/types';
+import type { Certification } from '@/types';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
-import { formatDate, isDateValid } from '@/lib/dates';
+import { isDateValid } from '@/lib/dates';
 import { isStringValid } from '@/lib/utils';
 
 export function ResumePreviewCertifications({
   data,
   ...props
 }: ResumePreviewCertificationsProps) {
-  const { t } = usePreviewUtils();
+  const { t, formatDate } = usePreviewUtils();
 
   if (!data.some((item) => item.visible)) return null;
 

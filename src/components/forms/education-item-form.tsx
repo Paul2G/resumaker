@@ -1,6 +1,5 @@
-import type { EducationItem } from '@/lib/types';
+import type { EducationItem } from '@/types';
 
-import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -18,32 +17,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useResume } from '@/hooks/use-resume';
-import { educationItemSchema } from '@/lib/schemas';
-import { IterableSectionKey, SectionKey } from '@/lib/types';
+import { educationItemSchema } from '@/types/schemas';
 
-export function EducationItemForm({ itemId }: EducationItemFormProps) {
+export function EducationItemForm({
+  defaultValues,
+  onSave,
+}: EducationItemFormProps) {
   const { t } = useTranslation();
-  const { getSectionDataItem, updateSectionDataItem } = useResume();
-
-  const defaultValues = useMemo(
-    () => getSectionDataItem(SectionKey.Education, itemId)!,
-    [],
-  );
 
   const form = useForm({
     resolver: zodResolver(educationItemSchema),
     defaultValues: educationItemSchema.parse(defaultValues),
   });
 
-  function onSave(values: EducationItem) {
-    updateSectionDataItem(IterableSectionKey.Education, values);
+  function onSubmit(values: EducationItem) {
+    onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="title"
@@ -161,5 +155,6 @@ export function EducationItemForm({ itemId }: EducationItemFormProps) {
 }
 
 export type EducationItemFormProps = {
-  itemId: string;
+  defaultValues: EducationItem;
+  onSave: (values: EducationItem) => void;
 };

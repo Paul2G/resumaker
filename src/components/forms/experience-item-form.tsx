@@ -1,6 +1,5 @@
-import type { ExperienceItem } from '@/lib/types';
+import type { ExperienceItem } from '@/types';
 
-import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -19,26 +18,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
-import { useResume } from '@/hooks/use-resume';
-import { experienceItemSchema } from '@/lib/schemas';
-import { IterableSectionKey, SectionKey } from '@/lib/types';
+import { experienceItemSchema } from '@/types/schemas';
 
-export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
+export function ExperienceItemForm({
+  defaultValues,
+  onSave,
+}: ExperienceItemFormProps) {
   const { t } = useTranslation();
-  const { getSectionDataItem, updateSectionDataItem } = useResume();
-
-  const defaultValues = useMemo(
-    () => getSectionDataItem(SectionKey.Experience, itemId)!,
-    [],
-  );
 
   const form = useForm({
     resolver: zodResolver(experienceItemSchema),
     defaultValues: experienceItemSchema.parse(defaultValues),
   });
 
-  function onSave(values: ExperienceItem) {
-    updateSectionDataItem(IterableSectionKey.Experience, values);
+  function onSubmit(values: ExperienceItem) {
+    onSave(values);
     toast.success(t('dialogs.dataSaved'));
   }
 
@@ -46,7 +40,7 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
         <FormField
           control={form.control}
           name="title"
@@ -167,5 +161,6 @@ export function ExperienceItemForm({ itemId }: ExperienceItemFormProps) {
 }
 
 export type ExperienceItemFormProps = {
-  itemId: string;
+  defaultValues: ExperienceItem;
+  onSave: (values: ExperienceItem) => void;
 };
