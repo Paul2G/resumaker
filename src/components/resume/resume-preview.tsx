@@ -12,7 +12,10 @@ import { ResumePreviewSkills } from '@/components/resume/resume-preview-skills';
 import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
 import { useResume } from '@/hooks/use-resume';
 import { cn } from '@/lib/utils';
-import { resumeFontFamilyValue } from '@/constants/resume';
+import {
+  resumeFontFamilyValue,
+  resumePaperSizeValue,
+} from '@/constants/resume';
 import { SectionKey } from '@/constants/sections';
 
 export function ResumePreview({
@@ -24,7 +27,10 @@ export function ResumePreview({
 
   return (
     <div
-      className={cn(`resume resume--${config.paperSize}`, className)}
+      className={cn(
+        `resume resume--${resumePaperSizeValue[config.paperSize]}`,
+        className,
+      )}
       style={
         {
           '--resume-margin': `${config.margin}mm`,

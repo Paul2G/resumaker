@@ -1,8 +1,8 @@
 export const CURRENT_RESUME_VERSION = '1.1.0';
 
 export const resumePaperSizeValue = {
-  a4: 'a4',
   usLetter: 'letter',
+  a4: 'a4',
 } as const;
 
 export const resumeFontFamilyValue = {
