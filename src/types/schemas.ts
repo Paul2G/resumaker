@@ -14,7 +14,8 @@ export const contactInfoSchema = z.object({
   phoneNumber: z
     .string()
     .regex(phoneNumberPattern, { message: 'Invalid phone number' })
-    .optional(),
+    .optional()
+    .or(z.literal('')),
   address: z.string().optional(),
   linkedin: z.string().optional(),
   website: z.url().optional().or(z.literal('')),
