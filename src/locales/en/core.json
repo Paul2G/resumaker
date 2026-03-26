@@ -35,8 +35,8 @@
       "description": "Fill in the details to create a new resume."
     },
     "deleteResume": {
-        "title": "Are you absolutely sure?",
-        "description": "This action cannot be undone. This will permanently delete your resume."
+      "title": "Are you absolutely sure?",
+      "description": "This action cannot be undone. This will permanently delete your resume."
     },
     "noSectionSelected": {
       "title": "No Section Selected",

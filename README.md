@@ -94,4 +94,3 @@ This ensures fast access and full user privacy.
 ## 🌟 Acknowledgments
 
 Built as a personal project to practice frontend architecture, state management, and UX-focused design.
-

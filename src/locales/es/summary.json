@@ -3,7 +3,7 @@
   "fields": {
     "summary": "Resumen"
   },
-    "placeholders": {
-        "summary": "Un breve resumen de tu experiencia profesional y habilidades clave."
-    }
+  "placeholders": {
+    "summary": "Un breve resumen de tu experiencia profesional y habilidades clave."
+  }
 }
