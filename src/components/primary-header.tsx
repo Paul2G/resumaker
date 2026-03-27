@@ -33,7 +33,7 @@ export function PrimaryHeader() {
           </Button>
           <Button variant="outline" size="icon" asChild>
             <a
-              href="https://github.com/paul2g"
+              href="https://github.com/Paul2G/resumaker"
               target="_blank"
               rel="noopener noreferrer"
             >
