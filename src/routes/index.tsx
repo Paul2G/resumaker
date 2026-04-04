@@ -1,3 +1,4 @@
+import { PlusIcon, TrashIcon } from '@phosphor-icons/react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -38,7 +39,7 @@ function Index() {
             <Item variant="outline" asChild>
               <a className="cursor-pointer min-h-72">
                 <ItemContent className="flex items-center justify-center gap-2">
-                  <i className="ph-bold ph-plus text-5xl text-muted-foreground" />
+                  <PlusIcon className="size-8" />
                   <ItemTitle className="text-lg">
                     {t('actions.createNewResume')}
                   </ItemTitle>
@@ -84,7 +85,7 @@ function Index() {
                 <ItemActions className="flex items-streetch z-10">
                   <ResumeDeleteModalTrigger resumeId={resume.id} asChild>
                     <Button variant="destructive" size="icon">
-                      <i className="ph-light ph-trash text-lg" />
+                      <TrashIcon />
                     </Button>
                   </ResumeDeleteModalTrigger>
                 </ItemActions>

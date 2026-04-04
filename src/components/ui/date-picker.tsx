@@ -2,6 +2,7 @@ import type { DateFormat } from '@/constants/dates';
 import type { Language } from '@/constants/locales';
 
 import React, { useEffect, useState } from 'react';
+import { CaretDownIcon } from '@phosphor-icons/react';
 import { es } from 'react-day-picker/locale';
 import { useTranslation } from 'react-i18next';
 
@@ -56,7 +57,7 @@ export function DatePicker({
                 )
               : placeholder}
           </span>
-          <i className="ph ph-caret-down" />
+          <CaretDownIcon />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">

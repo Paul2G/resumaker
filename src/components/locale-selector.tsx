@@ -1,6 +1,7 @@
 import type { Locale } from '@/constants/locales';
 
 import { useMemo, useState } from 'react';
+import { CaretDownIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -34,7 +35,7 @@ export function LocaleSelector() {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           {localeData[selectedLocale].langLabel}
-          <i className="ph ph-caret-down" />
+          <CaretDownIcon />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
