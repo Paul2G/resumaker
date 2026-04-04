@@ -9,13 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResumeIdRouteImport } from './routes/$resumeId'
+import { Route as ResumeIdRouteRouteImport } from './routes/$resumeId/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ResumeIdIndexRouteImport } from './routes/$resumeId.index'
-import { Route as ResumeIdSettingsRouteImport } from './routes/$resumeId.settings'
-import { Route as ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125RouteImport } from './routes/$resumeId.sections.{-$sectionKey}.{-$itemId}'
+import { Route as ResumeIdIndexRouteImport } from './routes/$resumeId/index'
+import { Route as ResumeIdSettingsRouteImport } from './routes/$resumeId/settings'
+import { Route as ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125RouteImport } from './routes/$resumeId/sections/{-$sectionKey}.{-$itemId}'
 
-const ResumeIdRoute = ResumeIdRouteImport.update({
+const ResumeIdRouteRoute = ResumeIdRouteRouteImport.update({
   id: '/$resumeId',
   path: '/$resumeId',
   getParentRoute: () => rootRouteImport,
@@ -28,25 +28,25 @@ const IndexRoute = IndexRouteImport.update({
 const ResumeIdIndexRoute = ResumeIdIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ResumeIdRoute,
+  getParentRoute: () => ResumeIdRouteRoute,
 } as any)
 const ResumeIdSettingsRoute = ResumeIdSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => ResumeIdRoute,
+  getParentRoute: () => ResumeIdRouteRoute,
 } as any)
 const ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route =
   ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125RouteImport.update(
     {
       id: '/sections/{-$sectionKey}/{-$itemId}',
       path: '/sections/{-$sectionKey}/{-$itemId}',
-      getParentRoute: () => ResumeIdRoute,
+      getParentRoute: () => ResumeIdRouteRoute,
     } as any,
   )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/$resumeId': typeof ResumeIdRouteWithChildren
+  '/$resumeId': typeof ResumeIdRouteRouteWithChildren
   '/$resumeId/settings': typeof ResumeIdSettingsRoute
   '/$resumeId/': typeof ResumeIdIndexRoute
   '/$resumeId/sections/{-$sectionKey}/{-$itemId}': typeof ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
@@ -60,7 +60,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/$resumeId': typeof ResumeIdRouteWithChildren
+  '/$resumeId': typeof ResumeIdRouteRouteWithChildren
   '/$resumeId/settings': typeof ResumeIdSettingsRoute
   '/$resumeId/': typeof ResumeIdIndexRoute
   '/$resumeId/sections/{-$sectionKey}/{-$itemId}': typeof ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
@@ -90,7 +90,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ResumeIdRoute: typeof ResumeIdRouteWithChildren
+  ResumeIdRouteRoute: typeof ResumeIdRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -99,7 +99,7 @@ declare module '@tanstack/react-router' {
       id: '/$resumeId'
       path: '/$resumeId'
       fullPath: '/$resumeId'
-      preLoaderRoute: typeof ResumeIdRouteImport
+      preLoaderRoute: typeof ResumeIdRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -114,45 +114,45 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/$resumeId/'
       preLoaderRoute: typeof ResumeIdIndexRouteImport
-      parentRoute: typeof ResumeIdRoute
+      parentRoute: typeof ResumeIdRouteRoute
     }
     '/$resumeId/settings': {
       id: '/$resumeId/settings'
       path: '/settings'
       fullPath: '/$resumeId/settings'
       preLoaderRoute: typeof ResumeIdSettingsRouteImport
-      parentRoute: typeof ResumeIdRoute
+      parentRoute: typeof ResumeIdRouteRoute
     }
     '/$resumeId/sections/{-$sectionKey}/{-$itemId}': {
       id: '/$resumeId/sections/{-$sectionKey}/{-$itemId}'
       path: '/sections/{-$sectionKey}/{-$itemId}'
       fullPath: '/$resumeId/sections/{-$sectionKey}/{-$itemId}'
       preLoaderRoute: typeof ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125RouteImport
-      parentRoute: typeof ResumeIdRoute
+      parentRoute: typeof ResumeIdRouteRoute
     }
   }
 }
 
-interface ResumeIdRouteChildren {
+interface ResumeIdRouteRouteChildren {
   ResumeIdSettingsRoute: typeof ResumeIdSettingsRoute
   ResumeIdIndexRoute: typeof ResumeIdIndexRoute
   ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route: typeof ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
 }
 
-const ResumeIdRouteChildren: ResumeIdRouteChildren = {
+const ResumeIdRouteRouteChildren: ResumeIdRouteRouteChildren = {
   ResumeIdSettingsRoute: ResumeIdSettingsRoute,
   ResumeIdIndexRoute: ResumeIdIndexRoute,
   ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route:
     ResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route,
 }
 
-const ResumeIdRouteWithChildren = ResumeIdRoute._addFileChildren(
-  ResumeIdRouteChildren,
+const ResumeIdRouteRouteWithChildren = ResumeIdRouteRoute._addFileChildren(
+  ResumeIdRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ResumeIdRoute: ResumeIdRouteWithChildren,
+  ResumeIdRouteRoute: ResumeIdRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
