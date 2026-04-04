@@ -1,12 +1,15 @@
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
 import { dateFormatsKeys } from '@/constants/dates';
 import { defaultProjectLocale, locales } from '@/constants/locales';
 import {
+  CURRENT_RESUME_VERSION,
   resumeFontFamiliesKeys,
   resumePaperSizesKeys,
 } from '@/constants/resume';
+import { SectionKey } from '@/constants/sections';
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
@@ -86,6 +89,7 @@ export const courseSchema = z.object({
 });
 
 export const resumeConfigSchema = z.object({
+  // General
   name: z.string().min(1),
   language: z.literal(locales).default(defaultProjectLocale),
   // paper Sheet format
@@ -105,4 +109,38 @@ export const resumeConfigSchema = z.object({
   itemsTitleContentGap: z.number().min(0).max(8),
   // Dates and durations
   dateFormat: z.literal(dateFormatsKeys).default(dateFormatsKeys[0]),
+});
+
+export const resumeSchema = z.object({
+  id: z.string(),
+  version: z.literal(['1.0.0', CURRENT_RESUME_VERSION]),
+  config: resumeConfigSchema,
+  sections: z.array(
+    z.object({
+      key: z.literal(Object.values(SectionKey)),
+      visible: z.boolean(),
+      data: z.union([
+        contactInfoSchema,
+        skillsSchema,
+        summarySchema,
+        z.array(experienceItemSchema),
+        z.array(educationItemSchema),
+        z.array(projectSchema),
+        z.array(certificationSchema),
+        z.array(courseSchema),
+      ]),
+    }),
+  ),
+});
+
+export const resumeIndexSchema = z.object({
+  id: z.string().length(12).catch(nanoid(12)),
+  name: z.string().min(1).catch('New Resume'),
+  createdAt: z.coerce.date().catch(new Date()),
+  updatedAt: z.coerce.date().catch(new Date()),
+});
+
+export const appDataSchema = z.object({
+  resumes: z.array(resumeIndexSchema),
+  version: z.literal(['1.0.0', CURRENT_RESUME_VERSION]),
 });

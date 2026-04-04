@@ -2,24 +2,19 @@ import type { ResumeSection } from '@/types';
 
 import { z } from 'zod';
 
-import { resumeConfigSchema } from '@/types/schemas';
+import {
+  appDataSchema,
+  resumeConfigSchema,
+  resumeIndexSchema,
+} from '@/types/schemas';
 
 export type ResumeConfig = z.infer<typeof resumeConfigSchema>;
+export type ResumeIndex = z.infer<typeof resumeIndexSchema>;
+export type AppData = z.infer<typeof appDataSchema>;
 
 export type Resume = {
   id: string;
   version: string;
   config: ResumeConfig;
   sections: ResumeSection[];
-};
-
-export type ResumeIndex = {
-  id: string;
-  name: string;
-};
-
-export type AppData = {
-  resumes: ResumeIndex[];
-  selectedResumeId?: string;
-  version?: string;
 };
