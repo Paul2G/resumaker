@@ -19,7 +19,9 @@
     "createNewResume": "Create New Resume",
     "selectResume": "Select Resume",
     "pickADate": "Pick a date",
-    "clear": "Clear"
+    "clear": "Clear",
+    "print": "Print",
+    "downloadJson": "Download JSON"
   },
   "labels": {
     "yourSavedResumes": "Your Saved Resumes",

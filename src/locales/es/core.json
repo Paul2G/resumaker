@@ -19,7 +19,9 @@
     "createNewResume": "Crear nuevo currículum",
     "selectResume": "Seleccionar currículum",
     "pickADate": "Selecciona una fecha",
-    "clear": "Limpiar"
+    "clear": "Limpiar",
+    "print": "Imprimir",
+    "downloadJson": "Descargar JSON"
   },
   "labels": {
     "yourSavedResumes": "Tus currículums guardados",
