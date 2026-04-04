@@ -1,19 +1,27 @@
+import type { QueryClient } from '@tanstack/react-query';
+
 import { useEffect } from 'react';
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { useTranslation } from 'react-i18next';
 
-import { ResumesIndexProvider } from '@/context/resumes-indexes-provider';
-import { ThemeProvider } from '@/context/theme-provider';
-import { PrimaryHeader } from '@/components/primary-header';
 import { Toaster } from '@/components/ui/sonner';
 import { getUserLocalePreference, setLocaleInDocument } from '@/lib/locales';
-import { loadAppData, saveAppData } from '@/repositories/resumes';
+
+type RootRouteContext = {
+  queryClient: QueryClient;
+  i18n: ReturnType<typeof useTranslation>['i18n'];
+};
+
+export const Route = createRootRouteWithContext<RootRouteContext>()({
+  component: RootLayout,
+});
 
 function RootLayout() {
   const { i18n } = useTranslation();
 
   const loadedLocale = getUserLocalePreference();
-  const loadedAppData = loadAppData();
 
   useEffect(() => {
     i18n.changeLanguage(loadedLocale).then();
@@ -21,16 +29,11 @@ function RootLayout() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <ResumesIndexProvider appData={loadedAppData} onSaveAppData={saveAppData}>
-        <div className="h-screen flex flex-col relative bg-background text-foreground">
-          <PrimaryHeader />
-          <Outlet />
-        </div>
-      </ResumesIndexProvider>
+    <>
+      <Outlet />
       <Toaster />
-    </ThemeProvider>
+      <ReactQueryDevtools buttonPosition="bottom-left" />
+      <TanStackRouterDevtools position="bottom-right" />
+    </>
   );
 }
-
-export const Route = createRootRoute({ component: RootLayout });

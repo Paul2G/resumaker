@@ -26,7 +26,7 @@ import { stringTruncate } from '@/lib/utils';
 export function ResumeSelector() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { resumeId } = useParams({ from: '/$resumeId' });
+  const { resumeId } = useParams({ from: '/resumes/$resumeId' });
 
   const { resumes, getResume } = useResumesIndex();
 
@@ -74,7 +74,10 @@ export function ResumeSelector() {
             <DropdownMenuRadioGroup
               value={selectedResume?.id}
               onValueChange={(value) =>
-                navigate({ to: '/$resumeId', params: { resumeId: value } })
+                navigate({
+                  to: '/resumes/$resumeId',
+                  params: { resumeId: value },
+                })
               }
             >
               {resumes.map((resume) => (

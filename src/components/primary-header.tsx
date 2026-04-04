@@ -18,7 +18,7 @@ export function PrimaryHeader() {
             Resumaker
           </h1>
         </Link>
-        {location.pathname !== '/' && <ResumeSelector />}
+        {location.pathname !== '/resumes' && <ResumeSelector />}
       </div>
       <div className="ml-auto flex gap-2 items-center">
         <ButtonGroup>

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ResumesIndexContext } from '@/context/resumes-indexes-provider';
+import { ResumesIndexContext } from '@/contexts/resumes-indexes-provider';
 
 export function useResumesIndex() {
   const context = useContext(ResumesIndexContext);

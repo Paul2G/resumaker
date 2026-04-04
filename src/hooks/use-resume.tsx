@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ResumeContext } from '@/context/resume-provider';
+import { ResumeContext } from '@/contexts/resume-provider';
 
 export function useResume() {
   const context = useContext(ResumeContext);

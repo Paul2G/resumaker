@@ -44,7 +44,7 @@ export function SidebarForms() {
   } = useResume();
 
   const { sectionKey: selectedSectionKey, itemId: selectedItemId } = useParams({
-    from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+    from: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
   });
 
   const isSectionKeyValid = isValueOf(SectionKey)(selectedSectionKey);

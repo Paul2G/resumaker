@@ -48,7 +48,7 @@ export function ResumeCreateModalTrigger({
 
     setIsDialogOpen(false);
 
-    await navigate({ to: '/$resumeId', params: { resumeId } });
+    await navigate({ to: '/resumes/$resumeId', params: { resumeId } });
   }
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

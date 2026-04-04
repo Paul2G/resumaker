@@ -1,12 +1,12 @@
 import { createFileRoute, notFound, Outlet } from '@tanstack/react-router';
 
-import { ResumeProvider } from '@/context/resume-provider';
+import { ResumeProvider } from '@/contexts/resume-provider';
 import { MainArea } from '@/components/main-area';
 import { SidebarAuxiliar } from '@/components/sidebar-auxiliar';
 import { useResumesIndex } from '@/hooks/use-resumes-index';
 import { loadResume } from '@/repositories/resumes';
 
-export const Route = createFileRoute('/$resumeId')({
+export const Route = createFileRoute('/resumes/$resumeId')({
   component: RouteComponent,
   notFoundComponent: NotFoundComponent,
   loader: ({ params }) => {

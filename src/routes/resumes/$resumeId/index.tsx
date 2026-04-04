@@ -1,10 +1,10 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/$resumeId/')({
+export const Route = createFileRoute('/resumes/$resumeId/')({
   component: RouteComponent,
   loader: ({ params }) => {
     throw redirect({
-      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
       params,
     });
   },

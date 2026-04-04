@@ -18,7 +18,7 @@ export function SectionsList() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { sectionKey: selectedSectionKey, itemId: selectedItemId } = useParams({
-    from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+    from: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
   });
 
   const {
@@ -40,7 +40,7 @@ export function SectionsList() {
     });
 
     await navigate({
-      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
       params: { resumeId, sectionKey, itemId: newItemId },
     });
   }
@@ -49,7 +49,7 @@ export function SectionsList() {
     await removeSectionDataItem(sectionKey, itemId);
 
     await navigate({
-      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
       params: { resumeId, sectionKey: sectionKey, itemId: undefined },
     });
   }
@@ -90,7 +90,7 @@ export function SectionsList() {
       }
       selectItem={(section) =>
         navigate({
-          to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+          to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
           params: { resumeId, sectionKey: section.key, itemId: undefined },
         })
       }
@@ -118,7 +118,7 @@ export function SectionsList() {
               removeItem={(item) => onDeleteItem(section.key, item.id)}
               selectItem={(item) =>
                 navigate({
-                  to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+                  to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
                   params: {
                     resumeId,
                     sectionKey: section.key,

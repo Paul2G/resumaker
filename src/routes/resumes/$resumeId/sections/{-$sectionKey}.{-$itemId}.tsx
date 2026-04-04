@@ -4,7 +4,7 @@ import { SidebarForms } from '@/components/sidebar-forms';
 import { SidebarSections } from '@/components/sidebar-sections';
 
 export const Route = createFileRoute(
-  '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+  '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
 )({
   component: RouteComponent,
 });
