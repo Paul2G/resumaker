@@ -3,23 +3,16 @@ import type { Certification } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
-import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
+import { FormBulletPoints } from '@/components/form-fields/form-bullet-points';
+import { FormDatePicker } from '@/components/form-fields/form-date-picker';
+import { FormInput } from '@/components/form-fields/form-input';
 import { Button } from '@/components/ui/button';
-import { DatePicker } from '@/components/ui/date-picker';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Spinner } from '@/components/ui/spinner';
 import { certificationSchema } from '@/types/schemas';
 
 export function CertificationForm({
+  isLoading,
   defaultValues,
   onSave,
 }: CertificationFormProps) {
@@ -30,135 +23,69 @@ export function CertificationForm({
     defaultValues: certificationSchema.parse(defaultValues),
   });
 
-  function onSubmit(values: Certification) {
-    onSave(values);
-    toast.success(t('dialogs.dataSaved'));
-  }
+  const isSubmitting = form.formState.isSubmitting || isLoading;
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.title')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('certifications:placeholders.title')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="organization"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.organization')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('certifications:placeholders.organization')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="issueDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.issueDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('certifications:placeholders.issueDate')}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="expirationDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.expirationDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('certifications:placeholders.expirationDate')}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="credentialId"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.credentialId')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('certifications:placeholders.credentialId')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="credentialUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.credentialUrl')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('certifications:placeholders.credentialUrl')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('certifications:fields.description')}</FormLabel>
-              <FormControl>
-                <BulletPointsEditor
-                  placeholder={t('certifications:placeholders.description')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">{t('actions.save')}</Button>
-      </form>
-    </Form>
+    <form onSubmit={form.handleSubmit(onSave)} className={'space-y-4'}>
+      <FormInput
+        control={form.control}
+        name="title"
+        label={t('certifications:fields.title')}
+        placeholder={t('certifications:placeholders.title')}
+        disabled={isSubmitting}
+      />
+      <FormInput
+        control={form.control}
+        name="organization"
+        label={t('certifications:fields.organization')}
+        placeholder={t('certifications:placeholders.organization')}
+        disabled={isSubmitting}
+      />
+      <FormDatePicker
+        control={form.control}
+        name="issueDate"
+        label={t('certifications:fields.issueDate')}
+        placeholder={t('certifications:placeholders.issueDate')}
+        disabled={isSubmitting}
+      />
+      <FormDatePicker
+        control={form.control}
+        name="expirationDate"
+        label={t('certifications:fields.expirationDate')}
+        placeholder={t('certifications:placeholders.expirationDate')}
+        disabled={isSubmitting}
+      />
+      <FormInput
+        control={form.control}
+        name="credentialId"
+        label={t('certifications:fields.credentialId')}
+        placeholder={t('certifications:placeholders.credentialId')}
+        disabled={isSubmitting}
+      />
+      <FormInput
+        control={form.control}
+        name="credentialUrl"
+        label={t('certifications:fields.credentialUrl')}
+        placeholder={t('certifications:placeholders.credentialUrl')}
+        disabled={isSubmitting}
+      />
+      <FormBulletPoints
+        control={form.control}
+        name="description"
+        label={t('certifications:fields.description')}
+        placeholder={t('certifications:placeholders.description')}
+        disabled={isSubmitting}
+      />
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting && <Spinner />}
+        {t('actions.save')}
+      </Button>
+    </form>
   );
 }
 
 export type CertificationFormProps = {
+  isLoading?: boolean;
   defaultValues: Certification;
   onSave: (values: Certification) => void;
 };

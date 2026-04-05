@@ -3,59 +3,48 @@ import type { Summary } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
+import { FormTextarea } from '@/components/form-fields/form-text-area';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+import { FieldGroup } from '@/components/ui/field';
+import { Spinner } from '@/components/ui/spinner';
 import { summarySchema } from '@/types/schemas';
 
-export function SummaryForm({ defaultValues, onSave }: SummaryFormProps) {
+export function SummaryForm({
+  defaultValues,
+  onSave,
+  isLoading,
+}: SummaryFormProps) {
   const { t } = useTranslation();
 
-  const form = useForm({
+  const form = useForm<Summary>({
     resolver: zodResolver(summarySchema),
-    defaultValues: defaultValues,
+    defaultValues,
   });
 
-  function onSubmit(values: Summary) {
-    onSave(values);
-    toast.success(t('dialogs.dataSaved'));
-  }
+  const isSubmitting = form.formState.isSubmitting || isLoading;
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-        <FormField
+    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+      <FieldGroup className="gap-4">
+        <FormTextarea
           control={form.control}
           name="summary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('summary:fields.summary')}</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder={t('summary:placeholders.summary')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('summary:fields.summary')}
+          placeholder={t('summary:placeholders.summary')}
+          disabled={isSubmitting}
         />
-        <Button type="submit">{t('actions.save')}</Button>
-      </form>
-    </Form>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner />}
+          {t('actions.save')}
+        </Button>
+      </FieldGroup>
+    </form>
   );
 }
 
 export type SummaryFormProps = {
   defaultValues: Summary;
   onSave: (values: Summary) => void;
+  isLoading?: boolean;
 };

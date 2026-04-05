@@ -5,36 +5,13 @@ import type { ResumeConfig } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
+import { FormInput } from '@/components/form-fields/form-input';
+import { FormInputNumber } from '@/components/form-fields/form-input-number';
+import { FormSelect } from '@/components/form-fields/form-select';
 import { Button } from '@/components/ui/button';
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from '@/components/ui/combobox';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@/components/ui/input-group';
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemTitle,
-} from '@/components/ui/item';
+import { FieldGroup } from '@/components/ui/field';
+import { Spinner } from '@/components/ui/spinner';
 import { Typography } from '@/components/ui/typography';
 import { formatDate } from '@/lib/dates';
 import { toSentenceCase } from '@/lib/utils';
@@ -49,6 +26,7 @@ import { resumeConfigSchema } from '@/types/schemas';
 export function ResumeConfigForm({
   currentConfig,
   onSave,
+  isLoading,
 }: ResumeConfigFormProps) {
   const { t, i18n } = useTranslation();
 
@@ -57,357 +35,175 @@ export function ResumeConfigForm({
     defaultValues: resumeConfigSchema.parse(currentConfig),
   });
 
-  function onSubmit(values: ResumeConfig) {
-    onSave(resumeConfigSchema.parse(values));
-    toast.success(t('dialogs.dataSaved'));
-  }
+  const isSubmitting = form.formState.isSubmitting || isLoading;
+
+  const languageOptions = locales.map((locale) => ({
+    value: locale,
+    label: localeData[locale as Locale].langLabel,
+  }));
+
+  const paperSizeOptions = resumePaperSizesKeys.map((key) => ({
+    value: key,
+    label: t(`resume:values.paperSize.${key}`),
+  }));
+
+  const fontFamilyOptions = resumeFontFamiliesKeys.map((key) => ({
+    value: key,
+    label: t(`resume:values.fontFamily.${key}`),
+  }));
+
+  const dateFormatOptions = dateFormatsKeys.map((key) => ({
+    value: key,
+    label: `${t(`resume:values.dateFormat.${key}`)} — ${toSentenceCase(
+      formatDate(
+        new Date(),
+        dateFormatValue[key as DateFormatKey],
+        i18n.language as Language,
+      ),
+    )}`,
+  }));
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4"
-        noValidate
-      >
-        <FormField
+    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4" noValidate>
+      <FieldGroup className="gap-4">
+        <FormInput
           control={form.control}
           name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.name')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('resume:placeholders.name')} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.name')}
+          placeholder={t('resume:placeholders.name')}
+          disabled={isSubmitting}
         />
-        <FormField
+
+        <FormSelect
           control={form.control}
           name="language"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.language')}</FormLabel>
-              <FormControl>
-                <Combobox
-                  items={locales}
-                  itemToStringLabel={(item) => localeData[item].langLabel}
-                  value={field.value as Locale}
-                  onValueChange={(item) => field.onChange(item!)}
-                >
-                  <ComboboxInput
-                    placeholder={t('resume:placeholders.language')}
-                  />
-                  <ComboboxContent>
-                    <ComboboxList>
-                      {(item) => (
-                        <ComboboxItem key={item} value={item}>
-                          {localeData[item as Locale].langLabel}
-                        </ComboboxItem>
-                      )}
-                    </ComboboxList>
-                  </ComboboxContent>
-                </Combobox>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.language')}
+          options={languageOptions}
+          placeholder={t('resume:placeholders.language')}
+          disabled={isSubmitting}
         />
+
         <Typography variant="large">{t('resume:sheetFormat')}</Typography>
-        <FormField
+
+        <FormSelect
           control={form.control}
           name="paperSize"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.paperSize')}</FormLabel>
-              <FormControl>
-                <Combobox
-                  items={resumePaperSizesKeys}
-                  itemToStringLabel={(item) =>
-                    t(`resume:values.paperSize.${item}`)
-                  }
-                  value={field.value}
-                  onValueChange={field.onChange}
-                >
-                  <ComboboxInput
-                    placeholder={t('resume:placeholders.paperSize')}
-                  />
-                  <ComboboxContent>
-                    <ComboboxList>
-                      {(item) => (
-                        <ComboboxItem key={item} value={item}>
-                          {t(`resume:values.paperSize.${item}`)}
-                        </ComboboxItem>
-                      )}
-                    </ComboboxList>
-                  </ComboboxContent>
-                </Combobox>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.paperSize')}
+          options={paperSizeOptions}
+          placeholder={t('resume:placeholders.paperSize')}
+          disabled={isSubmitting}
         />
-        <FormField
+
+        <FormInputNumber
           control={form.control}
           name="margin"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.margin')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">mm</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.margin')}
+          unit="mm"
+          min={0}
+          max={50}
+          disabled={isSubmitting}
         />
+
         <Typography variant="large">{t('resume:typography')}</Typography>
-        <FormField
+
+        <FormSelect
           control={form.control}
           name="fontFamily"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.fontFamily')}</FormLabel>
-              <FormControl>
-                <Combobox
-                  items={resumeFontFamiliesKeys}
-                  itemToStringLabel={(item) =>
-                    t(`resume:values.fontFamily.${item}`)
-                  }
-                  value={field.value}
-                  onValueChange={field.onChange}
-                >
-                  <ComboboxInput
-                    placeholder={t('resume:placeholders.fontFamily')}
-                  />
-                  <ComboboxContent>
-                    <ComboboxList>
-                      {(item) => (
-                        <ComboboxItem key={item} value={item}>
-                          {t(`resume:values.fontFamily.${item}`)}
-                        </ComboboxItem>
-                      )}
-                    </ComboboxList>
-                  </ComboboxContent>
-                </Combobox>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.fontFamily')}
+          options={fontFamilyOptions}
+          placeholder={t('resume:placeholders.fontFamily')}
+          disabled={isSubmitting}
         />
-        <FormField
+
+        <FormInputNumber
           control={form.control}
           name="fontSize"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.fontSize')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">pt</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.fontSize')}
+          unit="pt"
+          min={6}
+          max={72}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInputNumber
           control={form.control}
           name="titleSizeMultiplier"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.titleSizeMultiplier')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">x</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.titleSizeMultiplier')}
+          unit="x"
+          step={0.1}
+          min={0.5}
+          max={5}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInputNumber
           control={form.control}
           name="sectionTitleSizeMultiplier"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>
-                {t('resume:fields.sectionTitleSizeMultiplier')}
-              </FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">x</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.sectionTitleSizeMultiplier')}
+          unit="x"
+          step={0.1}
+          min={0.5}
+          max={5}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInputNumber
           control={form.control}
           name="itemTitleMultiplier"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.itemTitleMultiplier')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">x</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.itemTitleMultiplier')}
+          unit="x"
+          step={0.1}
+          min={0.5}
+          max={5}
+          disabled={isSubmitting}
         />
+
         <Typography variant="large">{t('resume:spacing')}</Typography>
-        <FormField
+
+        <FormInputNumber
           control={form.control}
           name="sectionsGap"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.sectionsGap')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">mm</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.sectionsGap')}
+          unit="mm"
+          min={0}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInputNumber
           control={form.control}
           name="itemsGap"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.itemsGap')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">mm</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.itemsGap')}
+          unit="mm"
+          min={0}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInputNumber
           control={form.control}
           name="itemsTitleContentGap"
-          render={({ field: { value, onChange, ...restOfProps } }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.itemsTitleContentGap')}</FormLabel>
-              <FormControl>
-                <InputGroup>
-                  <InputGroupInput
-                    type="number"
-                    value={value?.toString()}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    {...restOfProps}
-                  />
-                  <InputGroupAddon align="inline-end">mm</InputGroupAddon>
-                </InputGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.itemsTitleContentGap')}
+          unit="mm"
+          min={0}
+          disabled={isSubmitting}
         />
+
         <Typography variant="large">{t('resume:dates')}</Typography>
-        <FormField
+
+        <FormSelect
           control={form.control}
           name="dateFormat"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('resume:fields.dateFormat')}</FormLabel>
-              <FormControl>
-                <Combobox
-                  items={dateFormatsKeys}
-                  itemToStringLabel={(item) =>
-                    t(`resume:values.dateFormat.${item}`)
-                  }
-                  value={field.value}
-                  onValueChange={field.onChange}
-                >
-                  <ComboboxInput
-                    placeholder={t('resume:placeholders.dateFormat')}
-                  />
-                  <ComboboxContent>
-                    <ComboboxList>
-                      {(item) => (
-                        <ComboboxItem key={item} value={item}>
-                          <Item size="xs" className="p-0">
-                            <ItemContent>
-                              <ItemTitle className="whitespace-nowrap">
-                                {t(`resume:values.dateFormat.${item}`)}
-                              </ItemTitle>
-                              <ItemDescription>
-                                {toSentenceCase(
-                                  formatDate(
-                                    new Date(),
-                                    dateFormatValue[item as DateFormatKey],
-                                    i18n.language as Language,
-                                  ),
-                                )}
-                              </ItemDescription>
-                            </ItemContent>
-                          </Item>
-                        </ComboboxItem>
-                      )}
-                    </ComboboxList>
-                  </ComboboxContent>
-                </Combobox>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('resume:fields.dateFormat')}
+          options={dateFormatOptions}
+          placeholder={t('resume:placeholders.dateFormat')}
+          disabled={isSubmitting}
         />
-        <Button type="submit">{t('actions.save')}</Button>
-      </form>
-    </Form>
+
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner />}
+          {t('actions.save')}
+        </Button>
+      </FieldGroup>
+    </form>
   );
 }
 
 export type ResumeConfigFormProps = {
   currentConfig: ResumeConfig;
   onSave: (newConfig: ResumeConfig) => void;
+  isLoading?: boolean;
 };

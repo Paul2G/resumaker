@@ -3,23 +3,20 @@ import type { Project } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
-import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
+import { FormBulletPoints } from '@/components/form-fields/form-bullet-points';
+import { FormDatePicker } from '@/components/form-fields/form-date-picker';
+import { FormInput } from '@/components/form-fields/form-input';
 import { Button } from '@/components/ui/button';
-import { DatePicker } from '@/components/ui/date-picker';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { FieldGroup } from '@/components/ui/field';
+import { Spinner } from '@/components/ui/spinner';
 import { projectSchema } from '@/types/schemas';
 
-export function ProjectForm({ defaultValues, onSave }: ProjectFormProps) {
+export function ProjectForm({
+  defaultValues,
+  onSave,
+  isLoading,
+}: ProjectFormProps) {
   const { t } = useTranslation();
 
   const form = useForm({
@@ -27,119 +24,67 @@ export function ProjectForm({ defaultValues, onSave }: ProjectFormProps) {
     defaultValues: projectSchema.parse(defaultValues),
   });
 
-  function onSubmit(values: Project) {
-    onSave(values);
-    toast.success(t('dialogs.dataSaved'));
-  }
+  const isSubmitting = form.formState.isSubmitting || isLoading;
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-        <FormField
+    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+      <FieldGroup className="gap-4">
+        <FormInput
           control={form.control}
           name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('projects:fields.title')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('projects:placeholders.title')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('projects:fields.title')}
+          placeholder={t('projects:placeholders.title')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="organization"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('projects:fields.organization')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('projects:placeholders.organization')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('projects:fields.organization')}
+          placeholder={t('projects:placeholders.organization')}
+          disabled={isSubmitting}
         />
-        <FormField
-          control={form.control}
-          name="startDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('projects:fields.startDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('projects:placeholders.startDate')}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="endDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('projects:placeholders.endDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('projects:placeholders.endDate')}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
+        <div className="grid grid-cols-2 gap-4">
+          <FormDatePicker
+            control={form.control}
+            name="startDate"
+            label={t('projects:fields.startDate')}
+            placeholder={t('projects:placeholders.startDate')}
+            disabled={isSubmitting}
+          />
+          <FormDatePicker
+            control={form.control}
+            name="endDate"
+            label={t('projects:fields.endDate')}
+            placeholder={t('projects:placeholders.endDate')}
+            disabled={isSubmitting}
+          />
+        </div>
+        <FormInput
           control={form.control}
           name="link"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('projects:fields.link')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('projects:placeholders.link')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('projects:fields.link')}
+          placeholder={t('projects:placeholders.link')}
+          type="url"
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormBulletPoints
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('projects:fields.description')}</FormLabel>
-              <FormControl>
-                <BulletPointsEditor
-                  placeholder={t('projects:placeholders.description')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('projects:fields.description')}
+          placeholder={t('projects:placeholders.description')}
+          disabled={isSubmitting}
         />
-        <Button type="submit">{t('actions.save')}</Button>
-      </form>
-    </Form>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner />}
+          {t('actions.save')}
+        </Button>
+      </FieldGroup>
+    </form>
   );
 }
 
 export type ProjectFormProps = {
   defaultValues: Project;
   onSave: (values: Project) => void;
+  isLoading?: boolean;
 };

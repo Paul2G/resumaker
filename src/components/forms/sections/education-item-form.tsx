@@ -3,25 +3,19 @@ import type { EducationItem } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
-import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
+import { FormBulletPoints } from '@/components/form-fields/form-bullet-points';
+import { FormDatePicker } from '@/components/form-fields/form-date-picker';
+import { FormInput } from '@/components/form-fields/form-input';
 import { Button } from '@/components/ui/button';
-import { DatePicker } from '@/components/ui/date-picker';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { FieldGroup } from '@/components/ui/field';
+import { Spinner } from '@/components/ui/spinner';
 import { educationItemSchema } from '@/types/schemas';
 
 export function EducationItemForm({
   defaultValues,
   onSave,
+  isLoading,
 }: EducationItemFormProps) {
   const { t } = useTranslation();
 
@@ -30,131 +24,71 @@ export function EducationItemForm({
     defaultValues: educationItemSchema.parse(defaultValues),
   });
 
-  function onSubmit(values: EducationItem) {
-    onSave(values);
-    toast.success(t('dialogs.dataSaved'));
-  }
+  const isSubmitting = form.formState.isSubmitting || isLoading;
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-        <FormField
+    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+      <FieldGroup className="gap-4">
+        <FormInput
           control={form.control}
           name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('education:fields.title')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('education:placeholders.title')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('education:fields.title')}
+          placeholder={t('education:placeholders.title')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="organization"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('education:fields.organization')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('education:placeholders.organization')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('education:fields.organization')}
+          placeholder={t('education:placeholders.organization')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('education:fields.location')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('education:placeholders.location')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('education:fields.location')}
+          placeholder={t('education:placeholders.location')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormDatePicker
           control={form.control}
           name="completionDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('courses:fields.completionDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('courses:placeholders.completionDate')}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('courses:fields.completionDate')}
+          placeholder={t('courses:placeholders.completionDate')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="minor"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('education:fields.minor')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('education:fields.minor')} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('education:fields.minor')}
+          placeholder={t('education:fields.minor')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="gpa"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('education:fields.gpa')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('education:placeholders.gpa')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('education:fields.gpa')}
+          placeholder={t('education:placeholders.gpa')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormBulletPoints
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('education:fields.description')}</FormLabel>
-              <FormControl>
-                <BulletPointsEditor
-                  placeholder={t('education:placeholders.description')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('education:fields.description')}
+          placeholder={t('education:placeholders.description')}
+          disabled={isSubmitting}
         />
-        <Button type="submit">{t('actions.save')}</Button>
-      </form>
-    </Form>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner />}
+          {t('actions.save')}
+        </Button>
+      </FieldGroup>
+    </form>
   );
 }
 
 export type EducationItemFormProps = {
   defaultValues: EducationItem;
   onSave: (values: EducationItem) => void;
+  isLoading?: boolean;
 };

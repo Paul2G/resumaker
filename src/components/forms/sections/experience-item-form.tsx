@@ -3,26 +3,20 @@ import type { ExperienceItem } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
-import { BulletPointsEditor } from '@/components/ui/bullet-points-editor';
+import { FormBulletPoints } from '@/components/form-fields/form-bullet-points';
+import { FormDatePicker } from '@/components/form-fields/form-date-picker';
+import { FormInput } from '@/components/form-fields/form-input';
+import { FormSwitch } from '@/components/form-fields/form-switch';
 import { Button } from '@/components/ui/button';
-import { DatePicker } from '@/components/ui/date-picker';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
+import { FieldGroup } from '@/components/ui/field';
+import { Spinner } from '@/components/ui/spinner';
 import { experienceItemSchema } from '@/types/schemas';
 
 export function ExperienceItemForm({
   defaultValues,
   onSave,
+  isLoading,
 }: ExperienceItemFormProps) {
   const { t } = useTranslation();
 
@@ -31,136 +25,71 @@ export function ExperienceItemForm({
     defaultValues: experienceItemSchema.parse(defaultValues),
   });
 
-  function onSubmit(values: ExperienceItem) {
-    onSave(values);
-    toast.success(t('dialogs.dataSaved'));
-  }
-
+  const isSubmitting = form.formState.isSubmitting || isLoading;
   const isCurrentlyWorkingHere = form.watch('isCurrentlyWorkingHere');
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-        <FormField
+    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+      <FieldGroup className="gap-4">
+        <FormInput
           control={form.control}
           name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('experience:fields.title')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('experience:fields.title')} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('experience:fields.title')}
+          placeholder={t('experience:fields.title')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="organization"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('experience:fields.organization')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('experience:placeholders.organization')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('experience:fields.organization')}
+          placeholder={t('experience:placeholders.organization')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormInput
           control={form.control}
           name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('experience:fields.location')}</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder={t('experience:placeholders.location')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('experience:fields.location')}
+          placeholder={t('experience:placeholders.location')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormDatePicker
           control={form.control}
           name="startDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('experience:fields.startDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('experience:placeholders.startDate')}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('experience:fields.startDate')}
+          placeholder={t('experience:placeholders.startDate')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormSwitch
           control={form.control}
           name="isCurrentlyWorkingHere"
-          render={({ field }) => (
-            <FormItem className="flex flex-row justify-between">
-              <FormLabel>
-                {t('experience:fields.isCurrentlyWorkingHere')}
-              </FormLabel>
-              <FormControl>
-                <Switch
-                  checked={Boolean(field.value)}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          label={t('experience:fields.isCurrentlyWorkingHere')}
+          disabled={isSubmitting}
         />
-        <FormField
+        <FormDatePicker
           control={form.control}
           name="endDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('experience:fields.endDate')}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  placeholder={t('experience:placeholders.endDate')}
-                  disabled={isCurrentlyWorkingHere}
-                  value={field.value as Date}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('experience:fields.endDate')}
+          placeholder={t('experience:placeholders.endDate')}
+          disabled={isSubmitting || isCurrentlyWorkingHere}
         />
-        <FormField
+        <FormBulletPoints
           control={form.control}
           name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('experience:fields.description')}</FormLabel>
-              <FormControl>
-                <BulletPointsEditor
-                  placeholder={t('experience:placeholders.description')}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t('experience:fields.description')}
+          placeholder={t('experience:placeholders.description')}
+          disabled={isSubmitting}
         />
-        <Button type="submit">{t('actions.save')}</Button>
-      </form>
-    </Form>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner />}
+          {t('actions.save')}
+        </Button>
+      </FieldGroup>
+    </form>
   );
 }
 
 export type ExperienceItemFormProps = {
   defaultValues: ExperienceItem;
   onSave: (values: ExperienceItem) => void;
+  isLoading?: boolean;
 };

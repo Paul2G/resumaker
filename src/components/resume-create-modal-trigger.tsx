@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
+import { FormInput } from '@/components/form-fields/form-input';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -16,15 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { defaultResume } from '@/lib/data';
 import { onMutationError, onMutationSuccess } from '@/lib/mutation-toast';
 import { resumeCreateMutationOptions } from '@/api/query-options';
@@ -73,37 +65,27 @@ export function ResumeCreateModalTrigger({
             {t('core:dialogs.createNewResume.description')}
           </DialogDescription>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('resume:fields.name')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={t('resume:placeholders.name')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="outline"
-                disabled={isSubmitting}
-                onClick={() => setIsDialogOpen(false)}
-              >
-                {t('dialogs.cancel')}
-              </Button>
-              <Button type="submit">{t('actions.create')}</Button>
-            </DialogFooter>
-          </form>
-        </Form>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
+          <FormInput
+            control={form.control}
+            name="name"
+            label={t('resume:fields.name')}
+            placeholder={t('resume:placeholders.name')}
+            disabled={isSubmitting}
+          />
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmitting}
+              onClick={() => setIsDialogOpen(false)}
+            >
+              {t('dialogs.cancel')}
+            </Button>
+            <Button type="submit">{t('actions.create')}</Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );
