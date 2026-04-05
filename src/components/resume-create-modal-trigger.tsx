@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
-import { FormInput } from '@/components/form-fields/form-input';
+import { ConfigGeneralForm } from '@/components/forms/config/config-general-form';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -40,21 +37,6 @@ export function ResumeCreateModalTrigger({
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const schema = z.object({ name: z.string().min(1) });
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { name: '' },
-  });
-
-  async function onSubmit(values: z.infer<typeof schema>) {
-    createResume({
-      ...defaultResume,
-      config: { ...defaultResume.config, name: values.name },
-    });
-  }
-
-  const isSubmitting = form.formState.isSubmitting;
-
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
@@ -65,27 +47,28 @@ export function ResumeCreateModalTrigger({
             {t('core:dialogs.createNewResume.description')}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-          <FormInput
-            control={form.control}
-            name="name"
-            label={t('resume:fields.name')}
-            placeholder={t('resume:placeholders.name')}
-            disabled={isSubmitting}
-          />
-
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              disabled={isSubmitting}
-              onClick={() => setIsDialogOpen(false)}
-            >
-              {t('dialogs.cancel')}
-            </Button>
-            <Button type="submit">{t('actions.create')}</Button>
-          </DialogFooter>
-        </form>
+        <ConfigGeneralForm
+          onSave={({ name, language }) =>
+            createResume({
+              ...defaultResume,
+              config: { ...defaultResume.config, name, language },
+            })
+          }
+        >
+          {(isSubmitting) => (
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                disabled={isSubmitting}
+                onClick={() => setIsDialogOpen(false)}
+              >
+                {t('dialogs.cancel')}
+              </Button>
+              <Button type="submit">{t('actions.create')}</Button>
+            </DialogFooter>
+          )}
+        </ConfigGeneralForm>
       </DialogContent>
     </Dialog>
   );
