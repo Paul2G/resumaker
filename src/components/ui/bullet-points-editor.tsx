@@ -30,6 +30,7 @@ export function BulletPointsEditor({
   value = [],
   placeholder,
   onChange = () => {},
+  disabled,
   className,
 }: BulletPointsEditorProps) {
   const editor = useEditor({
@@ -100,6 +101,7 @@ export function BulletPointsEditor({
           type="button"
           size="icon-sm"
           variant={editor.isActive('bold') ? 'outline' : 'ghost'}
+          disabled={disabled}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
           <TextBIcon />
@@ -108,6 +110,7 @@ export function BulletPointsEditor({
           type="button"
           size="icon-sm"
           variant={editor.isActive('italic') ? 'outline' : 'ghost'}
+          disabled={disabled}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
           <TextItalicIcon />
@@ -116,13 +119,18 @@ export function BulletPointsEditor({
           type="button"
           size="icon-sm"
           variant={editor.isActive('underline') ? 'outline' : 'ghost'}
+          disabled={disabled}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
         >
           <TextUnderlineIcon />
         </Button>
       </div>
       <Separator />
-      <EditorContent className="px-3 py-2" editor={editor} />
+      <EditorContent
+        className="px-3 py-2"
+        editor={editor}
+        disabled={disabled}
+      />
     </div>
   );
 }
@@ -133,5 +141,6 @@ export type BulletPointsEditorProps = Omit<
 > & {
   value?: string[];
   placeholder?: string;
+  disabled?: boolean;
   onChange?: (value: string[]) => void;
 };
