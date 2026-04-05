@@ -1,14 +1,14 @@
 import { useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { CertificationForm } from '@/components/forms/certification-form';
-import { ContactInfoForm } from '@/components/forms/contact-info-form';
-import { CourseForm } from '@/components/forms/course-form';
-import { EducationItemForm } from '@/components/forms/education-item-form';
-import { ExperienceItemForm } from '@/components/forms/experience-item-form';
-import { ProjectForm } from '@/components/forms/project-form';
-import { SkillsForm } from '@/components/forms/skills-form';
-import { SummaryForm } from '@/components/forms/summary-form';
+import { CertificationForm } from '@/components/forms/sections/certification-form';
+import { ContactInfoForm } from '@/components/forms/sections/contact-info-form';
+import { CourseForm } from '@/components/forms/sections/course-form';
+import { EducationItemForm } from '@/components/forms/sections/education-item-form';
+import { ExperienceItemForm } from '@/components/forms/sections/experience-item-form';
+import { ProjectForm } from '@/components/forms/sections/project-form';
+import { SkillsForm } from '@/components/forms/sections/skills-form';
+import { SummaryForm } from '@/components/forms/sections/summary-form';
 import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Typography } from '@/components/ui/typography';

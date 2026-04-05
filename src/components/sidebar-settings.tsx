@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { ResumeConfigForm } from '@/components/forms/resume-config-form';
+import { ResumeConfigForm } from '@/components/forms/config/resume-config-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
