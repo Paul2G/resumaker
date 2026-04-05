@@ -32,13 +32,18 @@
     "cancel": "Cancelar",
     "accept": "Aceptar",
     "dataSaved": "Datos guardados con éxito",
+    "unableToHandleAction": "No se pudo manejar la acción. Por favor, inténtalo de nuevo.",
     "createNewResume": {
       "title": "Crear nuevo currículum",
-      "description": "Rellena los detalles para crear un nuevo currículum."
+      "description": "Rellena los detalles para crear un nuevo currículum.",
+      "wasCreated": "Currículum creado con éxito",
+      "wasNotCreated": "No se pudo crear el currículum. Por favor, inténtalo de nuevo."
     },
     "deleteResume": {
       "title": "Eliminar currículum",
-      "description": "¿Estás seguro de que deseas eliminar este currículum? Esta acción no se puede deshacer."
+      "description": "¿Estás seguro de que deseas eliminar este currículum? Esta acción no se puede deshacer.",
+      "wasDeleted": "Currículum eliminado con éxito",
+      "wasNotDeleted": "No se pudo eliminar el currículum. Por favor, inténtalo de nuevo."
     },
     "noSectionSelected": {
       "title": "Ninguna sección seleccionada",

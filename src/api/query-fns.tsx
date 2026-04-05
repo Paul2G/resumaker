@@ -69,7 +69,7 @@ export async function updateResume(updatedResume: Resume) {
   saveResumeIndex(updatedResume);
 }
 
-export async function deleteResumeId(resumeId: string): Promise<void> {
+export async function deleteResume(resumeId: string): Promise<void> {
   if (!existsResumeIndex(resumeId)) {
     removeResume(resumeId);
 

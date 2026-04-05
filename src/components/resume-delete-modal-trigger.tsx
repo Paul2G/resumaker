@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useResumesIndex } from '@/hooks/use-resumes-index';
+import { onMutationError, onMutationSuccess } from '@/lib/mutation-toast';
+import { resumeDeleteMutationOptions } from '@/api/query-options';
 
 export function ResumeDeleteModalTrigger({
   resumeId,
@@ -19,7 +21,16 @@ export function ResumeDeleteModalTrigger({
   asChild,
 }: ResumeDeleteModalTriggerProps) {
   const { t } = useTranslation();
-  const { removeResume } = useResumesIndex();
+
+  const queryClient = useQueryClient();
+  const { mutate: deleteResume } = useMutation({
+    ...resumeDeleteMutationOptions(resumeId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['resumes'] });
+      onMutationSuccess(t, 'dialogs.deleteResume.wasDeleted')();
+    },
+    onError: onMutationError(t, 'dialogs.deleteResume.wasNotDeleted'),
+  });
 
   return (
     <Dialog>
@@ -35,7 +46,7 @@ export function ResumeDeleteModalTrigger({
           <DialogClose asChild>
             <Button variant="secondary">{t('dialogs.cancel')}</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={() => removeResume(resumeId)}>
+          <Button variant="destructive" onClick={() => deleteResume()}>
             {t('actions.delete')}
           </Button>
         </DialogFooter>

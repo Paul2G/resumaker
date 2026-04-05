@@ -8,6 +8,7 @@ import preview from './preview.json';
 import projects from './projects.json';
 import resume from './resume.json';
 import skills from './skills.json';
+import statusCodes from './status-codes.json';
 import summary from './summary.json';
 
 export default {
@@ -22,4 +23,5 @@ export default {
   projects,
   contact,
   resume,
+  statusCodes,
 };

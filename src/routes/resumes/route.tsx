@@ -1,22 +1,21 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import { ResumesIndexProvider } from '@/contexts/resumes-indexes-provider';
+import { NavigationProgress } from '@/components/navigation-progress';
 import { PrimaryHeader } from '@/components/primary-header';
-import { loadAppData, saveAppData } from '@/repositories/resumes';
+import { resumesIndexQueryOptions } from '@/api/query-options';
 
 export const Route = createFileRoute('/resumes')({
+  loader: async ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(resumesIndexQueryOptions()),
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const loadedAppData = loadAppData();
-
   return (
-    <ResumesIndexProvider appData={loadedAppData} onSaveAppData={saveAppData}>
-      <div className="h-screen flex flex-col relative bg-background text-foreground">
-        <PrimaryHeader />
-        <Outlet />
-      </div>
-    </ResumesIndexProvider>
+    <div className="h-screen flex flex-col relative bg-background text-foreground">
+      <NavigationProgress />
+      <PrimaryHeader />
+      <Outlet />
+    </div>
   );
 }

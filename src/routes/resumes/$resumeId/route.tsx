@@ -1,34 +1,52 @@
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { createFileRoute, notFound, Outlet } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
 import { ResumeProvider } from '@/contexts/resume-provider';
 import { MainArea } from '@/components/main-area';
 import { SidebarAuxiliar } from '@/components/sidebar-auxiliar';
-import { useResumesIndex } from '@/hooks/use-resumes-index';
-import { loadResume } from '@/repositories/resumes';
+import { onMutationError, onMutationSuccess } from '@/lib/mutation-toast';
+import {
+  resumeQueryOptions,
+  resumeUpdateMutationOptions,
+} from '@/api/query-options';
 
 export const Route = createFileRoute('/resumes/$resumeId')({
+  loader: async ({ context: { queryClient }, params: { resumeId } }) => {
+    const data = await queryClient.ensureQueryData(
+      resumeQueryOptions(resumeId),
+    );
+    if (!data) throw notFound();
+
+    return data;
+  },
   component: RouteComponent,
   notFoundComponent: NotFoundComponent,
-  loader: ({ params }) => {
-    const { resumeId } = params;
-
-    const resume = loadResume(resumeId);
-
-    if (!resume) {
-      throw notFound();
-    }
-
-    return { resume };
-  },
 });
 
 function RouteComponent() {
-  const { updateResume } = useResumesIndex();
+  const { t } = useTranslation();
+  const { resumeId } = Route.useParams();
 
-  const { resume: selectedResume } = Route.useLoaderData();
+  const queryClient = useQueryClient();
+  const { data: currentResume } = useSuspenseQuery(
+    resumeQueryOptions(resumeId),
+  );
+  const { mutate: updateResume } = useMutation({
+    ...resumeUpdateMutationOptions(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['resumes'] });
+      onMutationSuccess(t)();
+    },
+    onError: onMutationError(t),
+  });
 
   return (
-    <ResumeProvider currentResume={selectedResume} onSave={updateResume}>
+    <ResumeProvider currentResume={currentResume} onSave={updateResume}>
       <div className="overflow-hidden grow flex items-stretch">
         <SidebarAuxiliar />
         <Outlet />

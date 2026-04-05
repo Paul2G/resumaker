@@ -57,7 +57,7 @@ export function removeResumeIndex(resumeId: string) {
   );
 }
 
-export function loadResume(resumeId: string) {
+export function loadResume(resumeId: string): Resume | undefined {
   const rawResume = localStorage.getItem(`${LS_RESUME_PREFIX_KEY}${resumeId}`);
 
   if (rawResume) {

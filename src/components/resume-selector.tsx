@@ -4,6 +4,7 @@ import {
   PlusIcon,
   ReadCvLogoIcon,
 } from '@phosphor-icons/react';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -20,17 +21,17 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Typography } from '@/components/ui/typography';
-import { useResumesIndex } from '@/hooks/use-resumes-index';
 import { stringTruncate } from '@/lib/utils';
+import { resumesIndexQueryOptions } from '@/api/query-options';
 
 export function ResumeSelector() {
   const { t } = useTranslation();
+
   const navigate = useNavigate();
   const { resumeId } = useParams({ from: '/resumes/$resumeId' });
+  const { data: resumes } = useSuspenseQuery(resumesIndexQueryOptions());
 
-  const { resumes, getResume } = useResumesIndex();
-
-  const selectedResume = getResume(resumeId);
+  const selectedResume = resumes.find((r) => r.id === resumeId);
 
   return (
     <DropdownMenu>
@@ -40,7 +41,7 @@ export function ResumeSelector() {
             {selectedResume ? (
               <>
                 <ReadCvLogoIcon />
-                {stringTruncate(selectedResume.config.name)}
+                {stringTruncate(selectedResume.name)}
               </>
             ) : (
               <>
