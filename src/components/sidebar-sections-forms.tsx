@@ -32,9 +32,9 @@ const SectionForms = {
   [StaticSectionKey.ContactInfo]: ContactInfoForm,
   [StaticSectionKey.Summary]: SummaryForm,
   [StaticSectionKey.Skills]: SkillsForm,
-};
+} as const;
 
-export function SidebarForms() {
+export function SidebarSectionsForms() {
   const { t } = useTranslation();
   const {
     getSectionData,

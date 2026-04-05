@@ -1,8 +1,12 @@
 {
-  "sheetFormat": "Sheet Format",
-  "typography": "Typography",
-  "spacing": "Spacing",
-  "dates": "Dates",
+  "settings": {
+    "title": "Resume Settings",
+    "general": "General",
+    "sheet-format": "Sheet Format",
+    "typography": "Typography",
+    "spacing": "Spacing",
+    "dates": "Dates"
+  },
   "fields": {
     "name": "Resume Name",
     "language": "Language",

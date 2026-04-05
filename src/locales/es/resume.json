@@ -1,8 +1,12 @@
 {
-  "sheetFormat": "Formato de hoja",
-  "typography": "Tipografía",
-  "spacing": "Espaciado",
-  "dates": "Fechas",
+  "settings": {
+    "title": "Configuración del currículum",
+    "general": "General",
+    "sheet-format": "Formato de hoja",
+    "typography": "Tipografía",
+    "spacing": "Espaciado",
+    "dates": "Fechas"
+  },
   "fields": {
     "name": "Nombre del currículum",
     "language": "Idioma",

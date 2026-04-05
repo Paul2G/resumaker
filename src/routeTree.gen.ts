@@ -14,7 +14,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResumesIndexRouteImport } from './routes/resumes/index'
 import { Route as ResumesResumeIdRouteRouteImport } from './routes/resumes/$resumeId/route'
 import { Route as ResumesResumeIdIndexRouteImport } from './routes/resumes/$resumeId/index'
-import { Route as ResumesResumeIdSettingsRouteImport } from './routes/resumes/$resumeId/settings'
+import { Route as ResumesResumeIdSettingsChar123SettingsCategoryChar125RouteImport } from './routes/resumes/$resumeId/settings/{-$settingsCategory}'
 import { Route as ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125RouteImport } from './routes/resumes/$resumeId/sections/{-$sectionKey}.{-$itemId}'
 
 const ResumesRouteRoute = ResumesRouteRouteImport.update({
@@ -42,11 +42,12 @@ const ResumesResumeIdIndexRoute = ResumesResumeIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ResumesResumeIdRouteRoute,
 } as any)
-const ResumesResumeIdSettingsRoute = ResumesResumeIdSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => ResumesResumeIdRouteRoute,
-} as any)
+const ResumesResumeIdSettingsChar123SettingsCategoryChar125Route =
+  ResumesResumeIdSettingsChar123SettingsCategoryChar125RouteImport.update({
+    id: '/settings/{-$settingsCategory}',
+    path: '/settings/{-$settingsCategory}',
+    getParentRoute: () => ResumesResumeIdRouteRoute,
+  } as any)
 const ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route =
   ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125RouteImport.update(
     {
@@ -61,15 +62,15 @@ export interface FileRoutesByFullPath {
   '/resumes': typeof ResumesRouteRouteWithChildren
   '/resumes/$resumeId': typeof ResumesResumeIdRouteRouteWithChildren
   '/resumes/': typeof ResumesIndexRoute
-  '/resumes/$resumeId/settings': typeof ResumesResumeIdSettingsRoute
   '/resumes/$resumeId/': typeof ResumesResumeIdIndexRoute
+  '/resumes/$resumeId/settings/{-$settingsCategory}': typeof ResumesResumeIdSettingsChar123SettingsCategoryChar125Route
   '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}': typeof ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/resumes': typeof ResumesIndexRoute
-  '/resumes/$resumeId/settings': typeof ResumesResumeIdSettingsRoute
   '/resumes/$resumeId': typeof ResumesResumeIdIndexRoute
+  '/resumes/$resumeId/settings/{-$settingsCategory}': typeof ResumesResumeIdSettingsChar123SettingsCategoryChar125Route
   '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}': typeof ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
 }
 export interface FileRoutesById {
@@ -78,8 +79,8 @@ export interface FileRoutesById {
   '/resumes': typeof ResumesRouteRouteWithChildren
   '/resumes/$resumeId': typeof ResumesResumeIdRouteRouteWithChildren
   '/resumes/': typeof ResumesIndexRoute
-  '/resumes/$resumeId/settings': typeof ResumesResumeIdSettingsRoute
   '/resumes/$resumeId/': typeof ResumesResumeIdIndexRoute
+  '/resumes/$resumeId/settings/{-$settingsCategory}': typeof ResumesResumeIdSettingsChar123SettingsCategoryChar125Route
   '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}': typeof ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
 }
 export interface FileRouteTypes {
@@ -89,15 +90,15 @@ export interface FileRouteTypes {
     | '/resumes'
     | '/resumes/$resumeId'
     | '/resumes/'
-    | '/resumes/$resumeId/settings'
     | '/resumes/$resumeId/'
+    | '/resumes/$resumeId/settings/{-$settingsCategory}'
     | '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/resumes'
-    | '/resumes/$resumeId/settings'
     | '/resumes/$resumeId'
+    | '/resumes/$resumeId/settings/{-$settingsCategory}'
     | '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}'
   id:
     | '__root__'
@@ -105,8 +106,8 @@ export interface FileRouteTypes {
     | '/resumes'
     | '/resumes/$resumeId'
     | '/resumes/'
-    | '/resumes/$resumeId/settings'
     | '/resumes/$resumeId/'
+    | '/resumes/$resumeId/settings/{-$settingsCategory}'
     | '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}'
   fileRoutesById: FileRoutesById
 }
@@ -152,11 +153,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResumesResumeIdIndexRouteImport
       parentRoute: typeof ResumesResumeIdRouteRoute
     }
-    '/resumes/$resumeId/settings': {
-      id: '/resumes/$resumeId/settings'
-      path: '/settings'
-      fullPath: '/resumes/$resumeId/settings'
-      preLoaderRoute: typeof ResumesResumeIdSettingsRouteImport
+    '/resumes/$resumeId/settings/{-$settingsCategory}': {
+      id: '/resumes/$resumeId/settings/{-$settingsCategory}'
+      path: '/settings/{-$settingsCategory}'
+      fullPath: '/resumes/$resumeId/settings/{-$settingsCategory}'
+      preLoaderRoute: typeof ResumesResumeIdSettingsChar123SettingsCategoryChar125RouteImport
       parentRoute: typeof ResumesResumeIdRouteRoute
     }
     '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}': {
@@ -170,14 +171,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface ResumesResumeIdRouteRouteChildren {
-  ResumesResumeIdSettingsRoute: typeof ResumesResumeIdSettingsRoute
   ResumesResumeIdIndexRoute: typeof ResumesResumeIdIndexRoute
+  ResumesResumeIdSettingsChar123SettingsCategoryChar125Route: typeof ResumesResumeIdSettingsChar123SettingsCategoryChar125Route
   ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route: typeof ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route
 }
 
 const ResumesResumeIdRouteRouteChildren: ResumesResumeIdRouteRouteChildren = {
-  ResumesResumeIdSettingsRoute: ResumesResumeIdSettingsRoute,
   ResumesResumeIdIndexRoute: ResumesResumeIdIndexRoute,
+  ResumesResumeIdSettingsChar123SettingsCategoryChar125Route:
+    ResumesResumeIdSettingsChar123SettingsCategoryChar125Route,
   ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route:
     ResumesResumeIdSectionsChar123SectionKeyChar125Char123ItemIdChar125Route,
 }

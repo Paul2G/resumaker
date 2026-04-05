@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { ConfigGeneralForm } from '@/components/forms/config/config-general-form';
+import { GeneralForm } from '@/components/forms/config/general-form';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -47,7 +47,7 @@ export function ResumeCreateModalTrigger({
             {t('core:dialogs.createNewResume.description')}
           </DialogDescription>
         </DialogHeader>
-        <ConfigGeneralForm
+        <GeneralForm
           onSave={({ name, language }) =>
             createResume({
               ...defaultResume,
@@ -68,7 +68,7 @@ export function ResumeCreateModalTrigger({
               <Button type="submit">{t('actions.create')}</Button>
             </DialogFooter>
           )}
-        </ConfigGeneralForm>
+        </GeneralForm>
       </DialogContent>
     </Dialog>
   );

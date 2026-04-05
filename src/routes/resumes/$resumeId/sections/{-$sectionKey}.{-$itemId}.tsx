@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { SidebarForms } from '@/components/sidebar-forms';
 import { SidebarSections } from '@/components/sidebar-sections';
+import { SidebarSectionsForms } from '@/components/sidebar-sections-forms';
 
 export const Route = createFileRoute(
   '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
@@ -13,7 +13,7 @@ function RouteComponent() {
   return (
     <>
       <SidebarSections />
-      <SidebarForms />
+      <SidebarSectionsForms />
     </>
   );
 }

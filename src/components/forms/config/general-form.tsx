@@ -18,7 +18,7 @@ const configGeneralSchema = resumeConfigSchema.pick({
   language: true,
 });
 
-export function ConfigGeneralForm({
+export function GeneralForm({
   isLoading,
   defaultValues,
   children,
