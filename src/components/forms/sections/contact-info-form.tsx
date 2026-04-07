@@ -1,11 +1,11 @@
 import type { ContactInfo } from '@/types';
+import type { UseFormReturn } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { FormInput } from '@/components/form-fields/form-input';
-import { Button } from '@/components/ui/button';
 import {
   Field,
   FieldError,
@@ -18,11 +18,10 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group';
-import { Spinner } from '@/components/ui/spinner';
+import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { contactInfoSchema } from '@/types/schemas';
 
 export function ContactInfoForm({
-  isLoading,
   defaultValues,
   onSave,
 }: ContactInfoFormProps) {
@@ -31,19 +30,19 @@ export function ContactInfoForm({
   const form = useForm<ContactInfo>({
     resolver: zodResolver(contactInfoSchema),
     defaultValues,
+    mode: 'onChange',
   });
 
-  const isSubmitting = form.formState.isSubmitting || isLoading;
+  useFormSubmitter(form as UseFormReturn<ContactInfo>, onSave);
 
   return (
-    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4">
+    <form className="space-y-4">
       <FieldGroup className="gap-4">
         <FormInput
           control={form.control}
           name="fullName"
           label={t('contact:fields.fullName')}
           placeholder={t('contact:placeholders.fullName')}
-          disabled={isSubmitting}
         />
         <FormInput
           control={form.control}
@@ -51,21 +50,18 @@ export function ContactInfoForm({
           label={t('contact:fields.emailAddress')}
           placeholder={t('contact:placeholders.emailAddress')}
           type="email"
-          disabled={isSubmitting}
         />
         <FormInput
           control={form.control}
           name="phoneNumber"
           label={t('contact:fields.phoneNumber')}
           placeholder={t('contact:placeholders.phoneNumber')}
-          disabled={isSubmitting}
         />
         <FormInput
           control={form.control}
           name="address"
           label={t('contact:fields.address')}
           placeholder={t('contact:placeholders.address')}
-          disabled={isSubmitting}
         />
         <FormInput
           control={form.control}
@@ -73,7 +69,6 @@ export function ContactInfoForm({
           label={t('contact:fields.website')}
           placeholder={t('contact:placeholders.website')}
           type="url"
-          disabled={isSubmitting}
         />
 
         <Controller
@@ -96,18 +91,12 @@ export function ContactInfoForm({
             </Field>
           )}
         />
-
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner />}
-          {t('actions.save')}
-        </Button>
       </FieldGroup>
     </form>
   );
 }
 
 export type ContactInfoFormProps = {
-  isLoading?: boolean;
   defaultValues: ContactInfo;
   onSave: (values: ContactInfo) => void;
 };

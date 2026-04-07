@@ -15,7 +15,6 @@ export const ResumeContext = createContext<ResumeProviderValue>(undefined!);
 
 export function ResumeProvider({
   currentResume,
-  onSave,
   children,
 }: ResumeProviderProps) {
   const [resume, setResume] = useState<Resume>(currentResume);
@@ -189,14 +188,10 @@ export function ResumeProvider({
     setResume(currentResume);
   }, [currentResume]);
 
-  useUpdateEffect(() => {
-    onSave(resume);
-  }, [resume]);
-
   return (
     <ResumeContext.Provider
       value={{
-        ...resume,
+        resume,
         setConfig,
         setSections,
         getSectionData,
@@ -220,7 +215,8 @@ export type ResumeProviderProps = {
   children: React.ReactNode;
 };
 
-export type ResumeProviderValue = Resume & {
+export type ResumeProviderValue = {
+  resume: Resume;
   setConfig: (config: ResumeConfig) => Promise<void>;
   setSections: (sections: ResumeSection[]) => Promise<void>;
   getSectionData: <K extends SectionKey>(sectionKey: K) => SectionDataMap[K];

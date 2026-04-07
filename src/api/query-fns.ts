@@ -54,6 +54,9 @@ export async function createResume(
 }
 
 export async function updateResume(updatedResume: Resume) {
+  // Simulate network delay for better UX when updating resume and to make sure the loading state is visible, that make the user understand that the update is in progress and prevent them from clicking the update button multiple times.
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   if (!existsResumeIndex(updatedResume.id)) {
     removeResume(updatedResume.id);
 
