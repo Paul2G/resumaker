@@ -35,7 +35,6 @@ const SectionForms = {
 } as const;
 
 export function SidebarSectionsForms() {
-  const { t } = useTranslation();
   const {
     getSectionData,
     setSectionData,
@@ -47,55 +46,77 @@ export function SidebarSectionsForms() {
     from: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
   });
 
-  const isSectionKeyValid = isValueOf(SectionKey)(selectedSectionKey);
-  const isIterableSection = isValueOf(IterableSectionKey)(selectedSectionKey);
+  return (
+    <aside className="order-4 w-100 overflow-y-hidden shrink-0 border-r">
+      <ScrollArea className="h-full p-4">
+        <FormSelector
+          selectedSectionKey={selectedSectionKey}
+          selectedItemId={selectedItemId}
+          getSectionData={getSectionData}
+          setSectionData={setSectionData}
+          getSectionDataItem={getSectionDataItem}
+          updateSectionDataItem={updateSectionDataItem}
+        />
+      </ScrollArea>
+    </aside>
+  );
+}
 
-  function FormSelector() {
-    if (!isSectionKeyValid) return <SecondarySidebarEmpty />;
+function FormSelector({
+  selectedSectionKey,
+  selectedItemId,
+  getSectionData,
+  setSectionData,
+  getSectionDataItem,
+  updateSectionDataItem,
+}: FormSelectorProps) {
+  const { t } = useTranslation();
 
-    if (isIterableSection) {
-      const item = getSectionDataItem(selectedSectionKey, selectedItemId);
-      if (!item)
-        return <SecondarySidebarEmpty sectionKey={selectedSectionKey} />;
+  if (!isValueOf(SectionKey)(selectedSectionKey))
+    return <SecondarySidebarEmpty />;
 
-      const ItemForm = ItemForms[selectedSectionKey];
-      return (
-        <>
-          <Typography variant="h4" className="mb-4">
-            {t(`${selectedSectionKey}:item.title`)}
-          </Typography>
-          <ItemForm
-            defaultValues={item}
-            onSave={(values) =>
-              updateSectionDataItem(selectedSectionKey, values)
-            }
-          />
-        </>
-      );
-    }
+  if (isValueOf(IterableSectionKey)(selectedSectionKey)) {
+    const item = getSectionDataItem(selectedSectionKey, selectedItemId!);
+    if (!item) return <SecondarySidebarEmpty sectionKey={selectedSectionKey} />;
 
-    const data = getSectionData(selectedSectionKey);
-
-    const SectionForm = SectionForms[selectedSectionKey];
+    const ItemForm = ItemForms[selectedSectionKey];
     return (
       <>
         <Typography variant="h4" className="mb-4">
-          {t(`${selectedSectionKey}:title`)}
+          {t(`${selectedSectionKey}:item.title`)}
         </Typography>
-        <SectionForm
-          // @ts-ignore an issue inferring type
-          defaultValues={data}
-          onSave={(values) => setSectionData(selectedSectionKey, values)}
+        <ItemForm
+          defaultValues={item}
+          onSave={(values) => updateSectionDataItem(selectedSectionKey, values)}
         />
       </>
     );
   }
 
+  const data = getSectionData(selectedSectionKey);
+  const SectionForm = SectionForms[selectedSectionKey];
   return (
-    <aside className="order-4 w-100 overflow-y-hidden shrink-0 border-r">
-      <ScrollArea className="h-full p-4">
-        <FormSelector />
-      </ScrollArea>
-    </aside>
+    <>
+      <Typography variant="h4" className="mb-4">
+        {t(`${selectedSectionKey}:title`)}
+      </Typography>
+      <SectionForm
+        // @ts-ignore
+        defaultValues={data}
+        onSave={(values) => setSectionData(selectedSectionKey, values)}
+      />
+    </>
   );
 }
+
+export type FormSelectorProps = {
+  selectedSectionKey?: string;
+  selectedItemId?: string;
+  getSectionData: (sectionKey: StaticSectionKey) => any;
+  setSectionData: (sectionKey: StaticSectionKey, data: any) => void;
+  getSectionDataItem: (
+    sectionKey: IterableSectionKey,
+    itemId: string,
+  ) => any | undefined;
+  updateSectionDataItem: (sectionKey: IterableSectionKey, values: any) => void;
+};
