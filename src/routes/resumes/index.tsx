@@ -37,7 +37,7 @@ function Index() {
             </Item>
           </ResumeCreateModalTrigger>
           {resumes.map((r) => (
-            <ResumeCard resumeIndex={r} />
+            <ResumeCard resumeIndex={r} key={r.id} />
           ))}
         </ItemGroup>
       </div>

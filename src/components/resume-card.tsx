@@ -28,13 +28,9 @@ export function ResumeCard({ resumeIndex }: ResumeCardProps) {
   if (!resume) return null;
 
   return (
-    <Item
-      key={resume.id}
-      variant="outline"
-      className="relative group cursor-pointer"
-    >
+    <Item variant="outline" className="relative group cursor-pointer">
       <ItemHeader className="relative overflow-hidden w-full rounded-sm">
-        <ResumeProvider currentResume={resume} onSave={() => {}}>
+        <ResumeProvider currentResume={resume}>
           <ResumePreview
             resume={resume}
             className="w-full h-64 pointer-events-none select-none scale-[37%] origin-top-left group-hover:brightness-80 transition-all"
