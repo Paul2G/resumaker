@@ -9,7 +9,7 @@ import { FormInput } from '@/components/form-fields/form-input';
 import { FormSelect } from '@/components/form-fields/form-select';
 import { FieldGroup } from '@/components/ui/field';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
-import { defaultProjectLocale, localeData, locales } from '@/constants/locales';
+import { DEFAULT_LOCALE_KEY, localeData, locales } from '@/constants/locales';
 import { resumeConfigSchema } from '@/types/schemas';
 
 const configGeneralSchema = resumeConfigSchema.pick({
@@ -31,7 +31,7 @@ export function GeneralForm({
     mode: 'onChange',
     defaultValues: {
       name: '',
-      language: defaultProjectLocale,
+      language: DEFAULT_LOCALE_KEY,
       ...defaultValues,
     },
   });

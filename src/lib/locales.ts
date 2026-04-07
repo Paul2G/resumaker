@@ -1,7 +1,7 @@
 import type { Locale } from '@/constants/locales';
 
 import {
-  defaultProjectLocale,
+  DEFAULT_LOCALE_KEY,
   LOCALE_LOCAL_STORAGE_KEY,
   localeData,
   locales,
@@ -19,7 +19,7 @@ export function getUserLocalePreference(): Locale {
     browserLocaleKey.startsWith(localeData[l].langKey),
   );
 
-  return browserLocale ?? defaultProjectLocale;
+  return browserLocale ?? DEFAULT_LOCALE_KEY;
 }
 
 export function setUserLocalePreference(locale: Locale) {

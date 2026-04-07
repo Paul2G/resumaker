@@ -13,6 +13,7 @@ export const dateFormatValue = {
 } as const;
 
 export const dateFormatsKeys = Object.keys(dateFormatValue) as DateFormatKey[];
+export const DEFAULT_DATE_FORMAT_KEY: DateFormatKey = dateFormatsKeys[6];
 
 export type DateFormatKey = keyof typeof dateFormatValue;
 export type DateFormat = (typeof dateFormatValue)[keyof typeof dateFormatValue];
