@@ -22,8 +22,7 @@ export function SectionsList() {
   });
 
   const {
-    id: resumeId,
-    sections,
+    resume,
     setSections,
     setSectionVisibility,
     setSectionData,
@@ -41,7 +40,7 @@ export function SectionsList() {
 
     await navigate({
       to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
-      params: { resumeId, sectionKey, itemId: newItemId },
+      params: { resumeId: resume.id, sectionKey, itemId: newItemId },
     });
   }
 
@@ -50,7 +49,11 @@ export function SectionsList() {
 
     await navigate({
       to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
-      params: { resumeId, sectionKey: sectionKey, itemId: undefined },
+      params: {
+        resumeId: resume.id,
+        sectionKey: sectionKey,
+        itemId: undefined,
+      },
     });
   }
 
@@ -77,7 +80,7 @@ export function SectionsList() {
 
   return (
     <SortableTreeList
-      items={sections}
+      items={resume.sections}
       selectedItem={selectedItemId || selectedSectionKey}
       setItems={setSections}
       getItemValue={(section) => section.key}
@@ -91,7 +94,11 @@ export function SectionsList() {
       selectItem={(section) =>
         navigate({
           to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
-          params: { resumeId, sectionKey: section.key, itemId: undefined },
+          params: {
+            resumeId: resume.id,
+            sectionKey: section.key,
+            itemId: undefined,
+          },
         })
       }
     >
@@ -120,7 +127,7 @@ export function SectionsList() {
                 navigate({
                   to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
                   params: {
-                    resumeId,
+                    resumeId: resume.id,
                     sectionKey: section.key,
                     itemId: item.id,
                   },

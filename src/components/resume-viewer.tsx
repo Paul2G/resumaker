@@ -15,7 +15,7 @@ import { useResume } from '@/hooks/use-resume';
 export function ResumeViewer({ ...props }: ResumeViewerProps) {
   const { t } = useTranslation();
 
-  const resume = useResume();
+  const { resume } = useResume();
 
   const previewRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

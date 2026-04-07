@@ -7,7 +7,9 @@ import { dateFormatValue } from '@/constants/dates';
 import { localeData } from '@/constants/locales';
 
 export function usePreviewUtils() {
-  const { config } = useResume();
+  const {
+    resume: { config },
+  } = useResume();
   const { t } = useTranslation('preview', { lng: config.language });
 
   function formatDateWrapper(date?: Date) {
