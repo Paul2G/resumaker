@@ -1,15 +1,22 @@
 import type { Resume } from '@/types';
 
 import { useEffect, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
-import { updateResume } from '@/api/query-fns';
+import { resumeUpdateMutationOptions } from '@/api/query-options';
 
 export function useAutoSave(resume: Resume) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const mutation = useMutation({
-    mutationFn: (data: Resume) => updateResume(data),
+    ...resumeUpdateMutationOptions({ t, resumeId: resume.id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['resumes'] });
+    },
   });
 
   useEffect(() => {

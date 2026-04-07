@@ -1,7 +1,9 @@
 import type { Resume } from '@/types';
+import type { TFunction } from 'i18next';
 
 import { mutationOptions, queryOptions } from '@tanstack/react-query';
 
+import { onMutationError } from '@/lib/mutation-toast';
 import {
   createResume,
   deleteResume,
@@ -22,20 +24,35 @@ export const resumeQueryOptions = (resumeId: string) =>
     queryFn: () => getResumeById(resumeId),
   });
 
-export const resumeCreateMutationOptions = () =>
+export const resumeCreateMutationOptions = ({ t }: { t: TFunction }) =>
   mutationOptions({
     mutationKey: ['resumeCreate'],
     mutationFn: (resume: Resume) => createResume(resume),
+    onError: onMutationError(t, 'dialogs.createNewResume.wasNotCreated'),
   });
 
-export const resumeUpdateMutationOptions = () =>
+export const resumeUpdateMutationOptions = ({
+  t,
+  resumeId,
+}: {
+  t: TFunction;
+  resumeId: string;
+}) =>
   mutationOptions({
-    mutationKey: ['resumeUpdate'],
+    mutationKey: ['resumeUpdate', resumeId],
     mutationFn: (resume: Resume) => updateResume(resume),
+    onError: onMutationError(t, 'dialogs.saveFailed'),
   });
 
-export const resumeDeleteMutationOptions = (resumeId: string) =>
+export const resumeDeleteMutationOptions = ({
+  t,
+  resumeId,
+}: {
+  t: TFunction;
+  resumeId: string;
+}) =>
   mutationOptions({
     mutationKey: ['resumeDelete', resumeId],
     mutationFn: () => deleteResume(resumeId),
+    onError: onMutationError(t, 'dialogs.deleteResume.wasNotDeleted'),
   });

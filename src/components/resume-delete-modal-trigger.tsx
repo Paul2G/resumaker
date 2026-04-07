@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,7 +13,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { onMutationError, onMutationSuccess } from '@/lib/mutation-toast';
 import { resumeDeleteMutationOptions } from '@/api/query-options';
 
 export function ResumeDeleteModalTrigger({
@@ -24,12 +24,11 @@ export function ResumeDeleteModalTrigger({
 
   const queryClient = useQueryClient();
   const { mutate: deleteResume } = useMutation({
-    ...resumeDeleteMutationOptions(resumeId),
+    ...resumeDeleteMutationOptions({ t, resumeId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['resumes'] });
-      onMutationSuccess(t, 'dialogs.deleteResume.wasDeleted')();
+      toast.success(t('dialogs.deleteResume.wasDeleted'));
     },
-    onError: onMutationError(t, 'dialogs.deleteResume.wasNotDeleted'),
   });
 
   return (

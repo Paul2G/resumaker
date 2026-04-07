@@ -214,7 +214,6 @@ export function ResumeProvider({
 
 export type ResumeProviderProps = {
   currentResume: Resume;
-  onSave: (resume: Resume) => void;
   children: React.ReactNode;
 };
 

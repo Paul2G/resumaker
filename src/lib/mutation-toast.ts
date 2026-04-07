@@ -19,10 +19,3 @@ export function onMutationError(
     }
   };
 }
-
-export function onMutationSuccess(
-  t: TFunction,
-  fallbackKey = 'dialogs.dataSaved',
-) {
-  return () => toast.success(t(fallbackKey));
-}
