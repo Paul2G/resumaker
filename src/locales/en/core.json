@@ -31,6 +31,10 @@
   "dialogs": {
     "cancel": "Cancel",
     "accept": "Accept",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "savedLocally": "Saved locally",
+    "saveFailed": "Failed to save data. Please try again.",
     "dataSaved": "Data saved successfully",
     "unableToHandleAction": "Unable to handle action. Please try again.",
     "createNewResume": {

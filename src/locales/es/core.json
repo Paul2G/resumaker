@@ -31,6 +31,10 @@
   "dialogs": {
     "cancel": "Cancelar",
     "accept": "Aceptar",
+    "saving": "Guardando...",
+    "saved": "Guardado",
+    "savedLocally": "Guardado localmente",
+    "saveFailed": "No se pudo guardar los datos. Por favor, inténtalo de nuevo.",
     "dataSaved": "Datos guardados con éxito",
     "unableToHandleAction": "No se pudo manejar la acción. Por favor, inténtalo de nuevo.",
     "createNewResume": {

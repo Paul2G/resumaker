@@ -47,7 +47,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
       {...props}
     >
       <ScrollArea className="h-full">
-        <div className="overflow-hidden flex justify-center h-full p-8">
+        <div className="overflow-hidden flex justify-center h-full p-12">
           <ResumePreview
             resume={resume}
             className="origin-top"
