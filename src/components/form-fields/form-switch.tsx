@@ -21,8 +21,9 @@ export function FormSwitch<T extends FieldValues>({
             checked={field.value}
             onCheckedChange={field.onChange}
             disabled={disabled}
+            className="w-8!"
           />
-          <FieldLabel className="mb-0">{label}</FieldLabel>
+          <FieldLabel>{label}</FieldLabel>
         </Field>
       )}
     />
