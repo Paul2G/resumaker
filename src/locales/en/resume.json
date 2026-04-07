@@ -38,7 +38,11 @@
       "arial": "Arial",
       "timesNewRoman": "Times New Roman",
       "calibri": "Calibri",
-      "georgia": "Georgia"
+      "georgia": "Georgia",
+      "garamond": "Garamond",
+      "curierNew": "Courier New",
+      "verdana": "Verdana",
+      "brushScriptMT": "Brush Script MT"
     },
     "dateFormat": {
       "iso": "ISO ",
