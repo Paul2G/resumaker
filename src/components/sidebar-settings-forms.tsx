@@ -11,7 +11,6 @@ import { TypographyForm } from '@/components/forms/config/typography-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
-import { isValueOf } from '@/lib/utils';
 import { SettingsCategory } from '@/constants/settings';
 
 const CategoryForms = {
@@ -33,7 +32,7 @@ export function SidebarSettingsForms() {
     <aside className="order-4 w-100 overflow-y-hidden shrink-0 border-r">
       <ScrollArea className="h-full p-4">
         <FormSelector
-          settingsCategory={settingsCategory}
+          settingsCategory={settingsCategory as SettingsCategory}
           currentConfig={resume.config}
           setConfig={setConfig}
         />
@@ -48,18 +47,6 @@ function FormSelector({
   setConfig,
 }: FormSelectorProps) {
   const { t } = useTranslation();
-
-  const isCategoryValid = isValueOf(SettingsCategory)(settingsCategory);
-
-  if (!isCategoryValid)
-    return (
-      <>
-        <Typography variant="h4" className="mb-4">
-          Select a category.
-        </Typography>
-        <Typography variant="p">Nothing here yet.</Typography>
-      </>
-    );
 
   const CategoryForm = CategoryForms[settingsCategory];
 
@@ -78,7 +65,7 @@ function FormSelector({
 }
 
 type FormSelectorProps = {
-  settingsCategory?: string;
+  settingsCategory: SettingsCategory;
   currentConfig: ResumeConfig;
   setConfig: (config: Partial<ResumeConfig>) => Promise<void>;
 };
