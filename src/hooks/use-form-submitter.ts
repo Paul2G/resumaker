@@ -12,7 +12,12 @@ export function useFormSubmitter<T extends FieldValues>(
 ) {
   useEffect(() => {
     const sub = form.watch(() => {
-      form.handleSubmit(onValid)();
+      // Create a debounce timer
+      const timer = setTimeout(() => {
+        form.handleSubmit(onValid)();
+      }, 300); // 300ms delay
+
+      return () => clearTimeout(timer);
     });
 
     return () => sub.unsubscribe();
