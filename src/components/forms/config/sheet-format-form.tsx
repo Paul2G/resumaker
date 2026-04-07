@@ -5,9 +5,8 @@ import { z } from 'zod';
 
 import { FormInputNumber } from '@/components/form-fields/form-input-number';
 import { FormSelect } from '@/components/form-fields/form-select';
-import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
-import { Spinner } from '@/components/ui/spinner';
+import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { resumePaperSizesKeys, resumePaperSizeValue } from '@/constants/resume';
 import { resumeConfigSchema } from '@/types/schemas';
 
@@ -17,7 +16,6 @@ const ConfigSheetFormatSchema = resumeConfigSchema.pick({
 });
 
 export function SheetFormatForm({
-  isLoading,
   defaultValues,
   onSave,
 }: ConfigSheetFormatFormProps) {
@@ -25,6 +23,7 @@ export function SheetFormatForm({
 
   const form = useForm({
     resolver: zodResolver(ConfigSheetFormatSchema),
+    mode: 'onChange',
     defaultValues: {
       paperSize: resumePaperSizeValue.a4,
       margin: 14,
@@ -32,14 +31,15 @@ export function SheetFormatForm({
     },
   });
 
-  const isSubmitting = form.formState.isSubmitting || Boolean(isLoading);
   const paperSizeOptions = resumePaperSizesKeys.map((key) => ({
     value: key,
     label: t(`resume:values.paperSize.${key}`),
   }));
 
+  useFormSubmitter(form, onSave);
+
   return (
-    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4" noValidate>
+    <form className="space-y-4" noValidate>
       <FieldGroup className="gap-4">
         <FormSelect
           control={form.control}
@@ -47,7 +47,6 @@ export function SheetFormatForm({
           label={t('resume:fields.paperSize')}
           options={paperSizeOptions}
           placeholder={t('resume:placeholders.paperSize')}
-          disabled={isSubmitting}
         />
 
         <FormInputNumber
@@ -57,19 +56,13 @@ export function SheetFormatForm({
           unit="mm"
           min={0}
           max={50}
-          disabled={isSubmitting}
         />
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner />}
-          {t('actions.save')}
-        </Button>
       </FieldGroup>
     </form>
   );
 }
 
 export type ConfigSheetFormatFormProps = {
-  isLoading?: boolean;
   defaultValues?: z.infer<typeof ConfigSheetFormatSchema>;
   onSave: (values: z.infer<typeof ConfigSheetFormatSchema>) => void;
 };

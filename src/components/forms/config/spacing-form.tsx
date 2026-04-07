@@ -4,9 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { FormInputNumber } from '@/components/form-fields/form-input-number';
-import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
-import { Spinner } from '@/components/ui/spinner';
+import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { resumeConfigSchema } from '@/types/schemas';
 
 const configSpacingSchema = resumeConfigSchema.pick({
@@ -15,15 +14,12 @@ const configSpacingSchema = resumeConfigSchema.pick({
   itemsTitleContentGap: true,
 });
 
-export function SpacingForm({
-  isLoading,
-  defaultValues,
-  onSave,
-}: ConfigSpacingFormProps) {
+export function SpacingForm({ defaultValues, onSave }: ConfigSpacingFormProps) {
   const { t } = useTranslation();
 
   const form = useForm({
     resolver: zodResolver(configSpacingSchema),
+    mode: 'onChange',
     defaultValues: {
       sectionsGap: 4,
       itemsGap: 2,
@@ -32,10 +28,10 @@ export function SpacingForm({
     },
   });
 
-  const isSubmitting = form.formState.isSubmitting || Boolean(isLoading);
+  useFormSubmitter(form, onSave);
 
   return (
-    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4" noValidate>
+    <form className="space-y-4" noValidate>
       <FieldGroup className="gap-4">
         <FormInputNumber
           control={form.control}
@@ -43,7 +39,6 @@ export function SpacingForm({
           label={t('resume:fields.sectionsGap')}
           unit="mm"
           min={0}
-          disabled={isSubmitting}
         />
         <FormInputNumber
           control={form.control}
@@ -51,7 +46,6 @@ export function SpacingForm({
           label={t('resume:fields.itemsGap')}
           unit="mm"
           min={0}
-          disabled={isSubmitting}
         />
         <FormInputNumber
           control={form.control}
@@ -59,20 +53,13 @@ export function SpacingForm({
           label={t('resume:fields.itemsTitleContentGap')}
           unit="mm"
           min={0}
-          disabled={isSubmitting}
         />
-
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner />}
-          {t('actions.save')}
-        </Button>
       </FieldGroup>
     </form>
   );
 }
 
 export type ConfigSpacingFormProps = {
-  isLoading?: boolean;
   defaultValues?: z.infer<typeof configSpacingSchema>;
   onSave: (values: z.infer<typeof configSpacingSchema>) => void;
 };

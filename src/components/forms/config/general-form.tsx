@@ -7,9 +7,8 @@ import { z } from 'zod';
 
 import { FormInput } from '@/components/form-fields/form-input';
 import { FormSelect } from '@/components/form-fields/form-select';
-import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
-import { Spinner } from '@/components/ui/spinner';
+import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { defaultProjectLocale, localeData, locales } from '@/constants/locales';
 import { resumeConfigSchema } from '@/types/schemas';
 
@@ -22,12 +21,14 @@ export function GeneralForm({
   isLoading,
   defaultValues,
   children,
-  onSave,
+  onSave = () => {},
+  onSubmit = () => {},
 }: ConfigGeneralFormProps) {
   const { t } = useTranslation();
 
   const form = useForm({
     resolver: zodResolver(configGeneralSchema),
+    mode: 'onChange',
     defaultValues: {
       name: '',
       language: defaultProjectLocale,
@@ -42,8 +43,10 @@ export function GeneralForm({
     label: localeData[locale as Locale].langLabel,
   }));
 
+  useFormSubmitter(form, onSave);
+
   return (
-    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4" noValidate>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
       <FieldGroup className="gap-4">
         <FormInput
           control={form.control}
@@ -60,14 +63,7 @@ export function GeneralForm({
           placeholder={t('resume:placeholders.language')}
           disabled={isSubmitting}
         />
-        {children ? (
-          <>{children(isSubmitting)}</>
-        ) : (
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting && <Spinner />}
-            {t('actions.save')}
-          </Button>
-        )}
+        {children && <>{children(isSubmitting)}</>}
       </FieldGroup>
     </form>
   );
@@ -76,6 +72,7 @@ export function GeneralForm({
 export type ConfigGeneralFormProps = {
   isLoading?: boolean;
   defaultValues?: z.infer<typeof configGeneralSchema>;
-  onSave: (values: z.infer<typeof configGeneralSchema>) => void;
+  onSave?: (values: z.infer<typeof configGeneralSchema>) => void;
+  onSubmit?: (values: z.infer<typeof configGeneralSchema>) => void;
   children?: (isSubmitting: boolean) => React.ReactNode;
 };

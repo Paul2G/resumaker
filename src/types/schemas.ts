@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
 import { dateFormatsKeys } from '@/constants/dates';
-import { defaultProjectLocale, locales } from '@/constants/locales';
+import { locales } from '@/constants/locales';
 import {
   CURRENT_RESUME_VERSION,
   resumeFontFamiliesKeys,
@@ -91,14 +91,12 @@ export const courseSchema = z.object({
 export const resumeConfigSchema = z.object({
   // General
   name: z.string().min(1),
-  language: z.literal(locales).default(defaultProjectLocale),
+  language: z.literal(locales),
   // paper Sheet format
-  paperSize: z.literal(resumePaperSizesKeys).default(resumePaperSizesKeys[0]),
+  paperSize: z.literal(resumePaperSizesKeys),
   margin: z.int().min(0).max(30),
   // Font related
-  fontFamily: z
-    .literal(resumeFontFamiliesKeys)
-    .default(resumeFontFamiliesKeys[0]),
+  fontFamily: z.literal(resumeFontFamiliesKeys),
   fontSize: z.int().min(6).max(18),
   titleSizeMultiplier: z.number().min(1).max(4),
   sectionTitleSizeMultiplier: z.number().min(1).max(3),
@@ -108,7 +106,7 @@ export const resumeConfigSchema = z.object({
   itemsGap: z.number().min(0).max(12),
   itemsTitleContentGap: z.number().min(0).max(8),
   // Dates and durations
-  dateFormat: z.literal(dateFormatsKeys).default(dateFormatsKeys[0]),
+  dateFormat: z.literal(dateFormatsKeys),
 });
 
 export const resumeSchema = z.object({

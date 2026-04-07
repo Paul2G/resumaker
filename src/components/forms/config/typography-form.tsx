@@ -5,9 +5,8 @@ import { z } from 'zod';
 
 import { FormInputNumber } from '@/components/form-fields/form-input-number';
 import { FormSelect } from '@/components/form-fields/form-select';
-import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
-import { Spinner } from '@/components/ui/spinner';
+import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { resumeFontFamiliesKeys } from '@/constants/resume';
 import { resumeConfigSchema } from '@/types/schemas';
 
@@ -20,7 +19,6 @@ const configTypographySchema = resumeConfigSchema.pick({
 });
 
 export function TypographyForm({
-  isLoading,
   defaultValues,
   onSave,
 }: ConfigTypographyFormProps) {
@@ -28,21 +26,26 @@ export function TypographyForm({
 
   const form = useForm({
     resolver: zodResolver(configTypographySchema),
+    mode: 'onChange',
     defaultValues: {
       fontFamily: resumeFontFamiliesKeys[0],
+      fontSize: 11,
+      titleSizeMultiplier: 1.3,
+      sectionTitleSizeMultiplier: 1.2,
+      itemTitleMultiplier: 1.1,
       ...defaultValues,
     },
   });
-
-  const isSubmitting = form.formState.isSubmitting || Boolean(isLoading);
 
   const fontFamilyOptions = resumeFontFamiliesKeys.map((key) => ({
     value: key,
     label: t(`resume:values.fontFamily.${key}`),
   }));
 
+  useFormSubmitter(form, onSave);
+
   return (
-    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4" noValidate>
+    <form className="space-y-4" noValidate>
       <FieldGroup className="gap-4">
         <FormSelect
           control={form.control}
@@ -50,7 +53,6 @@ export function TypographyForm({
           label={t('resume:fields.fontFamily')}
           options={fontFamilyOptions}
           placeholder={t('resume:placeholders.fontFamily')}
-          disabled={isSubmitting}
         />
         <FormInputNumber
           control={form.control}
@@ -59,7 +61,6 @@ export function TypographyForm({
           unit="pt"
           min={6}
           max={72}
-          disabled={isSubmitting}
         />
         <FormInputNumber
           control={form.control}
@@ -69,7 +70,6 @@ export function TypographyForm({
           step={0.1}
           min={0.5}
           max={5}
-          disabled={isSubmitting}
         />
         <FormInputNumber
           control={form.control}
@@ -79,7 +79,6 @@ export function TypographyForm({
           step={0.1}
           min={0.5}
           max={5}
-          disabled={isSubmitting}
         />
         <FormInputNumber
           control={form.control}
@@ -89,20 +88,13 @@ export function TypographyForm({
           step={0.1}
           min={0.5}
           max={5}
-          disabled={isSubmitting}
         />
-
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner />}
-          {t('actions.save')}
-        </Button>
       </FieldGroup>
     </form>
   );
 }
 
 export type ConfigTypographyFormProps = {
-  isLoading?: boolean;
   defaultValues?: z.infer<typeof configTypographySchema>;
   onSave: (values: z.infer<typeof configTypographySchema>) => void;
 };

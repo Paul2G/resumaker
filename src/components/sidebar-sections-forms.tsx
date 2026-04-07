@@ -109,7 +109,7 @@ function FormSelector({
   );
 }
 
-export type FormSelectorProps = {
+type FormSelectorProps = {
   selectedSectionKey?: string;
   selectedItemId?: string;
   getSectionData: (sectionKey: StaticSectionKey) => any;

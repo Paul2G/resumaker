@@ -48,7 +48,7 @@ export function ResumeCreateModalTrigger({
           </DialogDescription>
         </DialogHeader>
         <GeneralForm
-          onSave={({ name, language }) =>
+          onSubmit={({ name, language }) =>
             createResume({
               ...defaultResume,
               config: { ...defaultResume.config, name, language },

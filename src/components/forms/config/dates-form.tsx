@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { FormSelect } from '@/components/form-fields/form-select';
-import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
-import { Spinner } from '@/components/ui/spinner';
+import { useFormSubmitter } from '@/hooks/use-form-submitter';
 import { formatDate } from '@/lib/dates';
 import { toSentenceCase } from '@/lib/utils';
 import { dateFormatsKeys, dateFormatValue } from '@/constants/dates';
@@ -19,22 +18,17 @@ const configDatesSchema = resumeConfigSchema.pick({
   dateFormat: true,
 });
 
-export function DatesForm({
-  isLoading,
-  defaultValues,
-  onSave,
-}: ConfigDatesFormProps) {
+export function DatesForm({ defaultValues, onSave }: ConfigDatesFormProps) {
   const { t, i18n } = useTranslation();
 
   const form = useForm({
     resolver: zodResolver(configDatesSchema),
+    mode: 'onChange',
     defaultValues: {
       dateFormat: dateFormatsKeys[0],
       ...defaultValues,
     },
   });
-
-  const isSubmitting = form.formState.isSubmitting || Boolean(isLoading);
 
   const dateFormatOptions = dateFormatsKeys.map((key) => ({
     value: key,
@@ -47,8 +41,10 @@ export function DatesForm({
     )}`,
   }));
 
+  useFormSubmitter(form, onSave);
+
   return (
-    <form onSubmit={form.handleSubmit(onSave)} className="space-y-4" noValidate>
+    <form className="space-y-4" noValidate>
       <FieldGroup className="gap-4">
         <FormSelect
           control={form.control}
@@ -56,19 +52,13 @@ export function DatesForm({
           label={t('resume:fields.dateFormat')}
           options={dateFormatOptions}
           placeholder={t('resume:placeholders.dateFormat')}
-          disabled={isSubmitting}
         />
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner />}
-          {t('actions.save')}
-        </Button>
       </FieldGroup>
     </form>
   );
 }
 
 export type ConfigDatesFormProps = {
-  isLoading?: boolean;
   defaultValues?: z.infer<typeof configDatesSchema>;
   onSave: (values: z.infer<typeof configDatesSchema>) => void;
 };

@@ -19,10 +19,13 @@ export function ResumeProvider({
 }: ResumeProviderProps) {
   const [resume, setResume] = useState<Resume>(currentResume);
 
-  async function setConfig(config: ResumeConfig) {
+  async function setConfig(config: Partial<ResumeConfig>) {
     setResume((prev) => ({
       ...prev,
-      config,
+      config: {
+        ...prev.config,
+        ...config,
+      },
     }));
   }
 
@@ -217,7 +220,7 @@ export type ResumeProviderProps = {
 
 export type ResumeProviderValue = {
   resume: Resume;
-  setConfig: (config: ResumeConfig) => Promise<void>;
+  setConfig: (config: Partial<ResumeConfig>) => Promise<void>;
   setSections: (sections: ResumeSection[]) => Promise<void>;
   getSectionData: <K extends SectionKey>(sectionKey: K) => SectionDataMap[K];
   setSectionData: <K extends SectionKey>(
