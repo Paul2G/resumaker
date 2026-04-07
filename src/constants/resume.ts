@@ -10,7 +10,7 @@ export const resumeFontFamilyValue = {
   timesNewRoman: '"Times New Roman", serif',
   calibri: 'Calibri, sans-serif',
   georgia: 'Georgia, serif',
-  garmond: 'Garamond, serif',
+  garamond: 'Garamond, serif',
   curierNew: '"Courier New", monospace',
   verdana: 'Verdana, sans-serif',
   brushScriptMT: '"Brush Script MT", cursive',
