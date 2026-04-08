@@ -9,7 +9,9 @@ import {
   resumeFontFamiliesKeys,
   resumePaperSizesKeys,
 } from '@/constants/resume';
-import { SectionKey } from '@/constants/sections';
+import { IterableSectionKey, StaticSectionKey } from '@/constants/sections';
+
+/* Schemas related directly to forms */
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
@@ -109,27 +111,78 @@ export const resumeConfigSchema = z.object({
   dateFormat: z.literal(dateFormatsKeys),
 });
 
+/* Schemas to validate the Resume as a whole */
+
+export const contactSectionSchema = z.object({
+  key: z.literal(StaticSectionKey.ContactInfo),
+  visible: z.boolean(),
+  data: contactInfoSchema,
+});
+
+export const summarySectionSchema = z.object({
+  key: z.literal(StaticSectionKey.Summary),
+  visible: z.boolean(),
+  data: summarySchema,
+});
+
+export const skillsSectionSchema = z.object({
+  key: z.literal(StaticSectionKey.Skills),
+  visible: z.boolean(),
+  data: skillsSchema,
+});
+
+// The iterable sections (arrays)
+export const experienceSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Experience),
+  visible: z.boolean(),
+  data: z.array(experienceItemSchema),
+});
+
+export const educationSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Education),
+  visible: z.boolean(),
+  data: z.array(educationItemSchema),
+});
+
+export const projectsSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Projects),
+  visible: z.boolean(),
+  data: z.array(projectSchema),
+});
+
+export const certificationsSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Certifications),
+  visible: z.boolean(),
+  data: z.array(certificationSchema),
+});
+
+export const coursesSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Courses),
+  visible: z.boolean(),
+  data: z.array(courseSchema),
+});
+
+export const resumeSectionSchema = z.discriminatedUnion('key', [
+  contactSectionSchema,
+  summarySectionSchema,
+  skillsSectionSchema,
+  experienceSectionSchema,
+  educationSectionSchema,
+  projectsSectionSchema,
+  certificationsSectionSchema,
+  coursesSectionSchema,
+]);
+
+// 3. The Final Resume Schema
 export const resumeSchema = z.object({
   id: z.string(),
-  version: z.literal(['1.0.0', CURRENT_RESUME_VERSION]),
+  // Use z.union for versions if you want to support both or just a string
+  version: z.string().or(z.literal(CURRENT_RESUME_VERSION)),
   config: resumeConfigSchema,
-  sections: z.array(
-    z.object({
-      key: z.literal(Object.values(SectionKey)),
-      visible: z.boolean(),
-      data: z.union([
-        contactInfoSchema,
-        skillsSchema,
-        summarySchema,
-        z.array(experienceItemSchema),
-        z.array(educationItemSchema),
-        z.array(projectSchema),
-        z.array(certificationSchema),
-        z.array(courseSchema),
-      ]),
-    }),
-  ),
+  sections: z.array(resumeSectionSchema),
 });
+
+/* Schemas related to the app data and resume index, that are used to show the list of resumes and their metadata without loading the whole resume data */
 
 export const resumeIndexSchema = z.object({
   id: z.string().length(12).catch(nanoid(12)),

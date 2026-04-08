@@ -1,4 +1,4 @@
-import type { Course } from '@/types';
+import type { Course } from '@/types/resume';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';

@@ -1,4 +1,4 @@
-import type { Resume, ResumeIndex } from '@/types';
+import type { Resume, ResumeIndex } from '@/types/resume';
 
 import { nanoid } from 'nanoid';
 

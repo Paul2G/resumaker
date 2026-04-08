@@ -1,4 +1,4 @@
-import type { ResumeConfig } from '@/types';
+import type { ResumeConfig } from '@/types/resume';
 
 import { useParams } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';

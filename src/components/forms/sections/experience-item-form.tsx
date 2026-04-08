@@ -1,4 +1,4 @@
-import type { ExperienceItem } from '@/types';
+import type { ExperienceItem } from '@/types/resume';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';

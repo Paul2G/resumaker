@@ -1,4 +1,4 @@
-import type { Skills } from '@/types';
+import type { Skills } from '@/types/resume';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';

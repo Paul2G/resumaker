@@ -1,4 +1,4 @@
-import type { Resume } from '@/types';
+import type { Resume } from '@/types/resume';
 import type { TFunction } from 'i18next';
 
 import { mutationOptions, queryOptions } from '@tanstack/react-query';

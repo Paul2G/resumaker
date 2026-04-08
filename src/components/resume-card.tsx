@@ -1,5 +1,5 @@
 import type { Language } from '@/constants/locales';
-import type { ResumeIndex } from '@/types';
+import type { ResumeIndex } from '@/types/resume';
 
 import { TrashIcon } from '@phosphor-icons/react';
 import { useQuery } from '@tanstack/react-query';

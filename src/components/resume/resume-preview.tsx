@@ -1,6 +1,6 @@
 import '@/styles/resume-pdf.css';
 
-import type { Resume } from '@/types';
+import type { Resume } from '@/types/resume';
 
 import { ResumePreviewCertifications } from '@/components/resume/resume-preview-certifications';
 import { ResumePreviewContactInfo } from '@/components/resume/resume-preview-contact-info';

@@ -1,5 +1,5 @@
 import type { IterableSectionKey } from '@/constants/sections';
-import type { ResumeSection } from '@/types';
+import type { ResumeSection } from '@/types/resume';
 
 import { PlusIcon } from '@phosphor-icons/react';
 import { useNavigate, useParams } from '@tanstack/react-router';

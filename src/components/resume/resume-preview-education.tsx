@@ -1,4 +1,4 @@
-import type { EducationItem } from '@/types';
+import type { EducationItem } from '@/types/resume';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { getYear, isDateValid } from '@/lib/dates';

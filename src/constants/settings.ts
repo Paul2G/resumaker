@@ -1,4 +1,4 @@
-import type { EnumValues } from '@/types';
+import type { EnumValues } from '@/types/utils';
 
 export const SettingsCategory = {
   General: 'general',

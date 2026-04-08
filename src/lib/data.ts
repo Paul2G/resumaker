@@ -1,4 +1,4 @@
-import type { Resume } from '@/types';
+import type { Resume } from '@/types/resume';
 
 import { DEFAULT_DATE_FORMAT_KEY } from '@/constants/dates';
 import { DEFAULT_LOCALE_KEY } from '@/constants/locales';
