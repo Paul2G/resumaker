@@ -1,5 +1,5 @@
 import { GithubLogoIcon, GlobeIcon } from '@phosphor-icons/react';
-import { Link, useLocation } from '@tanstack/react-router';
+import { Link, useMatch } from '@tanstack/react-router';
 
 import { LocaleSelector } from '@/components/locale-selector';
 import { ResumeSelector } from '@/components/resume-selector';
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 
 export function PrimaryHeader() {
-  const location = useLocation();
+  const match = useMatch({ from: '/resumes/$resumeId', shouldThrow: false });
 
   return (
     <header className="bg-background top-0 z-50 w-full flex p-2 border border-b">
@@ -18,7 +18,7 @@ export function PrimaryHeader() {
             Resumaker
           </h1>
         </Link>
-        {location.pathname !== '/' && <ResumeSelector />}
+        {match && <ResumeSelector />}
       </div>
       <div className="ml-auto flex gap-2 items-center">
         <ButtonGroup>

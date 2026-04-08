@@ -28,3 +28,13 @@ export function isValueOf<T extends Record<string, unknown>>(obj: T) {
     return Object.values(obj).includes(value as T[keyof T]);
   };
 }
+
+export function getDecimalPlaces(n: number) {
+  const match = n.toString().match(/\.(\d+)$/);
+  return match ? match[1].length : 0;
+}
+
+export function round(value: number, step: number) {
+  const decimals = getDecimalPlaces(step);
+  return Number(value.toFixed(decimals));
+}

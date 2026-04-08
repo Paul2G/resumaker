@@ -1,4 +1,4 @@
-import type { Project } from '@/types';
+import type { Project } from '@/types/resume';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
 import { isStringValid } from '@/lib/utils';

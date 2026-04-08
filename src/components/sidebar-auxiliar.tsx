@@ -18,7 +18,7 @@ export function SidebarAuxiliar() {
       <Tooltip>
         <TooltipTrigger asChild>
           {/* @ts-ignore */}
-          <Link to="/$resumeId/sections">
+          <Link to="/resumes/$resumeId/sections">
             <Button
               size="icon"
               variant={
@@ -36,7 +36,7 @@ export function SidebarAuxiliar() {
       <Tooltip>
         <TooltipTrigger asChild>
           {/* @ts-ignore */}
-          <Link to="/$resumeId/settings">
+          <Link to="/resumes/$resumeId/settings">
             <Button
               size="icon"
               variant={

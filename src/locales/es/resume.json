@@ -1,8 +1,12 @@
 {
-  "sheetFormat": "Formato de hoja",
-  "typography": "Tipografía",
-  "spacing": "Espaciado",
-  "dates": "Fechas",
+  "settings": {
+    "title": "Configuración del currículum",
+    "general": "General",
+    "sheet-format": "Formato de hoja",
+    "typography": "Tipografía",
+    "spacing": "Espaciado",
+    "dates": "Fechas"
+  },
   "fields": {
     "name": "Nombre del currículum",
     "language": "Idioma",
@@ -16,7 +20,9 @@
     "sectionsGap": "Espacio entre secciones",
     "itemsGap": "Espacio entre ítems",
     "itemsTitleContentGap": "Espacio título-contenido del elemento",
-    "dateFormat": "Formato de fecha"
+    "dateFormat": "Formato de fecha",
+    "updatedAt": "Última actualización",
+    "createdAt": "Creado en"
   },
   "placeholders": {
     "name": "ej. Mi currículum profesional",
@@ -34,7 +40,11 @@
       "arial": "Arial",
       "timesNewRoman": "Times New Roman",
       "calibri": "Calibri",
-      "georgia": "Georgia"
+      "georgia": "Georgia",
+      "garamond": "Garamond",
+      "curierNew": "Courier New",
+      "verdana": "Verdana",
+      "brushScriptMT": "Brush Script MT"
     },
     "dateFormat": {
       "iso": "ISO",

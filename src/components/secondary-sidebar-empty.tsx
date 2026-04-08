@@ -45,7 +45,7 @@ export function SecondarySidebarEmpty({
                 });
 
                 await navigate({
-                  from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+                  from: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
                   params: (prev) => ({ ...prev, sectionKey, itemId }),
                 });
               }

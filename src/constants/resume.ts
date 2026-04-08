@@ -10,6 +10,10 @@ export const resumeFontFamilyValue = {
   timesNewRoman: '"Times New Roman", serif',
   calibri: 'Calibri, sans-serif',
   georgia: 'Georgia, serif',
+  garamond: 'Garamond, serif',
+  curierNew: '"Courier New", monospace',
+  verdana: 'Verdana, sans-serif',
+  brushScriptMT: '"Brush Script MT", cursive',
 } as const;
 
 export const resumePaperSizesKeys = Object.keys(
@@ -18,6 +22,11 @@ export const resumePaperSizesKeys = Object.keys(
 export const resumeFontFamiliesKeys = Object.keys(
   resumeFontFamilyValue,
 ) as ResumeFontFamilyKey[];
+
+export const DEFAULT_RESUME_PAPER_SIZE_KEY: ResumePaperSizeKey =
+  resumePaperSizesKeys[0];
+export const DEFAULT_RESUME_FONT_FAMILY_KEY: ResumeFontFamilyKey =
+  resumeFontFamiliesKeys[2];
 
 export type ResumePaperSizeKey = keyof typeof resumePaperSizeValue;
 export type ResumeFontFamilyKey = keyof typeof resumeFontFamilyValue;

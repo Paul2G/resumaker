@@ -1,8 +1,12 @@
 {
-  "sheetFormat": "Sheet Format",
-  "typography": "Typography",
-  "spacing": "Spacing",
-  "dates": "Dates",
+  "settings": {
+    "title": "Resume Settings",
+    "general": "General",
+    "sheet-format": "Sheet Format",
+    "typography": "Typography",
+    "spacing": "Spacing",
+    "dates": "Dates"
+  },
   "fields": {
     "name": "Resume Name",
     "language": "Language",
@@ -16,7 +20,9 @@
     "sectionsGap": "Sections Gap",
     "itemsGap": "Items Gap",
     "itemsTitleContentGap": "Item Title-Content Gap",
-    "dateFormat": "Date Format"
+    "dateFormat": "Date Format",
+    "updatedAt": "Last Updated At",
+    "createdAt": "Created At"
   },
   "placeholders": {
     "name": "e.g. My Professional Resume",
@@ -34,7 +40,11 @@
       "arial": "Arial",
       "timesNewRoman": "Times New Roman",
       "calibri": "Calibri",
-      "georgia": "Georgia"
+      "georgia": "Georgia",
+      "garamond": "Garamond",
+      "curierNew": "Courier New",
+      "verdana": "Verdana",
+      "brushScriptMT": "Brush Script MT"
     },
     "dateFormat": {
       "iso": "ISO ",

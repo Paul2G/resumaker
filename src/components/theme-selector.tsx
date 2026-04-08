@@ -1,4 +1,4 @@
-import type { Theme } from '@/context/theme-provider';
+import type { Theme } from '@/contexts/theme-provider';
 
 import { MoonIcon, SunIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';

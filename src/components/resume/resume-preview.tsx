@@ -1,6 +1,6 @@
 import '@/styles/resume-pdf.css';
 
-import type { Resume } from '@/types';
+import type { Resume } from '@/types/resume';
 
 import { ResumePreviewCertifications } from '@/components/resume/resume-preview-certifications';
 import { ResumePreviewContactInfo } from '@/components/resume/resume-preview-contact-info';
@@ -10,7 +10,6 @@ import { ResumePreviewExperience } from '@/components/resume/resume-preview-expe
 import { ResumePreviewProjects } from '@/components/resume/resume-preview-projects';
 import { ResumePreviewSkills } from '@/components/resume/resume-preview-skills';
 import { ResumePreviewSummary } from '@/components/resume/resume-preview-summary';
-import { useResume } from '@/hooks/use-resume';
 import { cn } from '@/lib/utils';
 import {
   resumeFontFamilyValue,
@@ -23,7 +22,7 @@ export function ResumePreview({
   className,
   ...props
 }: ResumePreviewProps) {
-  const { config } = useResume();
+  const { config, sections } = resume;
 
   return (
     <div
@@ -49,7 +48,7 @@ export function ResumePreview({
       {...props}
     >
       <div className="resume__sheet">
-        {resume.sections.map(({ key, data, visible }) => {
+        {sections.map(({ key, data, visible }) => {
           if (!visible) return null;
 
           switch (key) {

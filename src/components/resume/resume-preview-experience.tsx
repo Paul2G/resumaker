@@ -1,4 +1,4 @@
-import type { ExperienceItem } from '@/types';
+import type { ExperienceItem } from '@/types/resume';
 
 import { usePreviewUtils } from '@/hooks/use-preview-utils';
 

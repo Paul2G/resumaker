@@ -15,7 +15,7 @@ import { useResume } from '@/hooks/use-resume';
 export function ResumeViewer({ ...props }: ResumeViewerProps) {
   const { t } = useTranslation();
 
-  const resume = useResume();
+  const { resume } = useResume();
 
   const previewRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
       {...props}
     >
       <ScrollArea className="h-full">
-        <div className="overflow-hidden flex justify-center h-full p-8">
+        <div className="overflow-hidden flex justify-center h-full p-12">
           <ResumePreview
             resume={resume}
             className="origin-top"

@@ -1,5 +1,5 @@
 import type { IterableSectionKey } from '@/constants/sections';
-import type { ResumeSection } from '@/types';
+import type { ResumeSection } from '@/types/resume';
 
 import { PlusIcon } from '@phosphor-icons/react';
 import { useNavigate, useParams } from '@tanstack/react-router';
@@ -18,12 +18,11 @@ export function SectionsList() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { sectionKey: selectedSectionKey, itemId: selectedItemId } = useParams({
-    from: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+    from: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
   });
 
   const {
-    id: resumeId,
-    sections,
+    resume,
     setSections,
     setSectionVisibility,
     setSectionData,
@@ -40,8 +39,8 @@ export function SectionsList() {
     });
 
     await navigate({
-      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
-      params: { resumeId, sectionKey, itemId: newItemId },
+      to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      params: { resumeId: resume.id, sectionKey, itemId: newItemId },
     });
   }
 
@@ -49,8 +48,12 @@ export function SectionsList() {
     await removeSectionDataItem(sectionKey, itemId);
 
     await navigate({
-      to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
-      params: { resumeId, sectionKey: sectionKey, itemId: undefined },
+      to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+      params: {
+        resumeId: resume.id,
+        sectionKey: sectionKey,
+        itemId: undefined,
+      },
     });
   }
 
@@ -77,7 +80,7 @@ export function SectionsList() {
 
   return (
     <SortableTreeList
-      items={sections}
+      items={resume.sections}
       selectedItem={selectedItemId || selectedSectionKey}
       setItems={setSections}
       getItemValue={(section) => section.key}
@@ -90,8 +93,12 @@ export function SectionsList() {
       }
       selectItem={(section) =>
         navigate({
-          to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
-          params: { resumeId, sectionKey: section.key, itemId: undefined },
+          to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+          params: {
+            resumeId: resume.id,
+            sectionKey: section.key,
+            itemId: undefined,
+          },
         })
       }
     >
@@ -118,9 +125,9 @@ export function SectionsList() {
               removeItem={(item) => onDeleteItem(section.key, item.id)}
               selectItem={(item) =>
                 navigate({
-                  to: '/$resumeId/sections/{-$sectionKey}/{-$itemId}',
+                  to: '/resumes/$resumeId/sections/{-$sectionKey}/{-$itemId}',
                   params: {
-                    resumeId,
+                    resumeId: resume.id,
                     sectionKey: section.key,
                     itemId: item.id,
                   },

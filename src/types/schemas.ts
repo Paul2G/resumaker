@@ -1,12 +1,17 @@
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
 import { phoneNumberPattern } from '@/lib/regex';
 import { dateFormatsKeys } from '@/constants/dates';
-import { defaultProjectLocale, locales } from '@/constants/locales';
+import { locales } from '@/constants/locales';
 import {
+  CURRENT_RESUME_VERSION,
   resumeFontFamiliesKeys,
   resumePaperSizesKeys,
 } from '@/constants/resume';
+import { IterableSectionKey, StaticSectionKey } from '@/constants/sections';
+
+/* Schemas related directly to forms */
 
 export const contactInfoSchema = z.object({
   fullName: z.string().min(1),
@@ -86,15 +91,14 @@ export const courseSchema = z.object({
 });
 
 export const resumeConfigSchema = z.object({
+  // General
   name: z.string().min(1),
-  language: z.literal(locales).default(defaultProjectLocale),
+  language: z.literal(locales),
   // paper Sheet format
-  paperSize: z.literal(resumePaperSizesKeys).default(resumePaperSizesKeys[0]),
+  paperSize: z.literal(resumePaperSizesKeys),
   margin: z.int().min(0).max(30),
   // Font related
-  fontFamily: z
-    .literal(resumeFontFamiliesKeys)
-    .default(resumeFontFamiliesKeys[0]),
+  fontFamily: z.literal(resumeFontFamiliesKeys),
   fontSize: z.int().min(6).max(18),
   titleSizeMultiplier: z.number().min(1).max(4),
   sectionTitleSizeMultiplier: z.number().min(1).max(3),
@@ -104,5 +108,90 @@ export const resumeConfigSchema = z.object({
   itemsGap: z.number().min(0).max(12),
   itemsTitleContentGap: z.number().min(0).max(8),
   // Dates and durations
-  dateFormat: z.literal(dateFormatsKeys).default(dateFormatsKeys[0]),
+  dateFormat: z.literal(dateFormatsKeys),
+});
+
+/* Schemas to validate the Resume as a whole */
+
+export const contactSectionSchema = z.object({
+  key: z.literal(StaticSectionKey.ContactInfo),
+  visible: z.boolean(),
+  data: contactInfoSchema,
+});
+
+export const summarySectionSchema = z.object({
+  key: z.literal(StaticSectionKey.Summary),
+  visible: z.boolean(),
+  data: summarySchema,
+});
+
+export const skillsSectionSchema = z.object({
+  key: z.literal(StaticSectionKey.Skills),
+  visible: z.boolean(),
+  data: skillsSchema,
+});
+
+// The iterable sections (arrays)
+export const experienceSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Experience),
+  visible: z.boolean(),
+  data: z.array(experienceItemSchema),
+});
+
+export const educationSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Education),
+  visible: z.boolean(),
+  data: z.array(educationItemSchema),
+});
+
+export const projectsSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Projects),
+  visible: z.boolean(),
+  data: z.array(projectSchema),
+});
+
+export const certificationsSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Certifications),
+  visible: z.boolean(),
+  data: z.array(certificationSchema),
+});
+
+export const coursesSectionSchema = z.object({
+  key: z.literal(IterableSectionKey.Courses),
+  visible: z.boolean(),
+  data: z.array(courseSchema),
+});
+
+export const resumeSectionSchema = z.discriminatedUnion('key', [
+  contactSectionSchema,
+  summarySectionSchema,
+  skillsSectionSchema,
+  experienceSectionSchema,
+  educationSectionSchema,
+  projectsSectionSchema,
+  certificationsSectionSchema,
+  coursesSectionSchema,
+]);
+
+// 3. The Final Resume Schema
+export const resumeSchema = z.object({
+  id: z.string(),
+  // Use z.union for versions if you want to support both or just a string
+  version: z.string().or(z.literal(CURRENT_RESUME_VERSION)),
+  config: resumeConfigSchema,
+  sections: z.array(resumeSectionSchema),
+});
+
+/* Schemas related to the app data and resume index, that are used to show the list of resumes and their metadata without loading the whole resume data */
+
+export const resumeIndexSchema = z.object({
+  id: z.string().length(12).catch(nanoid(12)),
+  name: z.string().min(1).catch('New Resume'),
+  createdAt: z.coerce.date().catch(new Date()),
+  updatedAt: z.coerce.date().catch(new Date()),
+});
+
+export const appDataSchema = z.object({
+  resumes: z.array(resumeIndexSchema),
+  version: z.literal(['1.0.0', CURRENT_RESUME_VERSION]),
 });

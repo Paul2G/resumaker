@@ -21,7 +21,10 @@
     "pickADate": "Selecciona una fecha",
     "clear": "Limpiar",
     "print": "Imprimir",
-    "downloadJson": "Descargar JSON"
+    "downloadJson": "Descargar JSON",
+    "retry": "Intentar de nuevo",
+    "goHome": "Volver al inicio",
+    "goBack": "Volver atrás"
   },
   "labels": {
     "yourSavedResumes": "Tus currículums guardados",
@@ -31,18 +34,37 @@
   "dialogs": {
     "cancel": "Cancelar",
     "accept": "Aceptar",
+    "saving": "Guardando...",
+    "saved": "Guardado",
+    "savedLocally": "Guardado localmente",
+    "saveFailed": "No se pudo guardar los datos. Por favor, inténtalo de nuevo.",
     "dataSaved": "Datos guardados con éxito",
+    "unableToHandleAction": "No se pudo manejar la acción. Por favor, inténtalo de nuevo.",
     "createNewResume": {
       "title": "Crear nuevo currículum",
-      "description": "Rellena los detalles para crear un nuevo currículum."
+      "description": "Rellena los detalles para crear un nuevo currículum.",
+      "wasCreated": "Currículum creado con éxito",
+      "wasNotCreated": "No se pudo crear el currículum. Por favor, inténtalo de nuevo."
     },
     "deleteResume": {
       "title": "Eliminar currículum",
-      "description": "¿Estás seguro de que deseas eliminar este currículum? Esta acción no se puede deshacer."
+      "description": "¿Estás seguro de que deseas eliminar este currículum? Esta acción no se puede deshacer.",
+      "wasDeleted": "Currículum eliminado con éxito",
+      "wasNotDeleted": "No se pudo eliminar el currículum. Por favor, inténtalo de nuevo."
     },
     "noSectionSelected": {
       "title": "Ninguna sección seleccionada",
       "description": "Por favor, selecciona una sección, elemento o crea uno nuevo para empezar a editar."
+    }
+  },
+  "errors": {
+    "generic": {
+      "title": "Algo salió mal",
+      "description": "Se produjo un error inesperado. "
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "description": "La página que buscas no existe o ha sido movida."
     }
   }
 }

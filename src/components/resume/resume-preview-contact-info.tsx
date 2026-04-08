@@ -1,4 +1,4 @@
-import type { ContactInfo } from '@/types';
+import type { ContactInfo } from '@/types/resume';
 
 import { isStringValid } from '@/lib/utils';
 

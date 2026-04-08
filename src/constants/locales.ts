@@ -23,4 +23,4 @@ export const languages = Object.values(localeData).map(
   (l) => l.langKey,
 ) as Language[];
 
-export const defaultProjectLocale: Locale = locales[0];
+export const DEFAULT_LOCALE_KEY: Locale = locales[0];

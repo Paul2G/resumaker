@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
+import { toast } from 'sonner';
 
+import { GeneralForm } from '@/components/forms/config/general-form';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,16 +15,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useResumesIndex } from '@/hooks/use-resumes-index';
+import { defaultResume } from '@/lib/data';
+import { resumeCreateMutationOptions } from '@/api/query-options';
 
 export function ResumeCreateModalTrigger({
   children,
@@ -32,24 +24,18 @@ export function ResumeCreateModalTrigger({
 }: ResumeCreateModalTriggerProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { createResume } = useResumesIndex();
+
+  const { mutate: createResume } = useMutation({
+    ...resumeCreateMutationOptions({ t }),
+    onSuccess: (resumeId) => {
+      setIsDialogOpen(false);
+      toast.success(t('dialogs.createNewResume.wasCreated'));
+      navigate({ to: '/resumes/$resumeId', params: { resumeId } });
+    },
+  });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const schema = z.object({ name: z.string().min(1) });
-
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { name: '' },
-  });
-
-  async function onSubmit(values: z.infer<typeof schema>) {
-    const resumeId = await createResume(values.name);
-
-    setIsDialogOpen(false);
-
-    await navigate({ to: '/$resumeId', params: { resumeId } });
-  }
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
@@ -60,36 +46,28 @@ export function ResumeCreateModalTrigger({
             {t('core:dialogs.createNewResume.description')}
           </DialogDescription>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className={'space-y-4'}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('resume:fields.name')}</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={t('resume:placeholders.name')}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <GeneralForm
+          onSubmit={({ name, language }) =>
+            createResume({
+              ...defaultResume,
+              config: { ...defaultResume.config, name, language },
+            })
+          }
+        >
+          {(isSubmitting) => (
             <DialogFooter>
               <Button
                 type="button"
                 variant="outline"
+                disabled={isSubmitting}
                 onClick={() => setIsDialogOpen(false)}
               >
                 {t('dialogs.cancel')}
               </Button>
               <Button type="submit">{t('actions.create')}</Button>
             </DialogFooter>
-          </form>
-        </Form>
+          )}
+        </GeneralForm>
       </DialogContent>
     </Dialog>
   );
