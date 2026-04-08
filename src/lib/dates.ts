@@ -1,4 +1,3 @@
-import type { DateFormat } from '@/constants/dates';
 import type { Language } from '@/constants/locales';
 
 import dayjs from 'dayjs';
@@ -15,7 +14,7 @@ const DEFAULT_DATE_LANGUAGE: Language = 'en' as const;
 
 export function formatDate(
   d?: Date | string,
-  dateFormat: DateFormat = dateFormatValue[DEFAULT_DATE_FORMAT_KEY],
+  dateFormat: string = dateFormatValue[DEFAULT_DATE_FORMAT_KEY],
   language: Language = DEFAULT_DATE_LANGUAGE,
 ): string {
   if (typeof d === 'string')

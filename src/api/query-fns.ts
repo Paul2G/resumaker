@@ -17,7 +17,9 @@ import {
 export async function getAllResumes(): Promise<ResumeIndex[]> {
   const { resumes } = getAppData();
 
-  return resumes;
+  return resumes.sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
 }
 
 export async function getResumeById(resumeId: string): Promise<Resume> {

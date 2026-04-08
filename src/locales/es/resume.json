@@ -20,7 +20,9 @@
     "sectionsGap": "Espacio entre secciones",
     "itemsGap": "Espacio entre ítems",
     "itemsTitleContentGap": "Espacio título-contenido del elemento",
-    "dateFormat": "Formato de fecha"
+    "dateFormat": "Formato de fecha",
+    "updatedAt": "Última actualización",
+    "createdAt": "Creado en"
   },
   "placeholders": {
     "name": "ej. Mi currículum profesional",

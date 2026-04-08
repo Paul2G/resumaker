@@ -1,3 +1,4 @@
+import type { Language } from '@/constants/locales';
 import type { ResumeIndex } from '@/types';
 
 import { TrashIcon } from '@phosphor-icons/react';
@@ -17,11 +18,11 @@ import {
   ItemHeader,
   ItemTitle,
 } from '@/components/ui/item';
+import { formatDate } from '@/lib/dates';
 import { resumeQueryOptions } from '@/api/query-options';
-import { localeData } from '@/constants/locales';
 
 export function ResumeCard({ resumeIndex }: ResumeCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data: resume } = useQuery(resumeQueryOptions(resumeIndex.id));
 
@@ -46,11 +47,11 @@ export function ResumeCard({ resumeIndex }: ResumeCardProps) {
           <ItemTitle>{resume.config.name}</ItemTitle>
         </Link>
         <ItemDescription>
-          {localeData[resume.config.language].langLabel}
-          {` | `}
-          {t(`resume:values.paperSize.${resume.config.paperSize}`)}
-          {` | `}
-          {t(`resume:values.fontFamily.${resume.config.fontFamily}`)}
+          {`${t('resume:fields.updatedAt')}: ${formatDate(
+            resumeIndex.updatedAt,
+            'DD/MMMM/YYYY, HH:mm:ss',
+            i18n.language as Language,
+          )}`}
         </ItemDescription>
       </ItemContent>
       <ItemActions className="flex items-streetch z-10">

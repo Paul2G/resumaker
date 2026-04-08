@@ -8,6 +8,21 @@ import { CURRENT_RESUME_VERSION } from '@/constants/resume';
 export const LS_APP_DATA_KEY = 'app_data' as const;
 export const LS_RESUME_PREFIX_KEY = 'resume_' as const;
 
+const MIGRATIONS: Record<string, (data: any) => any> = {
+  '1.0.0': (data) => {
+    // Migration logic from 1.0.0 to 1.1.0
+    return {
+      ...data,
+      config: { ...defaultResume.config, name: data.name },
+      name: undefined,
+      version: '1.1.0',
+    };
+  },
+};
+
+// Get versions in order
+const VERSION_ORDER = ['1.0.0', CURRENT_RESUME_VERSION];
+
 /* Get app data and create it if no exist */
 export function getAppData(): AppData {
   const rawAppData = localStorage.getItem(LS_APP_DATA_KEY);
@@ -37,7 +52,9 @@ export function saveResumeIndex(resume: Omit<Resume, 'version'>) {
         {
           id: resume.id,
           name: resume.config.name,
-          createdAt: oldResumeIndex ? oldResumeIndex.createdAt : new Date(),
+          createdAt: oldResumeIndex?.createdAt
+            ? oldResumeIndex.createdAt
+            : new Date(),
           updatedAt: new Date(),
         },
       ],
@@ -59,29 +76,37 @@ export function removeResumeIndex(resumeId: string) {
 
 export function loadResume(resumeId: string): Resume | undefined {
   const rawResume = localStorage.getItem(`${LS_RESUME_PREFIX_KEY}${resumeId}`);
+  if (!rawResume) return undefined;
 
-  if (rawResume) {
-    const parsedResume = JSON.parse(rawResume);
+  let parsedResume = JSON.parse(rawResume);
+  let currentVer = parsedResume.version || '1.0.0';
 
-    // Migrating versions
-    if (
-      compareVersions(
-        parsedResume.version || '1.0.0',
-        CURRENT_RESUME_VERSION,
-      ) === -1
-    ) {
-      parsedResume.config = defaultResume.config;
-      parsedResume.config.name = parsedResume.name;
-      parsedResume.name = undefined;
-      parsedResume.version = CURRENT_RESUME_VERSION;
-    }
+  // Start migration sequence
+  const startIndex = VERSION_ORDER.indexOf(currentVer);
 
-    // TODO: Check schema
-
-    return parsedResume;
+  if (startIndex === -1) {
+    console.error('Unknown version found in storage');
+    return undefined;
   }
 
-  return undefined;
+  for (let i = startIndex; i < VERSION_ORDER.length; i++) {
+    const ver = VERSION_ORDER[i];
+    const migration = MIGRATIONS[ver];
+
+    if (migration && compareVersions(ver, CURRENT_RESUME_VERSION) === -1) {
+      parsedResume = migration(parsedResume);
+      // Update local storage so we don't migrate every time
+      localStorage.setItem(
+        `${LS_RESUME_PREFIX_KEY}${resumeId}`,
+        JSON.stringify(parsedResume),
+      );
+    }
+  }
+  // End migration sequence
+
+  // TODO: Check schema
+
+  return parsedResume;
 }
 
 export function saveResume(resume: Omit<Resume, 'version'>) {

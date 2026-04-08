@@ -20,7 +20,9 @@
     "sectionsGap": "Sections Gap",
     "itemsGap": "Items Gap",
     "itemsTitleContentGap": "Item Title-Content Gap",
-    "dateFormat": "Date Format"
+    "dateFormat": "Date Format",
+    "updatedAt": "Last Updated At",
+    "createdAt": "Created At"
   },
   "placeholders": {
     "name": "e.g. My Professional Resume",

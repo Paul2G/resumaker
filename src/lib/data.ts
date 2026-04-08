@@ -3,13 +3,14 @@ import type { Resume } from '@/types';
 import { DEFAULT_DATE_FORMAT_KEY } from '@/constants/dates';
 import { DEFAULT_LOCALE_KEY } from '@/constants/locales';
 import {
+  CURRENT_RESUME_VERSION,
   DEFAULT_RESUME_FONT_FAMILY_KEY,
   DEFAULT_RESUME_PAPER_SIZE_KEY,
 } from '@/constants/resume';
 
 export const defaultResume: Resume = {
   id: 'pm1pzLz04ldR',
-  version: '1.1.0',
+  version: CURRENT_RESUME_VERSION,
   config: {
     name: 'Lorem Ipsum',
     language: DEFAULT_LOCALE_KEY,
