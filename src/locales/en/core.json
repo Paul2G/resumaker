@@ -21,7 +21,10 @@
     "pickADate": "Pick a date",
     "clear": "Clear",
     "print": "Print",
-    "downloadJson": "Download JSON"
+    "downloadJson": "Download JSON",
+    "retry": "Try again",
+    "goHome": "Back to home",
+    "goBack": "Go back"
   },
   "labels": {
     "yourSavedResumes": "Your Saved Resumes",
@@ -52,6 +55,16 @@
     "noSectionSelected": {
       "title": "No Section Selected",
       "description": "Please select a section, item or create a new one to start editing."
+    }
+  },
+  "errors": {
+    "generic": {
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Please try again or contact support if the problem persists."
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you are looking for doesn't exist or has been moved."
     }
   }
 }

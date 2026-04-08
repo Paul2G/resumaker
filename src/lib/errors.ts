@@ -20,6 +20,8 @@ export class NotOkResponseError extends Error {
   public detail: string;
   public instance?: string;
   public status?: number;
+  public code?: string;
+  public errors?: Array<Record<string, string>> | Record<string, Array<string>>;
 
   constructor(problemDetails: ProblemDetails) {
     super(problemDetails.title);
@@ -30,5 +32,7 @@ export class NotOkResponseError extends Error {
     this.detail = problemDetails.detail;
     this.instance = problemDetails.instance;
     this.status = problemDetails.status;
+    this.code = problemDetails.code;
+    this.errors = problemDetails.errors;
   }
 }
