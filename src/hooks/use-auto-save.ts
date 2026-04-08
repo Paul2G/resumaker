@@ -1,9 +1,10 @@
 import type { Resume } from '@/types';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
+import { useUpdateEffect } from '@/hooks/use-update-effect';
 import { resumeUpdateMutationOptions } from '@/api/query-options';
 
 export function useAutoSave(resume: Resume) {
@@ -19,7 +20,7 @@ export function useAutoSave(resume: Resume) {
     },
   });
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
