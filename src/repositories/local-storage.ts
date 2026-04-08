@@ -1,9 +1,11 @@
-import type { AppData, Resume } from '@/types';
+import type { AppData, Resume } from '@/types/resume';
 
 import { compareVersions } from 'compare-versions';
 
 import { defaultResume } from '@/lib/data';
+import { NotOkResponseError } from '@/lib/errors';
 import { CURRENT_RESUME_VERSION } from '@/constants/resume';
+import { resumeSchema } from '@/types/schemas';
 
 export const LS_APP_DATA_KEY = 'app_data' as const;
 export const LS_RESUME_PREFIX_KEY = 'resume_' as const;
@@ -85,8 +87,12 @@ export function loadResume(resumeId: string): Resume | undefined {
   const startIndex = VERSION_ORDER.indexOf(currentVer);
 
   if (startIndex === -1) {
-    console.error('Unknown version found in storage');
-    return undefined;
+    throw new NotOkResponseError({
+      title: 'Unsupported Resume Version',
+      detail: `Resume with id ${resumeId} has an unsupported version: ${currentVer}`,
+      code: 'UnsupportedVersion',
+      status: 500,
+    });
   }
 
   for (let i = startIndex; i < VERSION_ORDER.length; i++) {
@@ -104,9 +110,23 @@ export function loadResume(resumeId: string): Resume | undefined {
   }
   // End migration sequence
 
-  // TODO: Check schema
+  // Check if the final migrated resume satisfies the schema
+  const result = resumeSchema.safeParse(parsedResume);
 
-  return parsedResume;
+  if (!result.success) {
+    throw new NotOkResponseError({
+      title: 'Invalid Resume',
+      detail: `Resume with id ${resumeId} is invalid after migration.`,
+      code: 'InvalidResume',
+      status: 500,
+      errors: result.error.issues.map((issue: any) => ({
+        path: issue.path.join('.'),
+        message: `${issue.message}. ${issue?.note}`,
+      })),
+    });
+  }
+
+  return result.data;
 }
 
 export function saveResume(resume: Omit<Resume, 'version'>) {
