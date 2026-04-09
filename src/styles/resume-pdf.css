@@ -20,6 +20,14 @@
   font-size: var(--font-size);
   font-family: var(--font-family);
 
+  /* Prevents the browser from slightly shifting text widths */
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+
+  /* Ensure we use standard box-sizing */
+  box-sizing: border-box;
+
   i {
     font-size: 1em;
   }
@@ -166,20 +174,15 @@
   /* Show the portal in normal document flow */
   #resume-print-portal {
     display: block !important;
-    position: static !important;
-    overflow: visible !important;
   }
 
   .resume__sheet {
     box-shadow: none !important;
-    transform: none !important;
-    margin: 0 !important;
-    min-height: unset !important;
-    width: var(--sheet-width) !important;
-  }
 
-  @page {
-    margin: 0;
-    size: auto;
+    padding: 0 !important;
+    margin: 0 !important;
+
+    width: unset !important;
+    min-height: unset !important;
   }
 }

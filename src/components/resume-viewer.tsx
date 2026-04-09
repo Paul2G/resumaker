@@ -24,20 +24,16 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
     const margin = `${resume.config.margin}mm`;
 
     // Inject a <style> tag that:
-    //  1. Moves the sheet padding into @page margin — @page margin applies
-    //     to every physical page uniformly, solving the missing top margin
-    //     on page 2+. CSS custom properties can't be used inside @page so
-    //     we bake the literal mm value in here.
-    //  2. Zeros .resume__sheet padding so the spacing isn't doubled
-    //     (sheet padding + page margin would both apply otherwise).
     const style = document.createElement('style');
     style.id = 'resume-print-margin-override';
     style.textContent = `
-      @media print {
-        @page { margin: ${margin}; size: auto; }
-        .resume__sheet { padding: 0 !important; }
+    @media print {
+      @page { 
+        margin: ${margin} !important; 
+        size: ${resume.config.paperSize === 'a4' ? '210mm 297mm' : '8.5in 11in'} !important;
       }
-    `;
+    }
+  `;
     document.head.appendChild(style);
 
     const pageTitle = document.title;
