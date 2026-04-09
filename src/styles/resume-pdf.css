@@ -20,6 +20,14 @@
   font-size: var(--font-size);
   font-family: var(--font-family);
 
+  /* Prevents the browser from slightly shifting text widths */
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+
+  /* Ensure we use standard box-sizing */
+  box-sizing: border-box;
+
   i {
     font-size: 1em;
   }
@@ -28,6 +36,8 @@
     margin-left: 0.3em;
   }
 }
+
+/* ── Paper sizes ──────────────────────────────────────────────────────── */
 
 .resume--a4 {
   --sheet-width: 210mm;
@@ -39,14 +49,24 @@
   --sheet-height: 11in;
 }
 
+/* ── Sheet ────────────────────────────────────────────────────────────── */
+
 .resume__sheet {
   width: var(--sheet-width);
   min-height: var(--sheet-height);
   padding: var(--margin);
+  box-sizing: border-box;
 
   background-color: var(--resume-background-color);
   color: var(--resume-font-color);
+
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.1);
 }
+
+/* ── Typography ───────────────────────────────────────────────────────── */
 
 .resume__title {
   font-size: var(--title-size);
@@ -54,10 +74,19 @@
   text-align: center;
 }
 
-/* Resume section styles */
-
-.resume__section {
+.resume__subtitle {
+  font-size: var(--subtitle-size);
+  font-weight: bold;
+  break-after: avoid;
 }
+
+.resume__subtitle--underlined {
+  border-bottom: 1.3pt solid var(--resume-font-color);
+  padding-bottom: 0.2em;
+  margin-bottom: 0.3em;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────── */
 
 .resume__section:not(:first-child) {
   margin-top: var(--sections-gap);
@@ -74,18 +103,7 @@
   }
 }
 
-.resume__subtitle {
-  font-size: var(--subtitle-size);
-  font-weight: bold;
-}
-
-.resume__subtitle--underlined {
-  border-bottom: 1.3pt solid var(--resume-font-color);
-  padding-bottom: 0.2em;
-  margin-bottom: 0.3em;
-}
-
-/* Resume section items styles */
+/* ── Items ────────────────────────────────────────────────────────────── */
 
 .resume__items {
   display: flex;
@@ -93,12 +111,14 @@
   gap: var(--items-gap);
 }
 
+.resume__item {
+  break-inside: avoid;
+}
+
 .resume__item-header {
   display: flex;
   justify-content: space-between;
-
   font-weight: bold;
-
   margin-bottom: var(--item-title-content-gap);
 }
 
@@ -115,7 +135,6 @@
 .resume__item-subheader {
   display: flex;
   justify-content: space-between;
-
   font-size: 1em;
   font-weight: bold;
 }
@@ -138,16 +157,32 @@
   padding: 0 1.5em;
 }
 
+/* ── Screen: keep the portal invisible ───────────────────────────────── */
+
+#resume-print-portal {
+  display: none;
+}
+
+/* ── Print ────────────────────────────────────────────────────────────── */
+
 @media print {
-  body {
-    visibility: hidden;
+  /* Hide the entire app — portal is a direct <body> child so it's unaffected */
+  body > *:not(#resume-print-portal) {
+    display: none !important;
   }
 
-  .resume {
-    visibility: visible;
+  /* Show the portal in normal document flow */
+  #resume-print-portal {
+    display: block !important;
+  }
 
-    transform: none !important;
-    position: fixed;
-    inset: 0;
+  .resume__sheet {
+    box-shadow: none !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    width: unset !important;
+    min-height: unset !important;
   }
 }

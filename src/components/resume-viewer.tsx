@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { FileArrowDownIcon, PrinterIcon } from '@phosphor-icons/react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import { ResumePreview } from '@/components/resume/resume-preview';
@@ -14,17 +15,38 @@ import { useResume } from '@/hooks/use-resume';
 
 export function ResumeViewer({ ...props }: ResumeViewerProps) {
   const { t } = useTranslation();
-
   const { resume } = useResume();
 
   const previewRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   function printDocument() {
+    const margin = `${resume.config.margin}mm`;
+
+    // Inject a <style> tag that:
+    const style = document.createElement('style');
+    style.id = 'resume-print-margin-override';
+    style.textContent = `
+    @media print {
+      @page { 
+        margin: ${margin} !important; 
+        size: ${resume.config.paperSize === 'a4' ? '210mm 297mm' : '8.5in 11in'} !important;
+      }
+    }
+  `;
+    document.head.appendChild(style);
+
     const pageTitle = document.title;
     document.title = resume.config.name;
+
+    const cleanup = () => {
+      document.title = pageTitle;
+      document.getElementById('resume-print-margin-override')?.remove();
+      window.removeEventListener('afterprint', cleanup);
+    };
+    window.addEventListener('afterprint', cleanup);
+
     window.print();
-    document.title = pageTitle;
   }
 
   function downloadJSON() {
@@ -34,7 +56,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute('href', dataStr);
     downloadAnchorNode.setAttribute('download', `${resume.config.name}.json`);
-    document.body.appendChild(downloadAnchorNode); // required for firefox
+    document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
   }
@@ -46,8 +68,9 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
       ref={containerRef}
       {...props}
     >
+      {/* ── Visible preview ─────────────────────────────────────────── */}
       <ScrollArea className="h-full">
-        <div className="overflow-hidden flex justify-center h-full p-12">
+        <div className="flex justify-center h-full py-12 px-8">
           <ResumePreview
             resume={resume}
             className="origin-top"
@@ -55,6 +78,8 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
           />
         </div>
       </ScrollArea>
+
+      {/* ── FAB buttons ─────────────────────────────────────────────── */}
       <div className="absolute bottom-4 right-4 flex flex-col gap-2">
         <Tooltip>
           <TooltipTrigger asChild>
@@ -70,6 +95,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
             {t('actions.downloadJson')}
           </TooltipContent>
         </Tooltip>
+
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -80,9 +106,21 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
               <PrinterIcon weight="light" className="size-6" />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side="left">{t('actions.print')} </TooltipContent>
+          <TooltipContent side="left">{t('actions.print')}</TooltipContent>
         </Tooltip>
       </div>
+
+      {/*
+       * ── Print portal ───────────────────────────────────────────────
+       * Direct <body> child — zero clipping ancestors.
+       * Hidden on screen, shown exclusively during print.
+       */}
+      {createPortal(
+        <div id="resume-print-portal">
+          <ResumePreview resume={resume} />
+        </div>,
+        document.body,
+      )}
     </div>
   );
 }
