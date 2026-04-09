@@ -19,12 +19,13 @@ Resumaker focuses on simplicity, speed, and privacy — all data is stored local
 
 ## 🛠 Tech Stack
 
-- **Frontend:** React + TypeScript
-- **Build Tool:** Vite
+- **Framework:** React (with TypeScript)
+- **Request Handling:** Tanstack Query + Tanstack Router (for client-side routing)
+- **Internationalization:** react-i18next
 - **Package Manager:** pnpm
-- **State Management:** React hooks
+- **State Management:** React Context
 - **Persistence:** Browser `localStorage`
-- **Styling:** CSS / TailwindCSS
+- **Styling:** CSS / TailwindCSS / ShadCN
 
 ---
 
@@ -69,12 +70,18 @@ pnpm format    # Format code with Prettier
 
 ```
 src/
+ ├─ api/                # API client and query hooks
  ├─ components/         # Reusable UI components
- ├─ context/            # React context providers
+ ├─ contexts/           # React context providers
+ ├─ constants/          # Static data and configuration
  ├─ locales/            # i18n translation files
+ ├─ repositories/       # Data access layer (localStorage interactions)
  ├─ hooks/              # Custom hooks (localStorage, state)
  ├─ lib/                # Helpers and storage utilities
- └─ App.tsx
+ ├─ routes/             # Route components
+ ├─ styles/             # CSS or Tailwind styles
+ ├─ types/              # TypeScript type definitions
+ └─ main.tsx
 ```
 
 ---
@@ -87,7 +94,7 @@ Resumaker uses **localStorage** to persist data.
 - A lightweight index stores resume metadata (id)
 - No backend or external database is required
 
-This ensures fast access and full user privacy.
+This ensures fast access and full user privacy. 
 
 ---
 
