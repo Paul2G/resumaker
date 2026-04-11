@@ -7,6 +7,7 @@ import { FormInputNumber } from '@/components/form-fields/form-input-number';
 import { FormSelect } from '@/components/form-fields/form-select';
 import { FieldGroup } from '@/components/ui/field';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
+import { defaultResume } from '@/lib/data';
 import { resumeFontFamiliesKeys } from '@/constants/resume';
 import { resumeConfigSchema } from '@/types/schemas';
 
@@ -28,11 +29,7 @@ export function TypographyForm({
     resolver: zodResolver(configTypographySchema),
     mode: 'onChange',
     defaultValues: {
-      fontFamily: resumeFontFamiliesKeys[0],
-      fontSize: 9,
-      titleSize: 18,
-      sectionTitleSize: 14,
-      itemTitleSize: 10,
+      ...defaultResume.config,
       ...defaultValues,
     },
   });

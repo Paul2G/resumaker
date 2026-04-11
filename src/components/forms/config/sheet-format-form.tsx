@@ -7,7 +7,8 @@ import { FormInputNumber } from '@/components/form-fields/form-input-number';
 import { FormSelect } from '@/components/form-fields/form-select';
 import { FieldGroup } from '@/components/ui/field';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
-import { resumePaperSizesKeys, resumePaperSizeValue } from '@/constants/resume';
+import { defaultResume } from '@/lib/data';
+import { resumePaperSizesKeys } from '@/constants/resume';
 import { resumeConfigSchema } from '@/types/schemas';
 
 const ConfigSheetFormatSchema = resumeConfigSchema.pick({
@@ -25,8 +26,7 @@ export function SheetFormatForm({
     resolver: zodResolver(ConfigSheetFormatSchema),
     mode: 'onChange',
     defaultValues: {
-      paperSize: resumePaperSizeValue.a4,
-      margin: 14,
+      ...defaultResume.config,
       ...defaultValues,
     },
   });

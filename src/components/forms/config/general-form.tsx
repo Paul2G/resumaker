@@ -9,7 +9,8 @@ import { FormInput } from '@/components/form-fields/form-input';
 import { FormSelect } from '@/components/form-fields/form-select';
 import { FieldGroup } from '@/components/ui/field';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
-import { DEFAULT_LOCALE_KEY, localeData, locales } from '@/constants/locales';
+import { defaultResume } from '@/lib/data';
+import { localeData, locales } from '@/constants/locales';
 import { resumeConfigSchema } from '@/types/schemas';
 
 const configGeneralSchema = resumeConfigSchema.pick({
@@ -30,8 +31,7 @@ export function GeneralForm({
     resolver: zodResolver(configGeneralSchema),
     mode: 'onChange',
     defaultValues: {
-      name: '',
-      language: DEFAULT_LOCALE_KEY,
+      ...defaultResume.config,
       ...defaultValues,
     },
   });

@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { FormSelect } from '@/components/form-fields/form-select';
 import { FieldGroup } from '@/components/ui/field';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
+import { defaultResume } from '@/lib/data';
 import { formatDate } from '@/lib/dates';
 import { toSentenceCase } from '@/lib/utils';
 import { dateFormatsKeys, dateFormatValue } from '@/constants/dates';
@@ -25,7 +26,7 @@ export function DatesForm({ defaultValues, onSave }: ConfigDatesFormProps) {
     resolver: zodResolver(configDatesSchema),
     mode: 'onChange',
     defaultValues: {
-      dateFormat: dateFormatsKeys[0],
+      ...defaultResume.config,
       ...defaultValues,
     },
   });

@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { FormInputNumber } from '@/components/form-fields/form-input-number';
 import { FieldGroup } from '@/components/ui/field';
 import { useFormSubmitter } from '@/hooks/use-form-submitter';
+import { defaultResume } from '@/lib/data';
 import { resumeConfigSchema } from '@/types/schemas';
 
 const configSpacingSchema = resumeConfigSchema.pick({
@@ -21,9 +22,7 @@ export function SpacingForm({ defaultValues, onSave }: ConfigSpacingFormProps) {
     resolver: zodResolver(configSpacingSchema),
     mode: 'onChange',
     defaultValues: {
-      sectionsGap: 4,
-      itemsGap: 2,
-      itemsTitleContentGap: 1,
+      ...defaultResume.config,
       ...defaultValues,
     },
   });
