@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouterState } from '@tanstack/react-router';
 
 import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
 
-export function NavigationProgress() {
+export function NavigationProgress({
+  className,
+  ...restOfProps
+}: React.ComponentProps<'div'>) {
   const isLoading = useRouterState({ select: (s) => s.status === 'pending' });
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -42,7 +46,10 @@ export function NavigationProgress() {
   if (progress === 0) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
+    <div
+      className={cn('fixed top-0 left-0 right-0 z-50', className)}
+      {...restOfProps}
+    >
       <Progress value={progress} className="h-1 rounded-none" />
     </div>
   );

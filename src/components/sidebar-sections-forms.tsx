@@ -13,7 +13,7 @@ import { SecondarySidebarEmpty } from '@/components/secondary-sidebar-empty';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
-import { isValueOf } from '@/lib/utils';
+import { cn, isValueOf } from '@/lib/utils';
 import {
   IterableSectionKey,
   SectionKey,
@@ -34,7 +34,10 @@ const SectionForms = {
   [StaticSectionKey.Skills]: SkillsForm,
 } as const;
 
-export function SidebarSectionsForms() {
+export function SidebarSectionsForms({
+  className,
+  ...restOfProps
+}: React.ComponentProps<'aside'>) {
   const {
     getSectionData,
     setSectionData,
@@ -47,7 +50,13 @@ export function SidebarSectionsForms() {
   });
 
   return (
-    <aside className="order-4 w-100 overflow-y-hidden shrink-0 border-r">
+    <aside
+      className={cn(
+        'order-4 w-100 overflow-y-hidden shrink-0 border-r bg-background',
+        className,
+      )}
+      {...restOfProps}
+    >
       <ScrollArea className="h-full p-4">
         <FormSelector
           selectedSectionKey={selectedSectionKey}

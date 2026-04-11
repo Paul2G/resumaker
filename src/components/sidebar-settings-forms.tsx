@@ -11,6 +11,7 @@ import { TypographyForm } from '@/components/forms/config/typography-form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Typography } from '@/components/ui/typography';
 import { useResume } from '@/hooks/use-resume';
+import { cn } from '@/lib/utils';
 import { SettingsCategory } from '@/constants/settings';
 
 const CategoryForms = {
@@ -21,7 +22,10 @@ const CategoryForms = {
   [SettingsCategory.Dates]: DatesForm,
 } as const;
 
-export function SidebarSettingsForms() {
+export function SidebarSettingsForms({
+  className,
+  ...restOfProps
+}: React.ComponentProps<'aside'>) {
   const { resume, setConfig } = useResume();
 
   const { settingsCategory } = useParams({
@@ -29,7 +33,13 @@ export function SidebarSettingsForms() {
   });
 
   return (
-    <aside className="order-4 w-100 overflow-y-hidden shrink-0 border-r">
+    <aside
+      className={cn(
+        'order-4 w-100 overflow-y-hidden shrink-0 border-r bg-background',
+        className,
+      )}
+      {...restOfProps}
+    >
       <ScrollArea className="h-full p-4">
         <FormSelector
           settingsCategory={settingsCategory as SettingsCategory}

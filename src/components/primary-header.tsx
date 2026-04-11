@@ -6,12 +6,22 @@ import { ResumeSelector } from '@/components/resume-selector';
 import { ThemeSelector } from '@/components/theme-selector';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
+import { cn } from '@/lib/utils';
 
-export function PrimaryHeader() {
+export function PrimaryHeader({
+  className,
+  ...restOfProps
+}: React.ComponentProps<'header'>) {
   const match = useMatch({ from: '/resumes/$resumeId', shouldThrow: false });
 
   return (
-    <header className="bg-background top-0 z-50 w-full flex p-2 border border-b">
+    <header
+      className={cn(
+        'bg-background top-0 z-50 w-full flex p-2 border border-b',
+        className,
+      )}
+      {...restOfProps}
+    >
       <div className="flex gap-2">
         <Link to="/" className="flex items-center">
           <h1 className="my-auto text-xl font-bold uppercase italic px-4">
