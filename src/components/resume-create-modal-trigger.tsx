@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
 import { GeneralForm } from '@/components/forms/config/general-form';
 import { Button } from '@/components/ui/button';
@@ -15,23 +12,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { useCreateResume } from '@/hooks/resume-actions';
 import { defaultResume } from '@/lib/data';
-import { resumeCreateMutationOptions } from '@/api/query-options';
 
 export function ResumeCreateModalTrigger({
   children,
   asChild,
 }: ResumeCreateModalTriggerProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
-  const { mutate: createResume } = useMutation({
-    ...resumeCreateMutationOptions({ t }),
-    onSuccess: (resumeId) => {
-      setIsDialogOpen(false);
-      toast.success(t('dialogs.createNewResume.wasCreated'));
-      navigate({ to: '/resumes/$resumeId', params: { resumeId } });
-    },
+  const { mutate: createResume } = useCreateResume({
+    onSuccess: () => setIsDialogOpen(false),
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);

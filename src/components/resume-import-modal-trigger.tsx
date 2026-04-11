@@ -2,10 +2,7 @@ import type { ImportResumeJson } from '@/types/resume';
 import type { UseFormSetError } from 'react-hook-form';
 
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
 import { ImportResumeFileForm } from '@/components/forms/import-resume-file-form';
 import { ImportResumeJsonForm } from '@/components/forms/import-resume-json-form';
@@ -21,23 +18,17 @@ import {
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { Spinner } from '@/components/ui/spinner';
-import { resumeImportMutationOptions } from '@/api/query-options';
+import { useImportResume } from '@/hooks/resume-actions';
 
 export function ResumeImportModalTrigger({
   children,
   asChild,
 }: ResumeImportModalTriggerProps) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { mutate: importResume, isPending } = useMutation({
-    ...resumeImportMutationOptions({ t }),
-    onSuccess: (resumeId) => {
-      setIsDialogOpen(false);
-      toast.success(t('core:dialogs.importResume.wasImported'));
-      navigate({ to: '/resumes/$resumeId', params: { resumeId } });
-    },
+  const { mutate: importResume, isPending } = useImportResume({
+    onSuccess: () => setIsDialogOpen(false),
   });
 
   async function handleFileImport(file: File, setError: (msg: string) => void) {

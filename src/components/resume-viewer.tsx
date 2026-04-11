@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { FileArrowDownIcon, PrinterIcon } from '@phosphor-icons/react';
+import { BracketsCurlyIcon, PrinterIcon } from '@phosphor-icons/react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -84,11 +84,12 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
+              variant="outline"
               aria-label={t('actions.downloadJson')}
               size="icon-lg"
               onClick={downloadJSON}
             >
-              <FileArrowDownIcon weight="light" className="size-6" />
+              <BracketsCurlyIcon weight="light" className="size-6" />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="left">
