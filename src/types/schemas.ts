@@ -195,3 +195,11 @@ export const appDataSchema = z.object({
   resumes: z.array(resumeIndexSchema),
   version: z.literal(['1.0.0', CURRENT_RESUME_VERSION]),
 });
+
+export const importResumeFileSchema = z.object({
+  file: z.any(),
+});
+
+export const importResumeJsonSchema = z.object({
+  json: z.string().trim().min(1, 'Please paste the JSON content.'),
+});

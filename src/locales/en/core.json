@@ -24,7 +24,8 @@
     "downloadJson": "Download JSON",
     "retry": "Try again",
     "goHome": "Back to home",
-    "goBack": "Go back"
+    "goBack": "Go back",
+    "importResume": "Import Resume"
   },
   "labels": {
     "yourSavedResumes": "Your Saved Resumes",
@@ -40,6 +41,7 @@
     "saveFailed": "Failed to save data. Please try again.",
     "dataSaved": "Data saved successfully",
     "unableToHandleAction": "Unable to handle action. Please try again.",
+    "or": "Or",
     "createNewResume": {
       "title": "Create New Resume",
       "description": "Fill in the details to create a new resume.",
@@ -51,6 +53,24 @@
       "description": "This action cannot be undone. This will permanently delete your resume.",
       "wasDeleted": "Resume deleted successfully",
       "wasNotDeleted": "Failed to delete resume. Please try again."
+    },
+    "importResume": {
+        "title": "Import Resume",
+        "description": "Select a JSON file to import your resume.",
+        "wasImported": "Resume imported successfully",
+        "wasNotImported": "Failed to import resume. Please make sure the file is valid and try again.",
+        "fields": {
+            "file": "File",
+            "json": "JSON"
+        },
+        "placeholders": {
+            "file": "Select a file",
+            "json": "Paste your JSON here"
+        },
+        "errors": {
+            "invalidFile": "Invalid file format. Please select a valid JSON file.",
+            "invalidJson": "Invalid JSON format. Please check your input and try again."
+        }
     },
     "noSectionSelected": {
       "title": "No Section Selected",

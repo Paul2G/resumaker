@@ -12,6 +12,8 @@ import {
   educationSectionSchema,
   experienceItemSchema,
   experienceSectionSchema,
+  importResumeFileSchema,
+  importResumeJsonSchema,
   projectSchema,
   projectsSectionSchema,
   resumeConfigSchema,
@@ -49,3 +51,6 @@ export type ResumeIndex = z.infer<typeof resumeIndexSchema>;
 export type AppData = z.infer<typeof appDataSchema>;
 
 export type Resume = z.infer<typeof resumeSchema>;
+
+export type ImportResumeFile = z.infer<typeof importResumeFileSchema>;
+export type ImportResumeJson = z.infer<typeof importResumeJsonSchema>;

@@ -12,6 +12,7 @@ import {
   saveResume,
   saveResumeIndex,
 } from '@/repositories/local-storage';
+import { resumeSchema } from '@/types/schemas';
 
 // Api functions
 export async function getAllResumes(): Promise<ResumeIndex[]> {
@@ -88,4 +89,29 @@ export async function deleteResume(resumeId: string): Promise<void> {
 
   removeResume(resumeId);
   removeResumeIndex(resumeId);
+}
+
+export async function importResume(raw: unknown): Promise<string> {
+  const result = resumeSchema.safeParse(raw);
+
+  if (!result.success) {
+    throw new NotOkResponseError({
+      title: 'Invalid Resume',
+      detail: 'The provided JSON does not match the resume schema.',
+      code: 'InvalidResume',
+      status: 400,
+      errors: result.error.issues.map((issue: any) => ({
+        path: issue.path.join('.'),
+        message: `${issue.message}. ${issue?.note}`,
+      })),
+    });
+  }
+
+  const newResumeId = nanoid(12);
+  const resume = { ...result.data, id: newResumeId };
+
+  saveResume(resume);
+  saveResumeIndex(resume);
+
+  return newResumeId;
 }

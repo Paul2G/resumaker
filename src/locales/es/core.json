@@ -24,7 +24,8 @@
     "downloadJson": "Descargar JSON",
     "retry": "Intentar de nuevo",
     "goHome": "Volver al inicio",
-    "goBack": "Volver atrás"
+    "goBack": "Volver atrás",
+    "importResume": "Importar currículum"
   },
   "labels": {
     "yourSavedResumes": "Tus currículums guardados",
@@ -40,6 +41,7 @@
     "saveFailed": "No se pudo guardar los datos. Por favor, inténtalo de nuevo.",
     "dataSaved": "Datos guardados con éxito",
     "unableToHandleAction": "No se pudo manejar la acción. Por favor, inténtalo de nuevo.",
+    "or": "O",
     "createNewResume": {
       "title": "Crear nuevo currículum",
       "description": "Rellena los detalles para crear un nuevo currículum.",
@@ -51,6 +53,20 @@
       "description": "¿Estás seguro de que deseas eliminar este currículum? Esta acción no se puede deshacer.",
       "wasDeleted": "Currículum eliminado con éxito",
       "wasNotDeleted": "No se pudo eliminar el currículum. Por favor, inténtalo de nuevo."
+    },
+    "importResume": {
+      "title": "Importar currículum",
+      "description": "Selecciona un archivo JSON para importar tu currículum.",
+      "wasImported": "Currículum importado con éxito",
+      "wasNotImported": "No se pudo importar el currículum. Por favor, asegúrate de que el archivo es válido e inténtalo de nuevo.",
+      "fields": {
+        "file": "Archivo",
+        "json": "JSON"
+      },
+      "placeholders": {
+        "file": "Selecciona un archivo",
+        "json": "Pega tu JSON aquí"
+      }
     },
     "noSectionSelected": {
       "title": "Ninguna sección seleccionada",

@@ -9,6 +9,7 @@ import {
   deleteResume,
   getAllResumes,
   getResumeById,
+  importResume,
   updateResume,
 } from '@/api/query-fns';
 
@@ -55,4 +56,11 @@ export const resumeDeleteMutationOptions = ({
     mutationKey: ['resumeDelete', resumeId],
     mutationFn: () => deleteResume(resumeId),
     onError: onMutationError(t, 'dialogs.deleteResume.wasNotDeleted'),
+  });
+
+export const resumeImportMutationOptions = ({ t }: { t: TFunction }) =>
+  mutationOptions({
+    mutationKey: ['resumeImport'],
+    mutationFn: (resume: unknown) => importResume(resume),
+    onError: onMutationError(t, 'dialogs.importResume.wasNotImported'),
   });
