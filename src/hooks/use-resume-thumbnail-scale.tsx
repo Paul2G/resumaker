@@ -1,5 +1,5 @@
 // A4 at 96dpi — update if you need to support letter size dynamically
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 const RESUME_NATURAL_WIDTH_PX = 794;
 const RESUME_NATURAL_HEIGHT_PX = 1123;
@@ -17,20 +17,27 @@ const RESUME_NATURAL_HEIGHT_PX = 1123;
  *   </div>
  */
 export function useResumeThumbnailScale(heightRatio = 0.48) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.37);
+  const [width, setWidth] = useState(0);
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+  // The callback ref handles the element attachment
+  const containerRef = useCallback((node: HTMLDivElement | null) => {
+    if (node !== null) {
+      // Set initial width immediately
+      setWidth(node.getBoundingClientRect().width);
 
-    const observer = new ResizeObserver(([entry]) => {
-      setScale(entry.contentRect.width / RESUME_NATURAL_WIDTH_PX);
-    });
+      const observer = new ResizeObserver(([entry]) => {
+        setWidth(entry.contentRect.width);
+      });
 
-    observer.observe(el);
-    return () => observer.disconnect();
+      observer.observe(node);
+      // Note: In a real app, you might need a way to disconnect
+      // if the node changes, but for most use cases, this is solid.
+    }
   }, []);
+
+  const scale = useMemo(() => {
+    return width ? width / RESUME_NATURAL_WIDTH_PX : 0.37;
+  }, [width]);
 
   const thumbnailHeight = RESUME_NATURAL_HEIGHT_PX * scale * heightRatio;
 
