@@ -32,7 +32,7 @@ export function usePreviewUtils() {
     }
 
     if (to) {
-      return `${toSentenceCase(t('dates.until'))} ${formatDateWrapper(from)}`;
+      return `${toSentenceCase(t('dates.until'))} ${formatDateWrapper(to)}`;
     }
 
     return '';
