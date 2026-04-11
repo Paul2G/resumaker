@@ -22,7 +22,11 @@ function Index() {
   return (
     <main className="w-full flex justify-center p-8">
       <div className=" w-full max-w-screen-lg flex flex-col gap-6">
-        <Typography as="h1" variant="h3">
+        <Typography
+          as="h1"
+          variant="h3"
+          className="animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500"
+        >
           {t('labels.yourSavedResumes')}
         </Typography>
         <ItemGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -30,7 +34,7 @@ function Index() {
             <ResumeCreateModalTrigger asChild>
               <Item
                 variant="outline"
-                className="hover:bg-secondary/50 cursor-pointer grow"
+                className=" grow cursor-pointer hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500 delay-0"
               >
                 <ItemContent className="flex items-center justify-center gap-2">
                   <PlusIcon className="size-6 md:size-8" />
@@ -43,7 +47,7 @@ function Index() {
             <ResumeImportModalTrigger asChild>
               <Item
                 variant="outline"
-                className="hover:bg-secondary/50 cursor-pointer grow"
+                className=" grow cursor-pointer hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500 delay-100"
               >
                 <ItemContent className="flex items-center justify-center gap-2">
                   <DownloadSimpleIcon className="size-6 md:size-8" />
@@ -54,9 +58,15 @@ function Index() {
               </Item>
             </ResumeImportModalTrigger>
           </AspectRatio>
-          {resumes.map((r) => (
+          {resumes.map((r, i) => (
             <AspectRatio ratio={1} key={r.id}>
-              <ResumeCard resumeIndex={r} className="hover:bg-secondary/50" />
+              <ResumeCard
+                resumeIndex={r}
+                className="hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500"
+                style={{
+                  animationDelay: `${(i + 2) * 100}ms`,
+                }}
+              />
             </AspectRatio>
           ))}
         </ItemGroup>
