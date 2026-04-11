@@ -1,10 +1,12 @@
-import { PlusIcon } from '@phosphor-icons/react';
+import { DownloadSimpleIcon, PlusIcon } from '@phosphor-icons/react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { ResumeCard } from '@/components/resume-card';
 import { ResumeCreateModalTrigger } from '@/components/resume-create-modal-trigger';
+import { ResumeImportModalTrigger } from '@/components/resume-import-modal-trigger';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Item, ItemContent, ItemGroup, ItemTitle } from '@/components/ui/item';
 import { Typography } from '@/components/ui/typography';
 import { resumesIndexQueryOptions } from '@/api/query-options';
@@ -23,21 +25,39 @@ function Index() {
         <Typography as="h1" variant="h3">
           {t('labels.yourSavedResumes')}
         </Typography>
-        <ItemGroup className="grid grid-cols-3 gap-4">
-          <ResumeCreateModalTrigger asChild>
-            <Item variant="outline" asChild>
-              <a className="cursor-pointer min-h-72">
+        <ItemGroup className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <AspectRatio ratio={1} className="rounded flex flex-col gap-4">
+            <ResumeCreateModalTrigger asChild>
+              <Item
+                variant="outline"
+                className="hover:bg-secondary/50 cursor-pointer grow"
+              >
                 <ItemContent className="flex items-center justify-center gap-2">
-                  <PlusIcon className="size-8" />
-                  <ItemTitle className="text-lg">
+                  <PlusIcon className="size-6 md:size-8" />
+                  <ItemTitle className="text-base md:text-lg">
                     {t('actions.createNewResume')}
                   </ItemTitle>
                 </ItemContent>
-              </a>
-            </Item>
-          </ResumeCreateModalTrigger>
+              </Item>
+            </ResumeCreateModalTrigger>
+            <ResumeImportModalTrigger asChild>
+              <Item
+                variant="outline"
+                className="hover:bg-secondary/50 cursor-pointer grow"
+              >
+                <ItemContent className="flex items-center justify-center gap-2">
+                  <DownloadSimpleIcon className="size-6 md:size-8" />
+                  <ItemTitle className="text-base md:text-lg">
+                    {t('actions.importResume')}
+                  </ItemTitle>
+                </ItemContent>
+              </Item>
+            </ResumeImportModalTrigger>
+          </AspectRatio>
           {resumes.map((r) => (
-            <ResumeCard resumeIndex={r} key={r.id} />
+            <AspectRatio ratio={1} key={r.id}>
+              <ResumeCard resumeIndex={r} className="hover:bg-secondary/50" />
+            </AspectRatio>
           ))}
         </ItemGroup>
       </div>
