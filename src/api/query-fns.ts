@@ -2,19 +2,20 @@ import type { Resume, ResumeIndex } from '@/types/resume';
 
 import { nanoid } from 'nanoid';
 
-import { NotOkResponseError } from '@/lib/errors';
+import { NotOkResponseError, translateRepositoryError } from '@/lib/errors';
 import {
   existsResumeIndex,
   getAppData,
   loadResume,
   removeResume,
   removeResumeIndex,
+  safeSaveResume,
   saveResume,
   saveResumeIndex,
 } from '@/repositories/local-storage';
-import { resumeSchema } from '@/types/schemas';
 
-// Api functions
+// ── Query functions ────────────────────────────────────────────────────────
+
 export async function getAllResumes(): Promise<ResumeIndex[]> {
   const { resumes } = getAppData();
 
@@ -24,7 +25,13 @@ export async function getAllResumes(): Promise<ResumeIndex[]> {
 }
 
 export async function getResumeById(resumeId: string): Promise<Resume> {
-  const resume = loadResume(resumeId);
+  let resume: Resume | undefined;
+
+  try {
+    resume = loadResume(resumeId);
+  } catch (error) {
+    translateRepositoryError(error);
+  }
 
   if (!resume) {
     removeResumeIndex(resumeId);
@@ -45,10 +52,7 @@ export async function createResume(
 ): Promise<string> {
   const newResumeId = nanoid(12);
 
-  const newResume: Omit<Resume, 'version'> = {
-    ...resume,
-    id: newResumeId,
-  };
+  const newResume: Omit<Resume, 'version'> = { ...resume, id: newResumeId };
 
   saveResume(newResume);
   saveResumeIndex(newResume);
@@ -56,8 +60,9 @@ export async function createResume(
   return newResumeId;
 }
 
-export async function updateResume(updatedResume: Resume) {
-  // Simulate network delay for better UX when updating resume and to make sure the loading state is visible, that make the user understand that the update is in progress and prevent them from clicking the update button multiple times.
+export async function updateResume(updatedResume: Resume): Promise<void> {
+  // Simulate network delay so the loading state is visible and prevents
+  // the user from triggering multiple concurrent updates.
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (!existsResumeIndex(updatedResume.id)) {
@@ -77,8 +82,6 @@ export async function updateResume(updatedResume: Resume) {
 
 export async function deleteResume(resumeId: string): Promise<void> {
   if (!existsResumeIndex(resumeId)) {
-    removeResume(resumeId);
-
     throw new NotOkResponseError({
       title: 'Resume not found',
       detail: `Resume with id ${resumeId} doesn't exist.`,
@@ -92,26 +95,17 @@ export async function deleteResume(resumeId: string): Promise<void> {
 }
 
 export async function importResume(raw: unknown): Promise<string> {
-  const result = resumeSchema.safeParse(raw);
+  const newResumeId = nanoid(12);
 
-  if (!result.success) {
-    throw new NotOkResponseError({
-      title: 'Invalid Resume',
-      detail: 'The provided JSON does not match the resume schema.',
-      code: 'InvalidResume',
-      status: 400,
-      errors: result.error.issues.map((issue: any) => ({
-        path: issue.path.join('.'),
-        message: `${issue.message}. ${issue?.note}`,
-      })),
-    });
+  let resume: Resume;
+
+  try {
+    // safeSaveResume handles migration + validation + persistence atomically
+    resume = safeSaveResume({ ...(raw as any), id: newResumeId });
+    saveResumeIndex(resume);
+  } catch (error) {
+    translateRepositoryError(error);
   }
 
-  const newResumeId = nanoid(12);
-  const resume = { ...result.data, id: newResumeId };
-
-  saveResume(resume);
-  saveResumeIndex(resume);
-
-  return newResumeId;
+  return resume!.id;
 }
