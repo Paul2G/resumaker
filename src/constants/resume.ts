@@ -1,4 +1,4 @@
-export const CURRENT_RESUME_VERSION = '1.1.0';
+export const CURRENT_RESUME_VERSION = '1.2.0';
 
 export const resumePaperSizeValue = {
   usLetter: 'letter',

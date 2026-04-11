@@ -99,10 +99,10 @@ export const resumeConfigSchema = z.object({
   margin: z.int().min(0).max(30),
   // Font related
   fontFamily: z.literal(resumeFontFamiliesKeys),
-  fontSize: z.int().min(6).max(18),
-  titleSizeMultiplier: z.number().min(1).max(4),
-  sectionTitleSizeMultiplier: z.number().min(1).max(3),
-  itemTitleMultiplier: z.number().min(1).max(3),
+  fontSize: z.number().min(6).max(18),
+  titleSize: z.number().min(6).max(72),
+  sectionTitleSize: z.number().min(6).max(48),
+  itemTitleSize: z.number().min(6).max(36),
   // Margins
   sectionsGap: z.int().min(0).max(18),
   itemsGap: z.number().min(0).max(12),

@@ -13,9 +13,9 @@ import { resumeConfigSchema } from '@/types/schemas';
 const configTypographySchema = resumeConfigSchema.pick({
   fontFamily: true,
   fontSize: true,
-  titleSizeMultiplier: true,
-  sectionTitleSizeMultiplier: true,
-  itemTitleMultiplier: true,
+  titleSize: true,
+  sectionTitleSize: true,
+  itemTitleSize: true,
 });
 
 export function TypographyForm({
@@ -29,10 +29,10 @@ export function TypographyForm({
     mode: 'onChange',
     defaultValues: {
       fontFamily: resumeFontFamiliesKeys[0],
-      fontSize: 11,
-      titleSizeMultiplier: 1.3,
-      sectionTitleSizeMultiplier: 1.2,
-      itemTitleMultiplier: 1.1,
+      fontSize: 9,
+      titleSize: 18,
+      sectionTitleSize: 14,
+      itemTitleSize: 10,
       ...defaultValues,
     },
   });
@@ -60,34 +60,31 @@ export function TypographyForm({
           label={t('resume:fields.fontSize')}
           unit="pt"
           min={6}
+          max={18}
+        />
+        <FormInputNumber
+          control={form.control}
+          name="titleSize"
+          label={t('resume:fields.titleSize')}
+          unit="pt"
+          min={6}
           max={72}
         />
         <FormInputNumber
           control={form.control}
-          name="titleSizeMultiplier"
-          label={t('resume:fields.titleSizeMultiplier')}
-          unit="x"
-          step={0.1}
-          min={0.5}
-          max={5}
+          name="sectionTitleSize"
+          label={t('resume:fields.sectionTitleSize')}
+          unit="pt"
+          min={6}
+          max={48}
         />
         <FormInputNumber
           control={form.control}
-          name="sectionTitleSizeMultiplier"
-          label={t('resume:fields.sectionTitleSizeMultiplier')}
-          unit="x"
-          step={0.1}
-          min={0.5}
-          max={5}
-        />
-        <FormInputNumber
-          control={form.control}
-          name="itemTitleMultiplier"
-          label={t('resume:fields.itemTitleMultiplier')}
-          unit="x"
-          step={0.1}
-          min={0.5}
-          max={5}
+          name="itemTitleSize"
+          label={t('resume:fields.itemTitleSize')}
+          unit="pt"
+          min={6}
+          max={36}
         />
       </FieldGroup>
     </form>

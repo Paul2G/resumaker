@@ -10,6 +10,8 @@ import { resumeSchema } from '@/types/schemas';
 export const LS_APP_DATA_KEY = 'app_data' as const;
 export const LS_RESUME_PREFIX_KEY = 'resume_' as const;
 
+// ── Migration ──────────────────────────────────────────────────────────────
+
 const MIGRATIONS: Record<string, (data: any) => any> = {
   '1.0.0': (data) => {
     return {
@@ -19,11 +21,27 @@ const MIGRATIONS: Record<string, (data: any) => any> = {
       version: '1.1.0',
     };
   },
+  '1.1.0': (data) => {
+    const { config } = data;
+    const baseSize = config.fontSize || 10; // Fallback to a sensible default
+
+    return {
+      ...data,
+      version: '1.2.0',
+      config: {
+        ...config,
+        titleSize: config.titleSizeMultiplier * baseSize,
+        sectionTitleSize: config.sectionTitleSizeMultiplier * baseSize,
+        itemTitleSize: config.itemTitleMultiplier * baseSize,
+        titleSizeMultiplier: undefined,
+        sectionTitleSizeMultiplier: undefined,
+        itemTitleMultiplier: undefined,
+      },
+    };
+  },
 };
 
-const VERSION_ORDER = ['1.0.0', CURRENT_RESUME_VERSION];
-
-// ── Migration ──────────────────────────────────────────────────────────────
+const VERSION_ORDER = ['1.0.0', '1.1.0', CURRENT_RESUME_VERSION];
 
 /**
  * Takes any raw parsed object and runs it through the full migration

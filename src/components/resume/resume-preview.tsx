@@ -36,9 +36,9 @@ export function ResumePreview({
           // Typography
           '--resume-font-family': resumeFontFamilyValue[config.fontFamily],
           '--resume-font-size': `${config.fontSize}pt`,
-          '--resume-title-size': `${config.titleSizeMultiplier}em`,
-          '--resume-subtitle-size': `${config.sectionTitleSizeMultiplier}em`,
-          '--resume-item-title-size': `${config.itemTitleMultiplier}em`,
+          '--resume-title-size': `${config.titleSize}pt`,
+          '--resume-subtitle-size': `${config.sectionTitleSize}pt`,
+          '--resume-item-title-size': `${config.itemTitleSize}pt`,
           // Spacing
           '--resume-sections-gap': `${config.sectionsGap}mm`,
           '--resume-items-gap': `${config.itemsGap}mm`,
