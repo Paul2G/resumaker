@@ -95,6 +95,7 @@ function FormSelector({
           {t(`${selectedSectionKey}:item.title`)}
         </Typography>
         <ItemForm
+          key={selectedItemId}
           defaultValues={item}
           onSave={(values) => updateSectionDataItem(selectedSectionKey, values)}
         />
