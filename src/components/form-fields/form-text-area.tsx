@@ -9,9 +9,7 @@ export function FormTextarea<T extends FieldValues>({
   name,
   control,
   label,
-  disabled,
-  placeholder,
-  rows,
+  ...nativeProps
 }: FormTextareaProps<T>) {
   return (
     <Controller
@@ -20,12 +18,7 @@ export function FormTextarea<T extends FieldValues>({
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel>{label}</FieldLabel>
-          <Textarea
-            {...field}
-            rows={rows}
-            placeholder={placeholder}
-            disabled={disabled}
-          />
+          <Textarea {...nativeProps} {...field} />
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>
       )}
@@ -33,11 +26,16 @@ export function FormTextarea<T extends FieldValues>({
   );
 }
 
-export type FormTextareaProps<T extends FieldValues> = {
+type OwnProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label: string;
-  disabled?: boolean;
-  placeholder?: string;
-  rows?: number;
 };
+
+type NativeTextareaProps = Omit<
+  React.ComponentProps<'textarea'>,
+  'name' | 'ref' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'
+>;
+
+export type FormTextareaProps<T extends FieldValues> = OwnProps<T> &
+  NativeTextareaProps;

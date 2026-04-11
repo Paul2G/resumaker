@@ -10,8 +10,7 @@ export function FormInput<T extends FieldValues>({
   control,
   label,
   type = 'text',
-  disabled,
-  placeholder,
+  ...nativeProps
 }: FormInputProps<T>) {
   return (
     <Controller
@@ -21,10 +20,9 @@ export function FormInput<T extends FieldValues>({
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel>{label}</FieldLabel>
           <Input
+            {...nativeProps}
             {...field}
             type={type}
-            placeholder={placeholder}
-            disabled={disabled}
             onChange={
               type === 'number'
                 ? (e) => field.onChange(e.target.valueAsNumber)
@@ -38,11 +36,17 @@ export function FormInput<T extends FieldValues>({
   );
 }
 
-export type FormInputProps<T extends FieldValues> = {
+type OwnProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label: string;
-  type?: React.HTMLInputTypeAttribute;
-  disabled?: boolean;
-  placeholder?: string;
 };
+
+type NativeInputProps = Omit<
+  React.ComponentProps<'input'>,
+  // omit react-hook-form controlled props
+  'name' | 'ref' | 'value' | 'defaultValue' | 'onChange' | 'onBlur'
+>;
+
+export type FormInputProps<T extends FieldValues> = OwnProps<T> &
+  NativeInputProps;
