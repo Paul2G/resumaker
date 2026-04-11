@@ -3,7 +3,7 @@ import { ResumeViewer } from '@/components/resume-viewer';
 
 export function MainArea() {
   return (
-    <main className="relative order-3 grow overflow-hidden bg-foreground/10">
+    <main className="relative order-3 grow overflow-hidden">
       <AutoSaveStatus />
       <ResumeViewer />
     </main>

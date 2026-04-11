@@ -73,7 +73,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
         <div className="flex justify-center h-full py-12 px-8">
           <ResumePreview
             resume={resume}
-            className="origin-top"
+            className="origin-top animate-in fill-mode-backwards fade-in zoom-in-95 duration-300"
             ref={previewRef}
           />
         </div>
@@ -87,6 +87,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
               variant="outline"
               aria-label={t('actions.downloadJson')}
               size="icon-lg"
+              className="animate-in fade-in zoom-in-90 duration-300"
               onClick={downloadJSON}
             >
               <BracketsCurlyIcon weight="light" className="size-6" />
@@ -102,6 +103,7 @@ export function ResumeViewer({ ...props }: ResumeViewerProps) {
             <Button
               aria-label={t('actions.print')}
               size="icon-lg"
+              className="animate-in fade-in zoom-in-90 duration-300"
               onClick={printDocument}
             >
               <PrinterIcon weight="light" className="size-6" />

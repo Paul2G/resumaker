@@ -14,7 +14,7 @@ export function SidebarAuxiliar() {
   const location = useLocation();
 
   return (
-    <div className="order-1 flex flex-col gap-2 p-2 border-e">
+    <div className="order-1 flex flex-col gap-2 p-2 border-e bg-background z-10">
       <Tooltip>
         <TooltipTrigger asChild>
           {/* @ts-ignore */}

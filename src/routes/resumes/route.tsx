@@ -12,7 +12,7 @@ export const Route = createFileRoute('/resumes')({
 
 function RouteComponent() {
   return (
-    <div className="h-screen flex flex-col relative bg-background text-foreground">
+    <div className="h-screen flex flex-col relative bg-foreground/10 text-foreground">
       <NavigationProgress />
       <PrimaryHeader />
       <Outlet />

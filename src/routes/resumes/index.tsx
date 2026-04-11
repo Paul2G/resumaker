@@ -20,7 +20,7 @@ function Index() {
   const { data: resumes } = useSuspenseQuery(resumesIndexQueryOptions());
 
   return (
-    <main className="w-full flex justify-center p-8">
+    <main className="w-full grow flex justify-center p-8 bg-background">
       <div className=" w-full max-w-screen-lg flex flex-col gap-6">
         <Typography
           as="h1"
@@ -34,7 +34,7 @@ function Index() {
             <ResumeCreateModalTrigger asChild>
               <Item
                 variant="outline"
-                className=" grow cursor-pointer hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500 delay-0"
+                className="grow cursor-pointer hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-300 delay-0"
               >
                 <ItemContent className="flex items-center justify-center gap-2">
                   <PlusIcon className="size-6 md:size-8" />
@@ -47,7 +47,7 @@ function Index() {
             <ResumeImportModalTrigger asChild>
               <Item
                 variant="outline"
-                className=" grow cursor-pointer hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500 delay-100"
+                className=" grow cursor-pointer hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-300 delay-100"
               >
                 <ItemContent className="flex items-center justify-center gap-2">
                   <DownloadSimpleIcon className="size-6 md:size-8" />
@@ -62,7 +62,7 @@ function Index() {
             <AspectRatio ratio={1} key={r.id}>
               <ResumeCard
                 resumeIndex={r}
-                className="hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-500"
+                className="hover:bg-secondary/50 animate-in fill-mode-backwards fade-in-0 zoom-in-95 duration-300"
                 style={{
                   animationDelay: `${(i + 2) * 100}ms`,
                 }}
