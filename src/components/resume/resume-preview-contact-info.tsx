@@ -42,7 +42,7 @@ export function ResumePreviewContactInfo({
               target="_blank"
               rel="noopener noreferrer"
             >
-              {'in/' + data.linkedin}
+              {'linkedin.com/in/' + data.linkedin}
             </a>
           </span>
         )}
