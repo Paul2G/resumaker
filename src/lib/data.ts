@@ -132,6 +132,11 @@ export const defaultResume: Resume = {
       ],
     },
     {
+      key: 'courses',
+      visible: false,
+      data: [],
+    },
+    {
       key: 'skills',
       visible: true,
       data: {
